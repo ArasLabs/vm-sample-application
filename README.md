@@ -1,4 +1,4 @@
-# Variant Management Sample Application
+# Configurator Services Sample Application
 
 A sample application that demonstrates how to use the Configurator Service to manage variants.
 
@@ -8,13 +8,13 @@ A sample application that demonstrates how to use the Configurator Service to ma
 
 Release | Notes
 --------|--------
-[v1.0.0](https://github.com/ArasLabs/vm-sample-application/releases/tag/v1.0.0) | First release.
+[v1.0.0](https://github.com/ArasLabs/cs-sample-application/releases/tag/v1.0.0) | First release.
 
 #### Supported Aras Versions
 
 Project | Aras
 --------|------
-[v1.0.0](https://github.com/ArasLabs/vm-sample-application/releases/tag/v1.0.0) | 11.0 SP12
+[v1.0.0](https://github.com/ArasLabs/cs-sample-application/releases/tag/v1.0.0) | 11.0 SP12
 
 ## Installation
 
