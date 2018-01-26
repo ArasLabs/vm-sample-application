@@ -1,8 +1,12 @@
 # Configurator Services Sample Application
 
-A sample application that demonstrates how to use the Configurator Service to manage variants.
+*This project may also be called the Variant Management Sample Application.*
 
-<!-- TODO: Add documentation on Configurator Services -->
+Aras Configurator Services has been developed to make Variant Management easier for customers by providing APIs that enable developers to create custom variant management applications. This sample application is designed to show developers how they can use the Configurator Services API to create custom applications. For more information on the Configurator Services API, check out the [Configurator Services Programmers Guide](./Documentation/Aras%20Innovator%2011.0%20-%20Configurator%20Services%20Programmers%20Guide.pdf)
+
+This sample application is an Aras Community Project. It is not a standard product, and should not be deployed to production as-is. The purpose of the sample application is to demonstrate the Configurator Services API capabilities so that custom applications can be built to address specific business requirements and processes. 
+
+Sample data is provided along with the sample application. Loading the sample data is optional. The purpose of the sample data is merely to help follow [the documentation](./Documentation/Configurator%20Services%20Sample%20Application.pdf) within your sample application installation.
 
 ## History
 
