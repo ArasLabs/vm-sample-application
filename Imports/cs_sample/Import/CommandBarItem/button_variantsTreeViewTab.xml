@@ -1,0 +1,9 @@
+﻿<AML>
+ <Item type="CommandBarButton" id="C6F54F054A7D6521D902293E46367B1C" action="add">
+  <image>../images/CFGRuleOff.svg</image>
+  <label xml:lang="en">Variant Tree</label>
+  <on_click_handler keyed_name="cs_sample_SideBarButtonClick" type="Method">C0EEF3A7CDA9CC9CAD54C59ABDE930C3</on_click_handler>
+  <on_init_handler keyed_name="cs_sample_InitSidebarButton" type="Method">93DF26A27E190B15CBF3B2544DFE5D7E</on_init_handler>
+  <name>button_variantsTreeViewTab</name>
+ </Item>
+</AML>

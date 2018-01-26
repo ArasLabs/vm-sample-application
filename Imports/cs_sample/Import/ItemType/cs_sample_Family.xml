@@ -1,0 +1,72 @@
+﻿<AML>
+ <Item type="ItemType" id="AA741B4B344245279E63A27010B81487" action="add">
+  <allow_private_permission>1</allow_private_permission>
+  <auto_search>0</auto_search>
+  <enforce_discovery>1</enforce_discovery>
+  <hide_where_used>0</hide_where_used>
+  <implementation_type>table</implementation_type>
+  <instance_data>CS_SAMPLE_FAMILY</instance_data>
+  <is_dependent>0</is_dependent>
+  <is_relationship>0</is_relationship>
+  <is_versionable>0</is_versionable>
+  <label xml:lang="en">Family</label>
+  <label_plural xml:lang="en">Family</label_plural>
+  <large_icon>../Images/CFGVariable.svg</large_icon>
+  <open_icon>../Images/CFGVariable.svg</open_icon>
+  <revisions keyed_name="Default" type="Revision">7FE395DD8B9F4E1090756A34B733D75E</revisions>
+  <show_parameters_tab>1</show_parameters_tab>
+  <structure_view>tabs off</structure_view>
+  <unlock_on_logout>0</unlock_on_logout>
+  <use_src_access>0</use_src_access>
+  <name>cs_sample_Family</name>
+  <Relationships>
+   <Item type="Property" id="21603C5061CB4B10896AAC11501CC2BC" action="add">
+    <column_alignment>left</column_alignment>
+    <data_type>string</data_type>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>1</is_required>
+    <label xml:lang="en">Name</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>3072</sort_order>
+    <source_id keyed_name="cs_sample_Family" type="ItemType" name="cs_sample_Family">AA741B4B344245279E63A27010B81487</source_id>
+    <stored_length>128</stored_length>
+    <track_history>0</track_history>
+    <name>name</name>
+   </Item>
+   <Item type="View" id="D29F94CAAF964995956195B13CCD3B22" action="add">
+    <client>js</client>
+    <related_id keyed_name="cs_sample_Family" type="Form">EE6EF682DEEA4325A4815F57CCF8833B</related_id>
+    <role keyed_name="World" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>World</name>
+     </Item>
+    </role>
+    <show_ssvc>0</show_ssvc>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="cs_sample_Family" type="ItemType" name="cs_sample_Family">AA741B4B344245279E63A27010B81487</source_id>
+    <type>default</type>
+   </Item>
+   <Item type="Can Add" id="883E5E73EEAB43EAABE7753BD9E9735F" action="add">
+    <can_add>1</can_add>
+    <related_id keyed_name="World" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>World</name>
+     </Item>
+    </related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="cs_sample_Family" type="ItemType" name="cs_sample_Family">AA741B4B344245279E63A27010B81487</source_id>
+   </Item>
+   <Item type="Allowed Permission" id="E8F769773C0145AEB58F071C186AA3EC" action="add">
+    <is_default>1</is_default>
+    <related_id keyed_name="Default Access" type="Permission">9122CD065CF04141B8EFE263FC80BEA4</related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="cs_sample_Family" type="ItemType" name="cs_sample_Family">AA741B4B344245279E63A27010B81487</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

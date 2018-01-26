@@ -1,0 +1,157 @@
+﻿<AML>
+ <Item type="Method" id="2814186C76434C53BF9A1FCDBD6585A4" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[//MethodTemplateName=CSharp:Aras.Server.Core.Configurator;
+		private Scope Scope { get; set; }
+		private List<string> dependensIds { get; set; }
+		public override Scope BuildScope()
+		{
+			Item rootGenericItem = base.ScopeItem.newItem("cs_sample_GenericItem", "get");
+			rootGenericItem.setID(base.ScopeItem.getID());
+			rootGenericItem = rootGenericItem.apply();
+
+			Scope = new Scope()
+			{
+				Id = rootGenericItem.getID(),
+				Name = rootGenericItem.getProperty("name"),
+			};
+
+			var genericItemdIdList = GetGenericItemIdList();
+			Item genericItem = GetGenericItemList(genericItemdIdList).getItemsByXPath("//Item[@type='cs_sample_GenericItem']");
+			for (var idx = 0; idx < genericItem.getItemCount(); idx++)
+			{
+				parseGenericItem(genericItem.getItemByIndex(idx));
+			}
+
+			dependensIds = new List<string>(genericItemdIdList);
+			foreach (Variable variable in Scope.VariableList)
+			{
+				dependensIds.Add(variable.Id);
+				if (variable.Enum != null)
+				{
+					dependensIds.Add(variable.Enum.Id);
+					foreach (INamedConstant namedConstant in variable.Enum.NamedConstantList)
+						dependensIds.Add(namedConstant.Id);
+				}
+			}
+			foreach (Aras.Server.Core.Configurator.Rule rule in Scope.RuleList)
+			{
+				dependensIds.Add(rule.Id);
+			}
+			return Scope;
+		}
+		private void parseGenericItem(Item genericItem)
+		{
+			var familyList = genericItem.getItemsByXPath("//Item[@type='cs_sample_Family']");
+			for (var idx = 0; idx < familyList.getItemCount(); idx++)
+			{
+				Item familyItem = familyList.getItemByIndex(idx);
+				string familyId = familyItem.getID();
+				if (Scope.VariableList.FirstOrDefault(x => x.Id == familyId) != null)
+					continue;
+				Aras.Server.Core.Configurator.Enum var_enum = new Aras.Server.Core.Configurator.Enum(DataType.String) { Name = familyItem.getProperty("name") };
+				var optionList = familyItem.getItemsByXPath("Relationships/Item[@type='cs_sample_FamilyOption']");
+				for (var i = 0; i < optionList.getItemCount(); i++)
+				{
+					var option = optionList.getItemByIndex(i).getRelatedItem();
+					var_enum.AddNamedConstant(option.getID(), option.getProperty("name"), option.getProperty("name"));
+				}
+				Scope.VariableList.Add(new Variable(var_enum.DataType) { Enum = var_enum, Name = var_enum.Name, Id = familyId });
+			}
+			var ruleList = genericItem.getItemsByXPath("Relationships/Item[@type='cs_sample_Rule']");
+			for (var idx = 0; idx < ruleList.getItemCount(); idx++)
+			{
+				var ruleItem = ruleList.getItemByIndex(idx);
+				ExpressionBase expression = GetConditionExpression(ruleItem.node);
+				Scope.RuleList.Add(new Aras.Server.Core.Configurator.Rule { Name = ruleItem.getProperty("name"), Definition = expression, Id = ruleItem.getID() });
+			}
+		}
+		internal static XmlNode GetExpressionFromText(XmlDocument xmlDoc, string text)
+		{
+			xmlDoc.PreserveWhitespace = false;
+			xmlDoc.LoadXml(text);
+			return xmlDoc.SelectSingleNode("expression");
+		}
+		private Aras.Server.Core.Configurator.ExpressionBase GetConditionExpression(XmlElement condition)
+		{
+			var definition = condition.SelectSingleNode("definition");
+			if (definition == null)
+				return null;
+			Aras.Server.Core.Configurator.ExpressionConverter converter = new Aras.Server.Core.Configurator.ExpressionConverter();
+			return converter.FromXml(GetExpressionFromText(condition.OwnerDocument, definition.InnerText));
+		}
+		private IEnumerable<string> GetGenericItemIdList()
+		{
+			Item genericItemStructure = base.ScopeItem.newItem("cs_sample_GenericItemStructure");
+			genericItemStructure.setAttribute("select", "related_id");
+			genericItemStructure.setAttribute("repeatProp", "related_id");
+			genericItemStructure.setAttribute("repeatTimes", "0");
+			genericItemStructure.setPropertyItem("related_id", base.ScopeItem.newItem("cs_sample_GenericItem"));
+
+			Item rootGenericItem = base.ScopeItem.newItem("cs_sample_GenericItem", "GetItemRepeatConfig");
+			rootGenericItem.setID(base.ScopeItem.getID());
+			rootGenericItem.setAttribute("select", "id");
+			rootGenericItem.addRelationship(genericItemStructure);
+			rootGenericItem = rootGenericItem.apply();
+
+			List<string> list = new List<string>();
+			Item genericItemList = rootGenericItem.getItemsByXPath("//Item[@type='cs_sample_GenericItem']");
+			for (var idx = 0; idx < genericItemList.getItemCount(); idx++)
+			{
+				Item loopGenericItem = genericItemList.getItemByIndex(idx);
+				list.Add(loopGenericItem.getID());
+			}
+			return list;
+		}
+		private Item GetGenericItemList(IEnumerable<string> ids)
+		{
+			Item option = base.ScopeItem.newItem("cs_sample_Option");
+			option.setAttribute("select", "name");
+
+			Item familyOption = base.ScopeItem.newItem("cs_sample_FamilyOption");
+			familyOption.setAttribute("select", "related_id");
+			familyOption.setPropertyItem("related_id", option);
+
+			Item family = base.ScopeItem.newItem("cs_sample_Family");
+			family.setAttribute("select", "name");
+			family.addRelationship(familyOption);
+
+			Item relevantFamilies = base.ScopeItem.newItem("cs_sample_RelevantFamilies");
+			relevantFamilies.setAttribute("select", "related_id");
+			relevantFamilies.setPropertyItem("related_id", family);
+
+			Item genericItemStructure = base.ScopeItem.newItem("cs_sample_GenericItem", "get");
+			genericItemStructure.setAttribute("idlist", string.Join(",", ids));
+			genericItemStructure.setAttribute("select", "name");
+			genericItemStructure.addRelationship(relevantFamilies);
+
+			Item rule = base.ScopeItem.newItem("cs_sample_Rule");
+			rule.setAttribute("select", "name, definition");
+
+			genericItemStructure.addRelationship(rule);
+
+			return genericItemStructure.apply();
+		}
+		public override ArrayList GetCustomKey()
+		{
+			return new ArrayList {
+				ScopeItem.getID(),
+			};
+		}
+		public override string[] GetGuidsItemDependsOn()
+		{
+			return dependensIds.ToArray();
+		}
+		public override List<string> GetItemTypeNamesItemDependsOn()
+		{
+			return new List<string> {
+					"cs_sample_Family",
+					"cs_sample_GenericItem",
+					"cs_sample_Option",
+					"cs_sample_Rule"
+			};
+		}]]></method_code>
+  <method_type>C#</method_type>
+  <name>cs_sample_scopeBuilder</name>
+ </Item>
+</AML>

@@ -1,0 +1,99 @@
+﻿<AML>
+ <Item type="ItemType" id="A96379BEA7D74566A76C1C5F9A5551B5" action="add">
+  <allow_private_permission>1</allow_private_permission>
+  <auto_search>0</auto_search>
+  <enforce_discovery>1</enforce_discovery>
+  <hide_where_used>0</hide_where_used>
+  <implementation_type>table</implementation_type>
+  <instance_data>CS_SAMPLE_GENERICITEM</instance_data>
+  <is_dependent>0</is_dependent>
+  <is_relationship>0</is_relationship>
+  <is_versionable>0</is_versionable>
+  <label xml:lang="en">Generic Item</label>
+  <label_plural xml:lang="en">Generic Item</label_plural>
+  <large_icon>../Images/CFGScope.svg</large_icon>
+  <open_icon>../Images/CFGScope.svg</open_icon>
+  <revisions keyed_name="Default" type="Revision">7FE395DD8B9F4E1090756A34B733D75E</revisions>
+  <show_parameters_tab>1</show_parameters_tab>
+  <structure_view>tabs on</structure_view>
+  <unlock_on_logout>0</unlock_on_logout>
+  <use_src_access>0</use_src_access>
+  <name>cs_sample_GenericItem</name>
+  <Relationships>
+   <Item type="ITPresentationConfiguration" id="6601C8345827B684B81A54AD49896BD0" action="add">
+    <client>js</client>
+    <related_id keyed_name="Cs Samle Presentation" type="PresentationConfiguration">E42AA1E304AC17FE829929E21B3D5ED3</related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="cs_sample_GenericItem" type="ItemType" name="cs_sample_GenericItem">A96379BEA7D74566A76C1C5F9A5551B5</source_id>
+   </Item>
+   <Item type="Property" id="6D1D7C3917474F8E94023D8500491243" action="add">
+    <column_alignment>left</column_alignment>
+    <data_type>string</data_type>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>1</is_required>
+    <keyed_name_order>0</keyed_name_order>
+    <label xml:lang="en">Name</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>3072</sort_order>
+    <source_id keyed_name="cs_sample_GenericItem" type="ItemType" name="cs_sample_GenericItem">A96379BEA7D74566A76C1C5F9A5551B5</source_id>
+    <stored_length>128</stored_length>
+    <track_history>0</track_history>
+    <name>name</name>
+   </Item>
+   <Item type="View" id="00C61CD220C246FAA39AC11A6EA0E0A5" action="add">
+    <client>js</client>
+    <related_id keyed_name="cs_sample_GenericItem" type="Form">72DE55C6AC5F423794978F3F6CCDC402</related_id>
+    <role keyed_name="World" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>World</name>
+     </Item>
+    </role>
+    <show_ssvc>0</show_ssvc>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="cs_sample_GenericItem" type="ItemType" name="cs_sample_GenericItem">A96379BEA7D74566A76C1C5F9A5551B5</source_id>
+    <type>default</type>
+   </Item>
+   <Item type="Client Event" id="E6BE6509D1542D93DAD14F8E18ED74FC" action="add">
+    <client_event>OnShowItem</client_event>
+    <related_id type="Method">
+     <Item type="Method" action="get" select="id">
+      <name>cs_sample_onShowGenericItem</name>
+     </Item>
+    </related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="cs_sample_GenericItem" type="ItemType" name="cs_sample_GenericItem">A96379BEA7D74566A76C1C5F9A5551B5</source_id>
+   </Item>
+   <Item type="TOC Access" id="E1C94FE5C9AA4E7A9254DB9E5E9637CB" action="add">
+    <related_id keyed_name="World" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>World</name>
+     </Item>
+    </related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="cs_sample_GenericItem" type="ItemType" name="cs_sample_GenericItem">A96379BEA7D74566A76C1C5F9A5551B5</source_id>
+    <category>Configurator</category>
+   </Item>
+   <Item type="Can Add" id="BBC04E6F3727403E9F96A81AEC104E87" action="add">
+    <can_add>1</can_add>
+    <related_id keyed_name="World" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>World</name>
+     </Item>
+    </related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="cs_sample_GenericItem" type="ItemType" name="cs_sample_GenericItem">A96379BEA7D74566A76C1C5F9A5551B5</source_id>
+   </Item>
+   <Item type="Allowed Permission" id="022E51C657C94C87B28EF288776C6A1A" action="add">
+    <is_default>1</is_default>
+    <related_id keyed_name="Default Access" type="Permission">9122CD065CF04141B8EFE263FC80BEA4</related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="cs_sample_GenericItem" type="ItemType" name="cs_sample_GenericItem">A96379BEA7D74566A76C1C5F9A5551B5</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

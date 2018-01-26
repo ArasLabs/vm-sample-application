@@ -1,0 +1,197 @@
+﻿body {
+}
+
+/* Workaround: fixed problem with svg images loading in IE11("plus" and "minus" icons sometimes do not appears) */
+.dojoxGrid::before {
+	content: '';
+	display: none;
+	background-image: url("../../../images/plus.svg");
+}
+
+.dojoxGrid::after {
+	content: '';
+	display: none;
+	background-image: url("../../../images/minus.svg");
+}
+/* end of Workaround */
+
+#scopeTree .dojoxGridExpando.dojoxGridExpandoOpened .dojoxGridExpandoNode {
+	background-image: url("../../../images/minus.svg");
+}
+
+#scopeTree .dojoxGridExpando .dojoxGridExpandoNode {
+	background-image: url("../../../images/plus.svg");
+	background-position: 0px 0px;
+	background-repeat: no-repeat;
+}
+
+#scopeTree .dojoxGridExpando {
+	display: inline-block;
+	height: 22px;
+	float: none;
+	vertical-align: middle;
+	width: 45px !important;
+}
+
+#scopeTree .dojoxGridRow .dojoxGridNoChildren .dojoxGridExpando {
+	width: 45px !important;
+}
+
+#scopeTree .dojoxGridRow, #scopeTree .dojoxGridRow .dojoxGridCell {
+	border: 0px !important;
+}
+
+#scopeTree .dojoxGridRowOdd .dojoxGridRowTable tr {
+	background-color: #FFFFFF;
+}
+
+#scopeTree .dojoxGrid .dojoxGridRow {
+	height: 24px;
+	position: relative;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	transition: border-color 0.25s cubic-bezier(0, 0, 0.58, 1), background-color 0.25s cubic-bezier(0, 0, 0.58, 1), height 0.2s ease;
+}
+
+#scopeTree .dojoxGrid .dojoxGridRow .dojoxGridRowTable{
+	height: 24px;
+}
+
+#scopeTree .arasCFGTree {
+	border: none !important;
+}
+
+#scopeTree .dojoxGridMasterHeader {
+	display: none !important;
+}
+
+#scopeTree .dojoxGridRow .dojoxGridExpandoNode {
+	display: inline-block;
+	float: none;
+	width: 13px;
+	height: 13px;
+	background-size: 13px;
+	background-repeat: no-repeat;
+	background-position: 0 0;
+	vertical-align: middle;
+}
+
+#scopeTree .dojoxGridRow .dojoxGridNoChildren .dojoxGridExpandoNode {
+	display: none;
+}
+
+#scopeTree  .dojoxGridRow .dijitTreeExpando.dijitTreeExpandoLeaf {
+	background-image: none;
+}
+
+#scopeTree .dojoxGridRowSelected {
+	background-color: #dde7f5;
+	border-width: 0px;
+	background-image: none;
+}
+
+#scopeTree .dojoxGridRowSelected .dojoxGridCell, #scopeTree .dojoxGridRowOver .dojoxGridCell {
+	background-color: #dde7f5 !important;
+}
+
+#scopeTree .aras_lazytreegrid_icon {
+	max-height: 22px;
+	max-width: 22px;
+	vertical-align: middle;
+	margin-left: 5px;
+	background-repeat: no-repeat;
+}
+
+#scopeTree .dojoxGridNoChildren .aras_lazytreegrid_icon {
+	margin-left: 18px;
+}
+
+#scopeTree .dojoxGridCell {
+	padding: 0px 5px 0px 10px !important;
+}
+
+#scopeTree .dojoxGridCell.dojoxGridCellFocus {
+	padding-left: 10px !important;
+}
+
+.dojoxGridRow .ActionButton:first-of-type {
+	margin-left: 10px;
+}
+
+.ConditionMark {
+	position: absolute;
+	right: 1px;
+	top: 4px;
+	max-width: 16px;
+	max-height: 16px;
+}
+
+.dojoxGridRow .ActionButton {
+	cursor: pointer;
+	right: 1px;
+	top: 4px;
+	max-width: 16px;
+	max-height: 16px;
+	vertical-align: middle;
+}
+
+.dojoxGridRow .ActionButton.Unchecked {
+	display: none;
+	opacity: 0.5;
+}
+
+.dojoxGridRow:hover .ActionButton.Unchecked, .ActionButton.Checked {
+	display: inline-block;
+}
+
+.DeletedElement {
+	font-style: italic;
+	opacity: 0.5;
+}
+
+.VirtualElement {
+	opacity: 0.5 !important;
+}
+
+.arasCFGTree .DeletedElement .dojoxGridCell {
+	font-style: italic !important;
+}
+
+.UsedElement .dojoxGridExpando:after {
+	position: relative;
+	display: inline-block;
+	content: 'u';
+	left: -6px;
+	top: 8px;
+	background-color: #E78E46;
+	color: #FFFFFF;
+	font-size: 9px;
+	font-weight: bold;
+	text-align: center;
+	line-height: 6px;
+	width: 9px;
+	height: 7px;
+	border: 1px solid #B57038;
+}
+
+.CodeElementNamePart {
+	margin-right: 6px;
+	padding: 0px 2px 0px 2px;
+	line-height: 6px;
+	border: 1px dotted #404040;
+	background-color: #E6EFF7;
+	font-size: 10px;
+	color: #374857;
+}
+
+.dojoxGridRowSelected .CodeElementNamePart {
+	border-style: dashed;
+	color: #23313D;
+}
+
+.NameElementNamePart {
+}
+
+#scopeTree .treeExpandoLeaf, #scopeTree .aras_lazytreegrid_vert_dots {
+	display: none;
+}

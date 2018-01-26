@@ -1,0 +1,64 @@
+﻿<AML>
+ <Item type="Form" id="EE6EF682DEEA4325A4815F57CCF8833B" action="add">
+  <category_form>0</category_form>
+  <height>234</height>
+  <stylesheet><![CDATA[../styles/default.css]]></stylesheet>
+  <width>699</width>
+  <name>cs_sample_Family</name>
+  <Relationships>
+   <Item type="Body" id="0D5F089FB07E4206ADC7A644E2D054F5" action="add">
+    <bg_color>#FFFFFF</bg_color>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="cs_sample_Family" type="Form">EE6EF682DEEA4325A4815F57CCF8833B</source_id>
+    <Relationships>
+     <Item type="Field" id="F6C38F8C824C4E8BA3C7944AC736CA0B" action="add">
+      <display_length_unit>px</display_length_unit>
+      <field_type>html</field_type>
+      <html_code><![CDATA[<span id='ITEM_INFO_INTERNAL_SPAN'/>
+<script>
+  populate_ITEM_INFO_INTERNAL_SPAN = function()
+  {
+    document.getElementById('ITEM_INFO_INTERNAL_SPAN').innerHTML = aras.uiGetItemInfoTable(document.itemType);
+  }
+  window.addEventListener('load', populate_ITEM_INFO_INTERNAL_SPAN);
+</script>]]></html_code>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <list_no_blank>0</list_no_blank>
+      <sort_order>256</sort_order>
+      <source_id keyed_name="0D5F089FB07E4206ADC7A644E2D054F5" type="Body">0D5F089FB07E4206ADC7A644E2D054F5</source_id>
+      <tab_stop>0</tab_stop>
+      <x>0</x>
+      <y>0</y>
+      <name>item_info</name>
+     </Item>
+     <Item type="Field" id="247C7B2642F84E0097840ED1FD71BB4B" action="add">
+      <border_width>0</border_width>
+      <display_length>250</display_length>
+      <display_length_unit>px</display_length_unit>
+      <field_type>text</field_type>
+      <font_color>#000000</font_color>
+      <font_family>arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label xml:lang="en">Name</label>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <propertytype_id keyed_name="name" type="Property">21603C5061CB4B10896AAC11501CC2BC</propertytype_id>
+      <sort_order>128</sort_order>
+      <source_id keyed_name="0D5F089FB07E4206ADC7A644E2D054F5" type="Body">0D5F089FB07E4206ADC7A644E2D054F5</source_id>
+      <tab_index>3072</tab_index>
+      <tab_stop>1</tab_stop>
+      <textarea_cols>350</textarea_cols>
+      <textarea_rows>50</textarea_rows>
+      <x>190</x>
+      <y>10</y>
+      <name>name</name>
+     </Item>
+    </Relationships>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

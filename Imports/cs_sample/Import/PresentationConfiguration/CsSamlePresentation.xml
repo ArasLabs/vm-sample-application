@@ -1,0 +1,14 @@
+﻿<AML>
+ <Item type="PresentationConfiguration" id="E42AA1E304AC17FE829929E21B3D5ED3" action="add">
+  <style>background-color: #36A3BA;</style>
+  <name>Cs Samle Presentation</name>
+  <Relationships>
+   <Item type="PresentationCommandBarSection" id="F9B41F52101A6B3F3647267F1AC77491" action="add">
+    <related_id keyed_name="cs_sample_sidebar" type="CommandBarSection">F9B41F52101A6B3F3647267F1AC77491</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Cs Samle Presentation" type="PresentationConfiguration">E42AA1E304AC17FE829929E21B3D5ED3</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

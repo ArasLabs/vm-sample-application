@@ -1,0 +1,70 @@
+﻿<AML>
+ <Item type="Form" id="09F1B6ED0CFB44269D59682E9DE13DA5" action="add">
+  <category_form>0</category_form>
+  <height>450</height>
+  <stylesheet><![CDATA[../styles/default.css]]></stylesheet>
+  <width>650</width>
+  <name>cs_sample_showBomResolution</name>
+  <Relationships>
+   <Item type="Body" id="8671C96E7BDA4F3EAB84BA79D70950AF" action="add">
+    <css>#gridBom {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+div.dojoxGridHeader table.dojoxGridRowTable, .claro .dojoxGridMasterHeader {
+  border-collapse: initial !important;
+}
+.dojoxGridCell .CellTextContent {
+  position: absolute;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  top: 0px;
+  height: 100%;
+  right: 0px;
+  line-height: 24px;
+  white-space: nowrap;
+}</css>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="cs_sample_showBomResolution" type="Form">09F1B6ED0CFB44269D59682E9DE13DA5</source_id>
+    <Relationships>
+     <Item type="Field" id="1231D221B66F448ABE95D8F1ACA9882D" action="add">
+      <border_width>0</border_width>
+      <css>@import "../javascript/include.aspx?files=claroGrid.css";
+</css>
+      <display_length_unit>px</display_length_unit>
+      <field_type>html</field_type>
+      <font_color>#000000</font_color>
+      <font_family>tahoma, arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <html_code><![CDATA[<div id="gridBom" />]]></html_code>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <sort_order>128</sort_order>
+      <source_id keyed_name="8671C96E7BDA4F3EAB84BA79D70950AF" type="Body">8671C96E7BDA4F3EAB84BA79D70950AF</source_id>
+      <tab_stop>1</tab_stop>
+      <x>0</x>
+      <y>0</y>
+      <name>BomGroupBox</name>
+     </Item>
+    </Relationships>
+   </Item>
+   <Item type="Form Event" id="5450D87685404EFCBEFF25EA01C8FCE6" action="add">
+    <form_event>onload</form_event>
+    <related_id keyed_name="cs_sample_onShowBomResolution" type="Method">
+     <Item type="Method" action="get" select="id">
+      <name>cs_sample_onShowBomResolution</name>
+     </Item>
+    </related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="cs_sample_showBomResolution" type="Form">09F1B6ED0CFB44269D59682E9DE13DA5</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

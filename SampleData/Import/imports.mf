@@ -1,0 +1,3 @@
+<imports>
+  <package name="com.aras.innovator.solution.cs_sample_data" path="cs_sample_data\Import" />
+</imports>

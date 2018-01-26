@@ -1,0 +1,15 @@
+<resources>
+	<resource key="Innovator.URL" value="Server URL" />
+	<resource key="Innovator.DB" value="Database" />
+	<resource key="Innovator.Username" value="Username" />
+	<resource key="Innovator.Password" value="Password" />
+	<resource key="Innovator.Dir" value="Install Path" />
+	<resource key="Db.Username" value="Database Username" />
+	<resource key="Db.Password" value="Database Password" />
+
+	<resource key="Pkg.IS.Label" value="Aras Innovator Code Tree Updates" />
+	<resource key="Pkg.IS.Desc" value="Install into ...\Innovator application directory" />
+	<resource key="Pkg.DB.Label" value="Aras Innovator Database Updates" />
+	<resource key="Pkg.DB.Desc" value="Import in Innovator Database" />
+	<resource key="Pkg.DB2.Label" value="Example of Acrolinx check in silent mode." />
+</resources> 

@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<toolbarapplet buttonsize="26,25">
+	<toolbar id="swtoolbar">
+		<button text="Toggle Family List" id="family_list" image="../images/Team.svg" tooltip="Toggle Family List" state="1" />
+		<button text="Expand All" id="family_expandall" image="../images/ExpandAll.svg" tooltip="Expand All" />
+		<button text="Collapse All" id="family_collapseall" image="../images/CollapseAll.svg" tooltip="Collapse All" />
+		<button text="Clear Selection" id="clear_family_list" image="../images/NotEBOM.svg" tooltip="Clear Selection" />
+		<separator/>
+		<button text="Toggle Rule List" id="rule_list" image="../images/Method.svg" tooltip="Toggle Rule List" state="1" />
+		<button text="Delete Item" id="deleteitem" image="../images/Delete.svg" tooltip="Delete Item" disabled="true" />
+		<separator/>
+		<button text="Toggle Expression Panel" id="ruleexpression_panel" image="../images/ReplaceRevision.svg" tooltip="Toggle Expression Panel" state="1" />
+	</toolbar>
+</toolbarapplet>

@@ -1,0 +1,12 @@
+﻿<svg width="64" xmlns="http://www.w3.org/2000/svg" height="64" viewBox="0 0 64 64" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 64 64">
+<g fill="#fff">
+<path d="m11.005,11v6h-3v-9h9v3h-6z"/>
+<path d="M53.005,11h-6V8h9v9h-3V11z"/>
+<path d="m11.005,53h6v3h-9v-9h3v6z"/>
+<path d="m53.005,53v-6h3v9h-9v-3h6z"/>
+
+<circle cx="22" cy="39.999" r="8"/>
+<path d="m42.004,31.999l8,8-8,8.001-8-8.001 8-8z"/>
+<path d="m20,15.999h24v12h-24v-12z"/>
+</g>
+</svg>

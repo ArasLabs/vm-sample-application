@@ -1,0 +1,5 @@
+<imports>
+	<package name="com.aras.innovator.solution.cs_sample" path="cs_sample\Import" >
+		<dependson name="com.aras.innovator.cfg_core" />
+	</package>
+</imports>

@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<toolbarapplet buttonsize="26,25">
+	<toolbar id="swtoolbar">
+		<button text="Create New" id="new" image="../images/New.svg" tooltip="Create New" disabled="true" />
+		<button text="Delete" id="delete" image="../images/Delete.svg" tooltip="Delete" disabled="true" /> 
+		<separator/>
+		<button text="Set Filter" id="setfilter" image="../images/DocumentView.svg" tooltip="Set Filter"/> 
+		<button text="Clear Filter" id="clearfilter" image="../images/FilteringOff.svg" disabled="true" tooltip="Clear Filter"/> 
+	</toolbar>
+</toolbarapplet> 

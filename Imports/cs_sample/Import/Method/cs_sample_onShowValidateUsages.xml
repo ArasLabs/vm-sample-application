@@ -1,0 +1,105 @@
+﻿<AML>
+ <Item type="Method" id="6837783544A0A58C9F22157D59615499" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[ValidateUsagesForm = function() {
+	this.aras = parent.aras;
+	this.structureItem = parent.dialogArguments.validationResult;
+	this.genericItem = parent.dialogArguments.item;
+	this.scopeItem = parent.dialogArguments.scopeItem;
+	this.gridItemCount = 0;
+	this.gridItems = [];
+	this.DisplayGrid();
+};
+
+ValidateUsagesForm.prototype.DisplayGrid = function() {
+	require(['Configurator/Scripts/TableRuleEditor/DataModel/ExpressionModelItem'], function(ExpressionModelItem) {
+		var itemXPath = '//Item[@id="{0}"]';
+		var usageItemXPath = './Relationships/Item[@id="{0}"]';
+		var resultNode = this.structureItem.dom.selectSingleNode(aras.XPathResult());
+		for (var i = 0, length = resultNode.childNodes.length; i < length; i++) {
+			var description = '';
+			var errorNode = resultNode.childNodes[i];
+			var errorType = errorNode.getAttribute('type');
+			var itemId = errorNode.selectSingleNode('./Item/@id').text;
+			var currentGenericItem = this.genericItem.node.selectSingleNode(itemXPath.replace('{0}', itemId));
+			if (currentGenericItem === null) {
+				continue;
+			}
+			var genericItemName = currentGenericItem.selectSingleNode('name').text;
+
+			var expressions = errorNode.selectNodes('./Item/cortege/expression');
+			for (var j = 0; j < expressions.length; j++) {
+				var usageId = expressions[j].getAttribute('id');
+				var usage = currentGenericItem.selectSingleNode(usageItemXPath.replace('{0}', usageId));
+				var usageItem = ExpressionModelItem({
+					aras: this.aras,
+					itemData: {
+						itemId: usageId,
+						itemType: 'cs_sample_Usage',
+						node: usage,
+						children: []
+					}
+				});
+				if (usageItem.getExpressionTree()) {
+					description += usageItem.deserializeExpressionToString({optionDeserializer: this.expressionPropositionFormDeserializer.bind(this)}) + '; ';
+				} else {
+					var partItem = aras.getRelatedItem(usage);
+					description += 'Fixed Usage "{0}"; '.replace('{0}', aras.getItemProperty(partItem, 'item_number'));
+				}
+			}
+			this.AddGridItem(genericItemName, errorType, description);
+		}
+
+		clientControlsFactory.createControl('Aras.Client.Controls.Public.GridContainer',
+			{
+				connectId: 'gridContainer',
+				canEdit_Experimental: function() { return false; }
+			},
+			function(control) {
+				control.setLayout_Experimental([
+					{
+						field: 'genericItem',
+						name: 'Generic Item',
+						width: '150px',
+						styles: 'text-align: center;'
+					},
+					{
+						field: 'errorType',
+						name: 'Error Type',
+						width: '100px',
+						styles: 'text-align: center;'
+					},
+					{
+						field: 'description',
+						name: 'Description',
+						width: '520px',
+						styles: 'text-align: center;'
+					}
+				]);
+				control.setArrayData_Experimental(this.gridItems);
+			}.bind(this)
+		);
+	}.bind(this));
+};
+
+ValidateUsagesForm.prototype.expressionPropositionFormDeserializer = function(variableId, namedConstantId) {
+	var relatedItemXPath = './Relationships/Item[@id="{0}"]';
+	var family = this.scopeItem.node.selectSingleNode(relatedItemXPath.replace('{0}', variableId));
+	var option = family.selectSingleNode(relatedItemXPath.replace('{0}', namedConstantId));
+	return aras.getItemProperty(family, 'name') + ' = ' + aras.getItemProperty(option, 'name');
+};
+
+ValidateUsagesForm.prototype.AddGridItem = function(genericItemName, errorType, description) {
+	this.gridItems.push({
+		uniqueId: this.gridItemCount++,
+		genericItem: genericItemName,
+		errorType: errorType,
+		description: description
+	});
+};
+
+ValidateUsagesForm = new ValidateUsagesForm();]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cs_sample_onShowValidateUsages</name>
+ </Item>
+</AML>

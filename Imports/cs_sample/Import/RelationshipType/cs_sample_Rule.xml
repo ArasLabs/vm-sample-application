@@ -1,0 +1,111 @@
+﻿<AML>
+ <Item type="RelationshipType" id="45C033A7906D4BBCB1B5B3B797D0282D" action="add" dependencyLevel="0">
+  <auto_search>1</auto_search>
+  <behavior>float</behavior>
+  <copy_permissions>0</copy_permissions>
+  <create_related>0</create_related>
+  <hide_in_all>1</hide_in_all>
+  <inc_rel_key_name>1</inc_rel_key_name>
+  <inc_related_key_name>1</inc_related_key_name>
+  <is_list_type>0</is_list_type>
+  <label xml:lang="en">Rule</label>
+  <new_show_related>0</new_show_related>
+  <related_notnull>0</related_notnull>
+  <related_option>2</related_option>
+  <relationship_id keyed_name="cs_sample_Rule" type="ItemType" name="cs_sample_Rule">
+   <Item type="ItemType" id="ACBFC7318EBA4058B3A7F732167FF933" action="add">
+    <allow_private_permission>1</allow_private_permission>
+    <auto_search>0</auto_search>
+    <enforce_discovery>0</enforce_discovery>
+    <hide_where_used>0</hide_where_used>
+    <implementation_type>table</implementation_type>
+    <instance_data>CS_SAMPLE_RULE</instance_data>
+    <is_dependent>0</is_dependent>
+    <is_relationship>1</is_relationship>
+    <is_versionable>0</is_versionable>
+    <large_icon>../Images/CFGRule.svg</large_icon>
+    <open_icon>../Images/CFGRule.svg</open_icon>
+    <revisions keyed_name="Default" type="Revision">7FE395DD8B9F4E1090756A34B733D75E</revisions>
+    <show_parameters_tab>1</show_parameters_tab>
+    <structure_view>tabs off</structure_view>
+    <unlock_on_logout>0</unlock_on_logout>
+    <use_src_access>1</use_src_access>
+    <name>cs_sample_Rule</name>
+    <Relationships>
+     <Item type="Property" id="CC79F39416364B3DAE48D4183CBFEA8E" action="add">
+      <column_alignment>left</column_alignment>
+      <data_type>text</data_type>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>1</is_required>
+      <label xml:lang="en">definition</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>1</readonly>
+      <sort_order>3712</sort_order>
+      <source_id keyed_name="cs_sample_Rule" type="ItemType" name="cs_sample_Rule">ACBFC7318EBA4058B3A7F732167FF933</source_id>
+      <track_history>0</track_history>
+      <name>definition</name>
+     </Item>
+     <Item type="Property" id="5CD5030697BF4ECEBFCB042111828BDD" action="add">
+      <column_alignment>left</column_alignment>
+      <data_type>string</data_type>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>1</is_required>
+      <label xml:lang="en">Name</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>3584</sort_order>
+      <source_id keyed_name="cs_sample_Rule" type="ItemType" name="cs_sample_Rule">ACBFC7318EBA4058B3A7F732167FF933</source_id>
+      <stored_length>128</stored_length>
+      <track_history>0</track_history>
+      <name>name</name>
+     </Item>
+     <Item type="View" id="7F179BCAE467ADC625C88B3D6D4919F8" action="add">
+      <client>js</client>
+      <related_id keyed_name="cs_sample_Rule" type="Form">B237D9197A076F101249907013025199</related_id>
+      <role keyed_name="World" type="Identity">
+       <Item type="Identity" action="get" select="id">
+        <name>World</name>
+       </Item>
+      </role>
+      <show_ssvc>0</show_ssvc>
+      <sort_order>128</sort_order>
+      <source_id keyed_name="cs_sample_Rule" type="ItemType" name="cs_sample_Rule">ACBFC7318EBA4058B3A7F732167FF933</source_id>
+      <type>default</type>
+     </Item>
+    </Relationships>
+   </Item>
+  </relationship_id>
+  <sort_order>256</sort_order>
+  <source_id keyed_name="cs_sample_GenericItem" type="ItemType" name="cs_sample_GenericItem">A96379BEA7D74566A76C1C5F9A5551B5</source_id>
+  <name>cs_sample_Rule</name>
+ </Item>
+ <Item type="ItemType" id="ACBFC7318EBA4058B3A7F732167FF933" action="edit">
+  <Relationships>
+   <Item type="Property" action="edit" where="source_id='ACBFC7318EBA4058B3A7F732167FF933' and name='related_id'">
+    <column_alignment>left</column_alignment>
+    <data_type>item</data_type>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>1</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <item_behavior>float</item_behavior>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>3840</sort_order>
+    <source_id keyed_name="cs_sample_Rule" type="ItemType" name="cs_sample_Rule">ACBFC7318EBA4058B3A7F732167FF933</source_id>
+    <track_history>0</track_history>
+    <name>related_id</name>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

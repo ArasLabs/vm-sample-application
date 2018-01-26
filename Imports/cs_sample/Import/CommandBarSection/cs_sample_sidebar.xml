@@ -1,0 +1,52 @@
+﻿<AML>
+ <Item type="CommandBarSection" id="F9B41F52101A6B3F3647267F1AC77491" action="add">
+  <classification>Data Model</classification>
+  <label xml:lang="en">Cs Sample Sidebar</label>
+  <location_name>ItemWindowSidebar</location_name>
+  <name>cs_sample_sidebar</name>
+  <Relationships>
+   <Item type="CommandBarSectionItem" id="BFF4800814592013C3B996CA43837D02" action="add">
+    <action>Add</action>
+    <related_id keyed_name="button_relevantFamiliesViewTab" type="CommandBarItem">BFCECE4205D96E38771D9C38E0D23FA7</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="cs_sample_sidebar" type="CommandBarSection">F9B41F52101A6B3F3647267F1AC77491</source_id>
+   </Item>
+   <Item type="CommandBarSectionItem" id="1164F2D52C250EA2CCA8B95570473C22" action="add">
+    <action>Add</action>
+    <related_id keyed_name="button_tableRuleEditorViewTab" type="CommandBarItem">48CAD9AC927B859E74E79D0FD977B5FD</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="cs_sample_sidebar" type="CommandBarSection">F9B41F52101A6B3F3647267F1AC77491</source_id>
+   </Item>
+   <Item type="CommandBarSectionItem" id="62AFD1E22823EBEA2905AC3796D45D88" action="add">
+    <action>Add</action>
+    <related_id keyed_name="button_textRuleEditorViewTab" type="CommandBarItem">03301055828D6DBED60E09DB4340326D</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>384</sort_order>
+    <source_id keyed_name="cs_sample_sidebar" type="CommandBarSection">F9B41F52101A6B3F3647267F1AC77491</source_id>
+   </Item>
+   <Item type="CommandBarSectionItem" id="7B0653FAF96D722DFF0E5B69D4102B81" action="add">
+    <action>Add</action>
+    <related_id keyed_name="button_variantsTreeViewTab" type="CommandBarItem">C6F54F054A7D6521D902293E46367B1C</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>512</sort_order>
+    <source_id keyed_name="cs_sample_sidebar" type="CommandBarSection">F9B41F52101A6B3F3647267F1AC77491</source_id>
+   </Item>
+   <Item type="CommandBarSectionItem" id="28E1A2969CCF4C539636E2C4F0DB9179" action="add">
+    <action>Add</action>
+    <related_id keyed_name="button_usagesViewTab" type="CommandBarItem">3EA7F5772851AE27F0433DD43654BCFA</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>640</sort_order>
+    <source_id keyed_name="cs_sample_sidebar" type="CommandBarSection">F9B41F52101A6B3F3647267F1AC77491</source_id>
+   </Item>
+   <Item type="CommandBarSectionItem" id="1BAEFEF0F2BE0E4E31E7FA863A33A0A1" action="add">
+    <action>Add</action>
+    <related_id keyed_name="button_validationResolutionViewTab" type="CommandBarItem">975498A27A934D67B4340926248B4584</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>768</sort_order>
+    <source_id keyed_name="cs_sample_sidebar" type="CommandBarSection">F9B41F52101A6B3F3647267F1AC77491</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>
