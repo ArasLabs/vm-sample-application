@@ -1,4 +1,4 @@
-# Configurator Services Sample Application
+# Variant Management Sample Application
 
 *This project may also be called the Variant Management Sample Application.*
 
@@ -12,13 +12,13 @@ Sample data is provided along with the sample application. Loading the sample da
 
 Release | Notes
 --------|--------
-[v1.0.0](https://github.com/ArasLabs/cs-sample-application/releases/tag/v1.0.0) | First release.
+[v1.0.0](https://github.com/ArasLabs/vm-sample-application/releases/tag/v1.0.0) | First release.
 
 #### Supported Aras Versions
 
 Project | Aras
 --------|------
-[v1.0.0](https://github.com/ArasLabs/cs-sample-application/releases/tag/v1.0.0) | 11.0 SP12
+[v1.0.0](https://github.com/ArasLabs/vm-sample-application/releases/tag/v1.0.0) | 11.0 SP12
 
 ## Installation
 
