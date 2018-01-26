@@ -58,7 +58,7 @@ Project | Aras
 
 ## Usage
 
-<!-- TODO -->
+For information on using the sample application, view [the documentation](./Documentation/Configurator%20Services%20Sample%20Application.pdf).
 
 ## Contributing
 
