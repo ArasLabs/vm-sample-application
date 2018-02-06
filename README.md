@@ -28,7 +28,7 @@ Project | Aras
 ### Pre-requisites
 
 1. Aras Innovator installed (version 11.0 SP12)
-2. [Aras Update](http://www.aras.com/support/downloads/) installed (version 1.6+)
+2. [Aras Update](http://www.aras.com/support/downloads/) installed (version 1.5)
 3. Variant Management Sample Application package
 
 ### Install Steps
