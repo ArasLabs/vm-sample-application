@@ -47,7 +47,6 @@ Project | Aras
 7. Enter the required parameters for the target Aras Innovator instance. Which parameters are required varies based on which components you have selected to install.
     * When selecting the install path for your Innovator instance, be sure to select the Innovator subfolder. 
     * Example: If your Innovator instance is installed in `C:\Program Files (x86)\Aras\11SP12`, select `C:\Program Files (x86)\Aras\11SP12\Innovator`.
-
 8. Click **Install** to begin installing the package.
 9. When the package finishes installing, close Aras Update.
 
