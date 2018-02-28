@@ -44,8 +44,12 @@ Project | Aras
     * Aras Innovator Database Updates
     * Sample Data Actions (Optional)
 6. Choose **Detailed Logging** and click **Next**.
-7. Click **Install** to begin installing the package.
-8. When the package finishes installing, close Aras Update.
+7. Enter the required parameters for the target Aras Innovator instance. Which parameters are required varies based on which components you have selected to install.
+    * When selecting the install path for your Innovator instance, be sure to select the Innovator subfolder. 
+    * Example: If your Innovator instance is installed in `C:\Program Files (x86)\Aras\11SP12`, select `C:\Program Files (x86)\Aras\11SP12\Innovator`.
+
+8. Click **Install** to begin installing the package.
+9. When the package finishes installing, close Aras Update.
 
 ### Load Sample Data (Optional)
 
