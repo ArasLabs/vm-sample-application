@@ -1,4 +1,4 @@
-﻿var aras = parent.aras;
+var aras = parent.aras;
 var ArasModules = parent.ArasModules;
 var isUIControlsCreated = false;
 var viewsController = parent.viewsController;
@@ -438,7 +438,11 @@ function onRuleGridDataModelItemChangeHandler(modelItem, changesInfo) {
 
 				for (propertyName in propertyChanges) {
 					if (propertyNameHash[propertyName]) {
-						gridStore.setValue(storeItem, propertyName, propertyChanges[propertyName]);
+						let changedValue = propertyChanges[propertyName];
+						if(propertyName == "definition") {
+							changedValue = serializeRuleItemToEditorTemplate(modelItem).RuleConditionGroup;
+						}
+						gridStore.setValue(storeItem, propertyName, changedValue);
 					}
 				}
 
@@ -786,7 +790,7 @@ function createGridLayout(dataTypeName) {
 
 					resultLayout.push({
 						field: propertyName,
-						name: aras.getItemProperty(propertyNode, 'label'),
+						name: propertyName === 'definition' ? 'Rule Expression' : aras.getItemProperty(propertyNode, 'label'),
 						width: columnWidths[i] + 'px',
 						styles: dataType === 'text' ? '' : 'text-align: center;',
 						headerStyles: 'text-align: center;'
@@ -875,7 +879,9 @@ function createGridItems(gridControlLayout) {
 
 				newGridItem[propertyName] = propertyValue;
 			}
-
+			if (newGridItem.definition) {
+				newGridItem.definition = this.serializeRuleItemToEditorTemplate(currentRuleItem).RuleConditionGroup;
+			}
 			gridItems.push(newGridItem);
 		}
 	}

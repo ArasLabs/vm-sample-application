@@ -260,7 +260,9 @@ function createRuleGridItems(ruleModelItems, gridControlLayout) {
 
 				newGridItem[propertyName] = propertyValue;
 			}
-
+			if (newGridItem.definition) {
+				newGridItem.definition = currentRuleItem.deserializeExpressionToString({optionDeserializer: optionExpressionDeserializer});;
+			}
 			gridItems.push(newGridItem);
 		}
 	}
@@ -2313,7 +2315,7 @@ function createRuleGridLayout(itemTypeName) {
 					resultLayout.push({
 						field: propertyName,
 						editable: !isReadonly,
-						name: aras.getItemProperty(propertyNode, 'label'),
+						name: propertyName === 'definition' ? 'Rule Expression' : aras.getItemProperty(propertyNode, 'label'),
 						width: columnWidths[i] + 'px',
 						styles: 'text-align: left;',
 						headerStyles: 'text-align: center;'
