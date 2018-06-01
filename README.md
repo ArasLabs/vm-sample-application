@@ -12,12 +12,14 @@ Sample data is provided along with the sample application. Loading the sample da
 
 Release | Notes
 --------|--------
+[11.0.14.1](https://github.com/ArasLabs/vm-sample-application/releases/tag/11.0.14.1) | Updated to support Aras 11.0 SP14. 
 [11.0.12.1](https://github.com/ArasLabs/vm-sample-application/releases/tag/11.0.12.1) | First release.
 
 #### Supported Aras Versions
 
 Project | Aras
 --------|------
+[11.0.14.1](https://github.com/ArasLabs/vm-sample-application/releases/tag/11.0.14.1) | 11.0 SP14
 [11.0.12.1](https://github.com/ArasLabs/vm-sample-application/releases/tag/11.0.12.1) | 11.0 SP12
 
 ## Installation
