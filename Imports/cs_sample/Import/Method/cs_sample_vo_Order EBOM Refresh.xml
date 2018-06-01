@@ -1,0 +1,13 @@
+﻿<AML>
+  <Item type="Method" id="1C19DED7F64C4031B1ADB88C99D7922F" action="add">
+    <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+    <method_code>
+      <![CDATA[       
+// This method refreshes grid on user click "Refresh" button. 
+if(ebom && ebom.ready && ebom.refreshGridWithTimout){ ebom.refreshGridWithTimout(true);}
+]]>
+    </method_code>
+    <method_type>JavaScript</method_type>
+    <name>vo_Order EBOM Refresh</name>
+  </Item>
+</AML>

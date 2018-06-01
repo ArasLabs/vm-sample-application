@@ -1,0 +1,442 @@
+﻿<AML>
+  <Item type="Method" id="390C5929852946FDA837F6E1B8F04999" action="add">
+    <execution_allowed_to type="Identity" keyed_name="World">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+    <method_code>
+      <![CDATA[
+EBOM = function EBOM() {
+	
+	this.aras = top.aras;
+	
+	// Init dojo
+	require(["dojo", "dojo/query"], function (dojo, query) {
+		this._dojo = dojo;
+		this._query = query;
+	}.bind(this));
+	
+	this.icons = {};
+	this.IsExpandOnStart = true;
+	
+};
+
+EBOM.prototype = new BaseTreeGrid();
+
+EBOM.prototype.isEditable = function EBOM_isEditable() { 
+	var node = document.thisItem.node;
+	var state = top.aras.getItemProperty(node, "state", "null");
+	return top.aras.isTempEx(node) || ((!state || state === "null" || state === "New" || state === "In Planning") && top.aras.isLockedByUser(node));
+};
+
+EBOM.prototype.onBeforeInitialize = function EBOM_onBeforeInitialize() {};
+
+EBOM.prototype.initialize = function EBOM_Initialize() {
+    
+	this.columnList = [
+		{Name: "PN", Title: "", Class: PNCellClass, Width: "100%", 	Align: "l", DefaultOrder: 0, Edit: "NOEDIT"}		
+
+	];
+
+	this.onBeforeInitialize();
+	
+	var xml = '<table delim="|" editable="true" multiselect="true"> <thead>',
+		columnIndex,
+		column;
+	for(columnIndex = 0; columnIndex < this.columnList.length; columnIndex++) {
+		xml += ' <th align="c">' + this.columnList[columnIndex].Title + '</th>';
+	}
+	xml += '' +
+	' </thead>' +
+	' <columns>';	
+	for(columnIndex = 0; columnIndex < this.columnList.length; columnIndex++) {
+		column = this.columnList[columnIndex];
+		xml += ' <column width="' + column.Width +
+					'" align="' + column.Align +
+					(column.Edit ? '" edit="' + column.Edit : '') +
+					'" order="' + column.DefaultOrder +
+					'" colname="' + column.Name + '" />';
+	}	
+	xml += '' +
+	' </columns>' +
+	'</table>';
+	this.grid.InitXml(xml);
+	this.gridRefresh(true);
+};
+
+
+EBOM.prototype.GetDataSource = function EBOM_GetDataSource(forceGetRelationships) {
+
+    var requestAML = 
+    '<Item type="cs_sample_GenericItem" action="GetItemRepeatConfig" id="' + document.thisItem.getID() + '">' +
+    '   <Relationships>' +
+    '       <Item type="cs_sample_GenericItemStructure" repeatProp="related_id" repeatTimes="0"/>' +
+    '       <Item type="cs_sample_RelevantFamilies" select="related_id" action="get"/>' +
+    '   </Relationships>' +
+    '</Item>';
+        
+    var requestItem = document.thisItem.newItem();
+    requestItem.loadAML(requestAML);
+    requestItem = requestItem.apply();
+    
+    return requestItem;
+
+};
+
+
+EBOM.prototype.Draw = function EBOM_Draw(forceGetRelationships) {
+
+  this.grid.removeAllRows();
+	this.GridRowUserData = {};
+
+	var impactItem = this.GetDataSource(forceGetRelationships);
+	if(!impactItem) {
+		return;
+	}
+  impactItem = impactItem.node;    
+    
+	var partId = impactItem.getAttribute("id");
+	var rowID = this.DrawPartRow(impactItem, null, null);
+	var parents = {};
+	this.DrawChildrens(impactItem, partId, rowID, parents);
+};
+
+EBOM.prototype.DrawChildrens = function EBOM_DrawChildrens(parentItem, parentItemId, parent_row_id, parents) {
+	parents[parentItemId] = true;
+	var relatedItemIDs = parentItem.selectNodes("Relationships/Item/related_id/Item");
+
+	for(var i = 0; i < relatedItemIDs.length; i++) {
+		var childItem = relatedItemIDs[i];
+		var childID =  childItem.getAttribute("id");
+		var relationshipNode = relatedItemIDs[i].parentNode.parentNode;
+
+		var rowID = this.DrawPartRow(childItem, relationshipNode, parent_row_id);
+		if (parents[childID] !== true) {
+			this.DrawChildrens(childItem, childID, rowID, parents);
+		}
+	}
+
+	delete parents[parentItemId];
+};
+
+EBOM.prototype.DrawPartRow = function EBOM_DrawPartRow(itemNode, relationshipNode, parentRowId) {
+	var data = {itemNode: itemNode, relationshipNode: relationshipNode, parentRowId: parentRowId};
+	var row = new RowClass(this, data);
+
+	var itemID = "";
+	var	partItemType;
+	var icon = "";
+	var itemTypeId;
+	
+	if (itemNode) {	    
+		itemID = itemNode.getAttribute("id");
+		itemTypeId = top.aras.getItemProperty(itemNode, "itemtype");
+		if (this.icons[itemTypeId]) {
+			icon = this.icons[itemTypeId];
+		} else {
+			var itemType = top.aras.getItemTypeForClient(itemTypeId, "id");
+			icon = this.getProperty(itemType.node, "open_icon");
+			this.icons[itemTypeId] = icon;
+		}
+	}
+
+	var newRowID = (parentRowId || "") + itemID + this.getProperty(relationshipNode, "sort_order");
+
+	if(!parentRowId) {
+		this.grid.insertRoot(newRowID, row.getValues(), newRowID, icon, icon);
+	} else {
+		this.grid.insertNewChild(parentRowId, newRowID, row.getValues(), newRowID, icon, icon);
+	}
+	
+	row.bind(newRowID);
+
+	return newRowID;
+};
+
+EBOM.prototype.gridRefresh = function EBOM_gridRefresh(forceGetRelationships) {
+    
+	forceGetRelationships = !!forceGetRelationships;
+
+	this.grid.setPaintEnabled(false);
+	document.getElementById(this.grid.connectId_Experimental).style.display = 'none';
+	document.getElementById('dimmer_spinner').style.display = '';
+	var self = this;
+
+	setTimeout(function(){
+		try {
+			var gridState = self.GetGridState();
+			self.Draw(forceGetRelationships);
+			setTimeout(function()
+			{
+				self.SetGridState(gridState);
+				if (typeof self.IsExpandOnStart === "boolean") {
+					self.IsExpandOnStart ? self.grid.expandAll() : self.grid.collapseAll();
+					delete self.IsExpandOnStart;
+				}
+			},0);
+		} finally {
+			document.getElementById('dimmer_spinner').style.display = 'none';
+			document.getElementById(self.grid.connectId_Experimental).style.display = '';
+			self.grid.setPaintEnabled(true);
+		}
+	} ,0);
+};
+
+EBOM.prototype.onGridDoubleClick = function EBOM_onGridDoubleClick(eArg) {
+	var rowId = eArg.rowId;
+	var rowItem = this.GridRowUserData[rowId];
+	if (rowItem.itemId) {
+		top.aras.uiShowItem(rowItem.itemType, rowItem.itemId);
+	}
+};
+
+EBOM.prototype.onGridLinkClick = function EBOM_onGridLinkClick(eArg) {
+	eval("top.aras.uiShowItem(" + eArg.linkData + ")");
+};
+
+EBOM.prototype.refreshGridWithTimout = function EBOM_refreshGridWithTimout(forceGetRelationships) {
+	forceGetRelationships = !!forceGetRelationships;
+
+	//If Refresh will be called multiple times per one execution scope then postponned call of Refresh_Impl will be canceled and initiated new call
+	//That is mean that Refresh_Impl will be called once.
+	if(this.Refresh_Impl_timeout) {
+		clearTimeout(this.Refresh_Impl_timeout);
+		delete this.Refresh_Impl_timeout;
+	}
+	var self = this;
+	//Need setTimeout because during handling OnPopulated event document.thisItem contain old item and it will be refreshed after OnPopulated event
+	this.Refresh_Impl_timeout = setTimeout(function () {
+		self.gridRefresh(forceGetRelationships);
+	}, 0);
+}
+
+RowClass = function (grid, data) {
+	this.grid = grid;
+	this.data = data;
+
+	this.cells = [];
+	this.length = this.grid.columnList.length;
+
+	for(var cellIndex = 0; cellIndex < this.length; cellIndex++) {		
+		var column = this.grid.columnList[cellIndex];
+		var cell;
+		if(column) {
+			cell = new column.Class();
+			cell.initialize(cellIndex, this.grid, this);
+		}
+		else {
+			cell = new DefaultCellClass();
+			cell.initialize(cellIndex, this.grid, this);
+		}
+
+		this.cells[cell.name] = cell;
+	}		
+};
+
+RowClass.prototype = {
+	grid: null,
+	cells: [],
+	length: 0,
+	data: null,
+	
+	getValues: function() {
+		var rowText = [];
+		for(var cellName in this.cells)
+		{
+			var cell = this.cells[cellName];
+			var domValue = cell.getValueFromDom();
+			var uiValue = cell.convertValueForUI(domValue);
+			rowText.push(uiValue);
+		}
+		
+		return rowText.join("|");
+	},
+	
+	bind: function(rowId, parentId) {
+		var itemID = "";
+		var	partItemType;
+		var icon = "";
+		var itemTypeId;
+		
+		if (this.data.itemNode) {
+			itemID = this.data.itemNode.getAttribute("id");
+			partItemType = this.data.itemNode.getAttribute("type");
+		}
+				
+		if(!partItemType && this.data.newItemIdItem) {
+			var itemNodeItemTypeId = top.aras.getItemProperty(this.data.newItemIdItem, "itemtype");
+			partItemType = this.data.newItemIdItem.getAttribute("type");
+		}
+		
+		this.grid.GridRowUserData[rowId] = {
+			itemType: partItemType,
+			itemId: itemID,
+			parentId: parentId
+		};
+
+		this.grid.GridRowUserData[rowId]["gridData_rowItemType"] =  partItemType;
+		this.grid.GridRowUserData[rowId]["gridData_rowItemID"] =  itemID;
+		
+			
+		if(this.data.relationshipNode) {
+			this.grid.GridRowUserData[rowId]["gridData_bomID"] =  this.data.relationshipNode.getAttribute("id");
+		}
+		
+		var rowBg = [];
+		
+		for(var cellName in this.cells) {
+			var cell = this.cells[cellName];
+			var linkData = cell.getLink();
+			if(linkData) {
+				this.grid.setLink(rowId, linkData.type, linkData.id, cell.columnIndex);
+			}
+			
+		}
+	}
+};
+
+DefaultCellClass = function() {
+};
+
+DefaultCellClass.prototype = {
+	grid: null,
+	columnIndex: null,
+	row: null,
+
+	initialize: function(columnIndex, grid, row) {
+		this.grid = grid;
+		this.columnIndex = columnIndex;
+		this.name = this.grid.columnList[this.columnIndex].Name;
+		this.row = row;
+	},
+	
+	getLink: function() {
+		return null;
+	},
+
+	convertValueForUI: function(value) {
+		return value;
+	},
+
+	getValueFromDom: function() {
+		return "";
+	}
+};
+
+function PNCellClass() { }
+PNCellClass.prototype = new DefaultCellClass();
+
+PNCellClass.prototype.getValueFromDom = function() {
+	if(this.row.data.itemNode) {
+		return this.grid.getProperty(this.row.data.itemNode, "name");
+	}
+	else {
+		return "";
+	}
+};
+
+PNCellClass.prototype.getLink = function() {
+	var linkData = null;
+	
+	if (this.row.data.itemNode) {
+		linkData = {};
+		linkData.id = this.row.data.itemNode.getAttribute("id");
+		linkData.type = this.row.data.itemNode.getAttribute("type");
+	}
+	
+	return linkData;
+};
+
+function RevisionCellClass() { }
+RevisionCellClass.prototype = new DefaultCellClass();
+
+RevisionCellClass.prototype.getValueFromDom = function() {
+    
+	if(this.row.data.itemNode) {
+		return this.grid.getProperty(this.row.data.itemNode, "major_rev");
+	}
+	else {
+	    return "";
+	}
+};
+
+function StateCellClass() { }
+StateCellClass.prototype = new DefaultCellClass();
+
+StateCellClass.prototype.getValueFromDom = function() {
+    
+	if(this.row.data.itemNode) {
+		return this.grid.getProperty(this.row.data.itemNode, "state");
+	}
+	else {
+	    return "";
+	}
+};
+
+function SequenceCellClass() { }
+SequenceCellClass.prototype = new DefaultCellClass();
+
+SequenceCellClass.prototype.getValueFromDom = function() {
+    
+	if(this.row.data.itemNode) {
+		return this.grid.getProperty(this.row.data.itemNode, "sequence");
+	}
+	else {
+	    return "";
+	}
+};
+
+function QuantityCellClass() { }
+QuantityCellClass.prototype = new DefaultCellClass();
+
+QuantityCellClass.prototype.getValueFromDom = function() {
+    
+	if(this.row.data.relationshipNode) {
+		return this.grid.getProperty(this.row.data.relationshipNode, "quantity");
+	} 
+	else {
+		return "";
+	}
+};
+
+function LockedByCellClass() { }
+LockedByCellClass.prototype = new DefaultCellClass();
+
+LockedByCellClass.prototype.getValueFromDom = function() {
+    
+	if(this.row.data.itemNode) {
+		return this.grid.getProperty(this.row.data.itemNode, "locked_by_id");
+	}
+	else {
+	    return "";
+	}
+};
+
+function NameCellClass() { }
+NameCellClass.prototype = new DefaultCellClass();
+
+NameCellClass.prototype.getValueFromDom = function() {
+    
+	if(this.row.data.itemNode) {
+		return this.grid.getProperty(this.row.data.itemNode, "name");
+	}
+	else {
+	    return "";
+	}
+};
+
+function RefDesCellClass() { }
+RefDesCellClass.prototype = new DefaultCellClass();
+
+RefDesCellClass.prototype.getValueFromDom = function() {
+    
+	if(this.row.data.relationshipNode) {
+		return this.grid.getProperty(this.row.data.relationshipNode, "reference_designator");
+	} 
+	else {
+		return "";
+	}
+};
+]]>
+    </method_code>
+    <method_type>JavaScript</method_type>
+    <name>cs_sample_GenericItem FamilyTree</name>
+  </Item>
+</AML>
