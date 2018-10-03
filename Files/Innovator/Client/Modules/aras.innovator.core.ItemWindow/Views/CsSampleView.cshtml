@@ -420,7 +420,7 @@
 				var relationshipsGrid = relationships.iframesCollection[relationships.currTabID].contentWindow.relationshipsGrid;
 				connect.connect(relationshipsGrid, 'updateControls', refreshViewTabsAvailability);
 
-				// at this point, iframes from UrlViewers allready attached to document and shortcuts can be blocked
+				// at this point, iframes from UrlViewers already attached to document and shortcuts can be blocked
 				returnBlockerHelper.blockInChildFrames(window, true);
 
 				viewsController.controls.tabViewContol = tabViewContol;
