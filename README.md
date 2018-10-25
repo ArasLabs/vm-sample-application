@@ -12,6 +12,7 @@ Sample data is provided along with the sample application. Loading the sample da
 
 Release | Notes
 --------|--------
+[11.0.15.1](https://github.com/ArasLabs/vm-sample-application/releases/tag/11.0.15.1) | Updated to support Aras 11.0 SP15.
 [11.0.14.1](https://github.com/ArasLabs/vm-sample-application/releases/tag/11.0.14.1) | Updated to support Aras 11.0 SP14. 
 [11.0.12.1](https://github.com/ArasLabs/vm-sample-application/releases/tag/11.0.12.1) | First release.
 
@@ -19,6 +20,7 @@ Release | Notes
 
 Project | Aras
 --------|------
+[11.0.15.1](https://github.com/ArasLabs/vm-sample-application/releases/tag/11.0.15.1) | 11.0 SP15
 [11.0.14.1](https://github.com/ArasLabs/vm-sample-application/releases/tag/11.0.14.1) | 11.0 SP14
 [11.0.12.1](https://github.com/ArasLabs/vm-sample-application/releases/tag/11.0.12.1) | 11.0 SP12
 
@@ -29,7 +31,7 @@ Project | Aras
 
 ### Pre-requisites
 
-1. Aras Innovator installed (version 11.0 SP14)
+1. Aras Innovator installed (version 11.0 SP15)
 2. [Aras Update](http://www.aras.com/support/downloads/) installed (version 1.5+)
 3. Variant Management Sample Application package
 
@@ -48,7 +50,7 @@ Project | Aras
 6. Choose **Detailed Logging** and click **Next**.
 7. Enter the required parameters for the target Aras Innovator instance. Which parameters are required varies based on which components you have selected to install.
     * When selecting the install path for your Innovator instance, be sure to select the Innovator subfolder. 
-    * Example: If your Innovator instance is installed in `C:\Program Files (x86)\Aras\11SP14`, select `C:\Program Files (x86)\Aras\11SP14\Innovator`.
+    * Example: If your Innovator instance is installed in `C:\Program Files (x86)\Aras\11SP15`, select `C:\Program Files (x86)\Aras\11SP15\Innovator`.
 8. Click **Install** to begin installing the package.
 9. When the package finishes installing, close Aras Update.
 
