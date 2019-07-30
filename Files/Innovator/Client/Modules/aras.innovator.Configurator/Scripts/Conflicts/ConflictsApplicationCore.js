@@ -127,7 +127,7 @@ function(declare, connect, ScaleSlider, Conflicts) {
 				}
 			}
 
-			// extract all conflict constants, grouped by variables
+			// extract all conflict contants, grouped by variables
 			var variableIds = Object.keys(variables);
 			for (var v = 0; v < variableIds.length; v++) {
 				var variableId = variableIds[v];

@@ -5,6 +5,8 @@ var itemId;
 var scopeItem;
 var allValues;
 var selectedValues;
+const cellAnchorsForAvailabilitySubs = new Set();
+
 constantIdsHash = {
 	addConstantId: function(variableId, namedConstantId, namedConstantName) {
 		if (!this[namedConstantName]) {
@@ -66,6 +68,7 @@ reloadView = function(newGenericItemStructure) {
 
 		allValues = null;
 		selectedValues = null;
+		cellAnchorsForAvailabilitySubs.clear();
 		updateButtonsAvailability();
 	} else {
 		createUIControls();
@@ -607,29 +610,34 @@ refreshOptionsAvailability = function() {
 			var selectionCell = gridControl.grid_Experimental.layout.cells[2];
 			var cellLayout = selectionCell.cellLayoutLists;
 
+			if (!cellAnchorsForAvailabilitySubs.has(selectionCell)) {
 			// timeout is required here because 'widget' object is not loaded yet
-			setTimeout(function() {
-				selectionCell.widget.on('change', function(item) {
-					selectedValues = selectedValues || {};
-					var selectedVariableId = gridControl.getSelectedId();
-					selectedValues[selectedVariableId] = constantIdsHash.getConstantId(selectedVariableId, item);
-					updateButtonsAvailability();
-					if (!isConstantAvailable(selectedVariableId, item)) {
-						this.textbox.classList.add('disabledOption');
-					} else {
-						this.textbox.classList.remove('disabledOption');
-					}
-				});
-				selectionCell.widget.on('search', function() {
-					var menuItems = this.dropDown.domNode.getElementsByClassName('dijitMenuItem');
-					for (var itemIndex = 0, length = menuItems.length; itemIndex < length; itemIndex++) {
-						var menuItem = menuItems[itemIndex];
-						if (!isConstantAvailable(gridControl.getSelectedId(), menuItem.innerText)) {
-							menuItem.classList.add('disabledOption');
+				setTimeout(function() {
+					selectionCell.widget.on('change', function(item) {
+						selectedValues = selectedValues || {};
+						var selectedVariableId = gridControl.getSelectedId();
+						selectedValues[selectedVariableId] = constantIdsHash.getConstantId(selectedVariableId, item);
+						updateButtonsAvailability();
+						if (!isConstantAvailable(selectedVariableId, item)) {
+							this.textbox.classList.add('disabledOption');
+						} else {
+							this.textbox.classList.remove('disabledOption');
 						}
-					}
-				});
-			}, 0);
+					});
+					selectionCell.widget.on('search', function() {
+						var menuItems = this.dropDown.domNode.getElementsByClassName('dijitMenuItem');
+						for (var itemIndex = 0, length = menuItems.length; itemIndex < length; itemIndex++) {
+							var menuItem = menuItems[itemIndex];
+							if (!isConstantAvailable(gridControl.getSelectedId(), menuItem.innerText)) {
+								menuItem.classList.add('disabledOption');
+							}
+						}
+					});
+				}, 0);
+
+				cellAnchorsForAvailabilitySubs.add(selectionCell);
+			}
+
 			for (var i = 0; i < cellLayout.length; i++) {
 				var gridItem = familyGridData.gridItems[i];
 				var variableId = gridItem.uniqueId[0];

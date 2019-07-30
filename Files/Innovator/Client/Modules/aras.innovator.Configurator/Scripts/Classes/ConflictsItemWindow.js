@@ -9,7 +9,7 @@
 
 		ConflictsItemWindow.prototype = new DefaultItemWindowView();
 
-		// override default size of window, because it's very small
+		// ovveride default size of window, because it's very small
 		ConflictsItemWindow.prototype.getWindowProperties = function() {
 			var topWindow = aras.getMainWindow();
 			var screenHeight = topWindow.screen.availHeight;

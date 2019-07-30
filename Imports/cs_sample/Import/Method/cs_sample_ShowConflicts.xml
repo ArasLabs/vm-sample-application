@@ -4,7 +4,7 @@
   <method_code><![CDATA[return ModulesManager.using(
 	['aras.innovator.Configurator/ConflictsItemWindow',
 	'aras.innovator.core.ItemWindow/DefaultItemWindowCreator'
-	]).then(function(View, Creator) {
+	], function(View, Creator) {
 		if (!inArgs) {
 			inArgs = {};
 		}

@@ -83,15 +83,15 @@ function(declare, domConstruct) {
 					return window.html2canvas(nodeToConvert);
 				};
 				return new Promise(function(resolve) {
-					require(['../vendors/html2canvas.min.js',
-					'../vendors/html2canvas.svg.min.js'], function(html2canvas, html2canvasSvg) {
+					require(['../Modules/aras.innovator.Configurator/Scripts/3rdPartyLibs/html2canvas.min.js',
+					'../Modules/aras.innovator.Configurator/Scripts/3rdPartyLibs/html2canvas.svg.min.js'], function(html2canvas, html2canvasSvg) {
 						window.html2canvas = html2canvas;
 						window.html2canvas.svg = html2canvasSvg;
 						resolve();
 					});
 				}).then(getImageFromNode, getImageFromNode);
 			} else {
-				return window.ModulesManager.using(['aras.innovator.Printing/DomToSVG'], true).then(function(domToSVG) {
+				return window.ModulesManager.using(['aras.innovator.Printing/DomToSVG']).then(function(domToSVG) {
 					return domToSVG.toSVG(nodeToConvert, imageWidth, imageHeight);
 				});
 			}

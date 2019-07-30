@@ -28,11 +28,9 @@ function(declare) {
 
 				if (!cachedForm) {
 					var formId = itemTypeName + '_' + formMode + (classification ? '_' + classification : '');
-					var formSrc = this.aras.getScriptsURL() + 'blank.html';
 
 					cachedForm = document.createElement('iframe');
 					cachedForm.setAttribute('id', formId);
-					cachedForm.setAttribute('src', formSrc);
 					cachedForm.setAttribute('frameBorder', '0');
 					cachedForm.setAttribute('width', '100%');
 					cachedForm.setAttribute('height', '100%');
@@ -103,7 +101,6 @@ function(declare) {
 
 					cachedForm = document.createElement('iframe');
 					cachedForm.setAttribute('id', formId);
-					cachedForm.setAttribute('src', this.aras.getScriptsURL() + 'blank.html');
 					cachedForm.setAttribute('frameBorder', '0');
 					cachedForm.setAttribute('width', formDisplay.getProperty('width') + 'px');
 					cachedForm.setAttribute('height', formDisplay.getProperty('height') + 'px');

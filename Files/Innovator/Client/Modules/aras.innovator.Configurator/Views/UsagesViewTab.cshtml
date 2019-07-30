@@ -96,8 +96,8 @@
 			text-align: center;
 		}
 	</style>
+	<script type="text/javascript" src="@Url.ContentWithSalt("~/javascript/include.aspx?classes=ArasModules,XmlDocument")"></script>
 	<script type="text/javascript" src="@Url.ContentWithSalt("~/javascript/include.aspx?classes=/dojo.js")" data-dojo-config="isDebug: false, parseOnLoad: false, baseUrl:'@Url.ContentWithSalt("~/javascript/dojo")'"></script>
-	<script type="text/javascript" src="@Url.ContentWithSalt("~/javascript/include.aspx?classes=XmlDocument")"></script>
 	<script type="text/javascript" src="@Url.ContentWithSalt("~/Modules/aras.innovator.Configurator/Scripts/Usages/UsagesTabViewController.js")"></script>
 </head>
 <body class="claro ruleEditor">
@@ -108,15 +108,13 @@
 		<div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="region:'center', splitter:true, gutters:false" id="ruleEditorContainer" style="height:60%; width:70%;">
 			<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'top'" id="ruleEditorToolbar" style="height:30px;"></div>
 			<div id="xmlExpressionContainer">
-				<iframe src="@Url.ContentWithSalt("~/scripts/blank.html")" frameborder="0"></iframe>
+				<iframe frameborder="0"></iframe>
 			</div>
 			<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'" id="ruleEditorControl"></div>
 			<div id="editorMessageContainer"></div>
 		</div>
 		<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'right', splitter:true" id="usageHelpersContainer" style="width:350px;">
-		    <div id="tabs-container" class="aras-tabs aras-flex-grow">
-                <div></div>
-            </div>
+			<aras-tabs id="tabs-container" class="aras-flex-grow"></aras-tabs>
 		</div>
 	</div>
 </body>

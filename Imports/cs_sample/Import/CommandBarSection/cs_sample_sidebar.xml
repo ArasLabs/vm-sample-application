@@ -2,7 +2,7 @@
  <Item type="CommandBarSection" id="F9B41F52101A6B3F3647267F1AC77491" action="add">
   <classification>Data Model</classification>
   <label xml:lang="en">Cs Sample Sidebar</label>
-  <location_name>ItemWindowSidebar</location_name>
+  <location keyed_name="ItemWindowSidebar" type="cui_Location">BC1CFDCECA434111B7A88A51EE430CC5</location> 
   <name>cs_sample_sidebar</name>
   <Relationships>
    <Item type="CommandBarSectionItem" id="BFF4800814592013C3B996CA43837D02" action="add">

@@ -320,7 +320,7 @@ function(declare, connect, TreeGridAdapter, CFGTreeGridContainer, RenderUtils) {
 					gridStore.setValue(selectedChildItems[i], 'checked', false);
 				}
 
-				// uncheck parent items, if they have no other selected children
+				// uncheck parent items, if they have no other selected childs
 				if (parentId) {
 					var itemsByIdentity = gridStore._itemsByIdentity;
 					var parentItem;

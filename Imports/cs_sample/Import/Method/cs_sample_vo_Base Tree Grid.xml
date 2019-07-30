@@ -66,7 +66,7 @@ BaseTreeGrid.prototype = {
 		if(this.controlGridMenuClickHandler){
 				this.controlGridMenuClickHandler(menuChoice);
 		}
-		//will be overridden in controlGridMenuInit;
+		//will be overrided in controlGridMenuInit;
 	},
 	
 	controlGridKeyPress: function(key) {
