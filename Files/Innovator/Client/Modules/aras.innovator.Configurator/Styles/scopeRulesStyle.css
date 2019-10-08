@@ -95,6 +95,8 @@
 }
 
 #scopeTree .aras_lazytreegrid_icon {
+	height: auto;
+	width: auto;
 	max-height: 22px;
 	max-width: 22px;
 	vertical-align: middle;

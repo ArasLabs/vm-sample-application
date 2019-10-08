@@ -22,6 +22,20 @@
 		ValidOptionName: '_ValidOptionNames'
 	};
 
+	if (!parserInstance.standardGrammarLexemes) {
+		parserInstance.standardGrammarLexemes = new Set(
+			[].concat(
+				usageNameValueCollectionMap.LogicOperator,
+				usageNameValueCollectionMap.OpenBracket,
+				usageNameValueCollectionMap.CloseBracket,
+				usageNameValueCollectionMap.OpenSquareBracket,
+				usageNameValueCollectionMap.CloseSquareBracket,
+				usageNameValueCollectionMap.NotLiteral,
+				usageNameValueCollectionMap.BooleanOperator
+			)
+		);
+	}
+
 	function validateWithValueCollection(valueCollectionName, key) {
 		var valueCollection = parserInstance.getValueCollectionByRuleName(valueCollectionName);
 		var lowerCaseValue;
@@ -233,7 +247,7 @@ noSquareBracketString 'noSquareBracketString'
 	= [^\[\]]+
 
 noSpecialCharactersString 'noSpecialCharactersString'
-	= [^ \t\n\r\(\)=\[\]]+
+	= [0-9A-Za-z]+
 
 _ 'whitespace'
 	= [ \t\n\r]+ {return {type: 'whitespace', text: text()}}

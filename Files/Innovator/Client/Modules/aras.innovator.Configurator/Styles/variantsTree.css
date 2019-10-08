@@ -46,6 +46,10 @@
 	margin-right: 5px;
 }
 
+.printButton {
+	display: none;
+}
+
 .rotateImage {
 	position: absolute;
 	top: 1px;

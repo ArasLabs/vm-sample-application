@@ -185,7 +185,7 @@ createUIControls = function() {
 	require([
 		'dojo/parser',
 		'Controls/Common/RenderUtils',
-		'Controls/RuleEditor/RuleEditorControl',
+		'Modules/aras.innovator.Configurator/Scripts/Classes/ruleEditor/csRuleEditorControl',
 		'Configurator/Scripts/RuleEditor/UsageTemplate',
 		'dojo/text!Configurator/Styles/XMLtoHTML.xsl'
 	], function(parser, RenderUtils, EditorControl, UsageTemplate, TranformXSL) {
