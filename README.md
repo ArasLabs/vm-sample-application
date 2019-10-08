@@ -12,7 +12,7 @@ Sample data is provided along with the sample application. Loading the sample da
 
 Release | Notes
 --------|--------
-[12.0 R2.0](https://github.com/ArasLabs/vm-sample-application/releases/tag/12.0%20R2.0) | Updated to support Aras 12.0 SP1
+[12.0 R2.0](https://github.com/ArasLabs/vm-sample-application/releases/tag/12.0R2.0) | Updated to support Aras 12.0 SP1
 [12.0.0.1](https://github.com/ArasLabs/vm-sample-application/releases/tag/12.0.0.1) | Updated to support Aras 12.0 SP0.
 [11.0.15.1](https://github.com/ArasLabs/vm-sample-application/releases/tag/11.0.15.1) | Updated to support Aras 11.0 SP15.
 [11.0.14.1](https://github.com/ArasLabs/vm-sample-application/releases/tag/11.0.14.1) | Updated to support Aras 11.0 SP14. 
@@ -22,7 +22,7 @@ Release | Notes
 
 Project | Aras
 --------|------
-[12.0 R2.0](https://github.com/ArasLabs/vm-sample-application/releases/tag/12.0%20R2.0) | 12.0 SP1
+[12.0 R2.0](https://github.com/ArasLabs/vm-sample-application/releases/tag/12.0R2.0) | 12.0 SP1
 [12.0.0.1](https://github.com/ArasLabs/vm-sample-application/releases/tag/12.0.0.1) | 12.0 SP0
 [11.0.15.1](https://github.com/ArasLabs/vm-sample-application/releases/tag/11.0.15.1) | 11.0 SP15
 [11.0.14.1](https://github.com/ArasLabs/vm-sample-application/releases/tag/11.0.14.1) | 11.0 SP14
