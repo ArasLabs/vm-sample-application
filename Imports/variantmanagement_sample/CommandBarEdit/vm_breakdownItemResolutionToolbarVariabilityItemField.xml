@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="CommandBarEdit" id="45C5327814A648EAB9B08DCB6D2CED42" action="add">
+  <additional_data>{type: "effs_item_field", itemtype: "vm_VariabilityItem", fieldItemClassName: "vm-resolution-selection__variability-item-field"}</additional_data>
+  <on_init_handler keyed_name="vm_brkdwnItmRsltnVarItmFldInit" type="Method">29F33F25517E48C5A978189BDFA520CF</on_init_handler>
+  <name>vm_breakdownItemResolutionToolbarVariabilityItemField</name>
+ </Item>
+</AML>

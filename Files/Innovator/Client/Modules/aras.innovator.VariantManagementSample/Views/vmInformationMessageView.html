@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../../../javascript/include.aspx?classes=common.min.css" />
+	<link rel="stylesheet" href="../styles/variantManagement.css" />
+	<script src="../Scripts/vmInformationMessageViewController.js"></script>
+	<script>
+		window.addEventListener('DOMContentLoaded', function() {
+			const dialogArguments = window.frameElement.dialogArguments;
+
+			const parameters = {
+				aras: dialogArguments.aras,
+				informationMessage: dialogArguments.informationMessage,
+				informationMessageElement: document.querySelector('.vm-information-message-container__text'),
+				closeButtonElement: document.querySelector('.vm-splitter-pane-view__close-button'),
+				closeButtonClickHandler: dialogArguments.closeButtonClickHandler
+			};
+			new VmInformationMessageViewController(parameters);
+		});
+	</script>
+</head>
+<body class="vm-splitter-pane-view aras-flex aras-flex_column">
+	<div class="vm-splitter-pane-view__titlebar aras-titlebar aras-titlebar_c aras-flex">
+		<span class="vm-splitter-pane-view__close-button aras-toolbar__item aras-toolbar__icon aras-hide aras-dialog__close-button aras-icon-close"></span>
+	</div>
+	<div class="vm-information-message-container">
+		<img src="../../../images/Information.svg">
+		<span class="vm-information-message-container__text"></span>
+	</div>
+</body>
+</html>

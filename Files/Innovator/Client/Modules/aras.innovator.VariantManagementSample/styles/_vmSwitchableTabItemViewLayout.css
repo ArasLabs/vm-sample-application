@@ -1,0 +1,16 @@
+﻿.vm-item-view-switcher {
+	height: 100%;
+}
+
+.aras-switcher-pane {
+	width: 100%;
+	height: 100%;
+}
+
+.aras-switcher-pane:not(.aras-switcher-pane_active) {
+	overflow: hidden;
+}
+
+.aras-switcher-pane_border_none {
+	border: 0;
+}

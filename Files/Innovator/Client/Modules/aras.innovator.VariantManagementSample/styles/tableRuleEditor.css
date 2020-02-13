@@ -1,0 +1,515 @@
+﻿.claro .dojoxGrid .dojoxGridRowOdd .dojoxGridRowTable tr {
+	background-color: #FFFFFF;
+}
+
+#ruleTextRepresentation {
+	position: relative;
+	border-top: 1px solid #D4D4D4;
+}
+
+#ruleTextRepresentation .representationTitle:before {
+	content: "";
+	display: inline-block;
+	height: 100%;
+	vertical-align: middle;
+}
+
+#ruleTextRepresentation .representationTitle {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 122px;
+	bottom: 0px;
+	border-right: 1px solid #D4D4D4;
+	background-color: #F5F5F5;
+	color: #606060;
+	font-size: 13px;
+	text-align: center;
+}
+
+#ruleTextRepresentation .ruleText {
+	position: absolute;
+	background-color: #FFFFFF;
+	left: 123px;
+	right: 0px;
+	top: 0px;
+	bottom: 0px;
+	font-size: 12px;
+	padding: 5px;
+	color: #606060;
+	line-height: 28px;
+	white-space: normal;
+	overflow-y: auto;
+}
+
+.ruleText .optionExpression {
+	position: relative;
+	padding: 0px 4px;
+	margin: 0px 3px;
+	font-size: 13px;
+}
+
+.optionExpression.principalOption {
+	background-color: #E6F5F7;
+	border: 1px dashed #C0E6ED;
+}
+
+.optionExpression.constrainedOption {
+	cursor: pointer;
+	background-color: #FCF9DE;
+	border: 1px dashed #EDE7B2;
+}
+
+.optionExpression.phantomOption {
+	background-color: #FAFAFA;
+	border: 1px dashed #E0E0E0;
+}
+
+.optionExpression.constrainedOption:hover, .optionExpression.constrainedOption.selectedOption {
+	background-color: #FCF6C2;
+	border-style: solid;
+	border-color: #D4CC87;
+}
+
+.optionExpression.constrainedOption.selectedOption:after {
+	content: ' ';
+	display: inline-block;
+	position: absolute;
+	bottom: -7px;
+	left: -5px;
+	right: -5px;
+	height: 3px;
+	border: 1px solid #808080;
+	border-top-style: none;
+}
+
+#tableEditor .dojoxGrid, #ruleGrid .dojoxGrid {
+	top: -1px;
+}
+
+#ruleGrid .dojoxGridRow.gridRowNotEditable .dojoxGridRowTable tr {
+	background-color: #FCFCFC !important;
+}
+
+#ruleGrid .dojoxGridRow.gridRowNotEditable .dojoxGridRowTable tr .dojoxGridCell {
+	font-style: italic !important;
+	color: #A0A0A0 !important;
+}
+
+#tableEditor .dojoxGridHeader table.dojoxGridRowTable tbody {
+	*background-color: #CBDCF2 !important;
+	*background-color: #DFE9F7 !important;
+	background-color: #EAEAEA !important;
+	border-collapse: separate;
+}
+
+#tableEditor .dojoxGridHeader:first-child .dojoxGridRowTable {
+	border-right: none;
+}
+
+#tableEditor .dojoxGridHeader:not(:first-child) .dojoxGridRowTable {
+	border-left: none;
+}
+
+#tableEditor .dojoxGridHeader table.dojoxGridRowTable tbody th.currentSelection {
+	*background-color: #CBDCF2 !important;
+	background-color: #B4D7DE !important;
+}
+
+#tableEditor .dojoxGridHeader table.dojoxGridRowTable tbody th.selectedHeaderCell {
+	background-color: #9FD6E0 !important;
+}
+
+#tableEditor .dojoxGridHeader table.dojoxGridRowTable tbody th.selectedHeaderCell:after {
+	position: absolute;
+	z-index: 1;
+	content: ' ';
+	bottom:0px;
+	height: 3px;
+	left: 0px;
+	right: 0px;
+	background-color: #61AAB8;
+}
+
+#tableEditor .dojoxGridHeader .dojoxGridCell {
+	padding-left: 1px !important;
+	padding-right: 1px !important;
+	font-size: 11px;
+}
+
+#tableEditor .dojoxGridCell {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.editorLegend {
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	line-height: 16px;
+	padding: 5px 0px 0px 20px;
+	text-align: left;
+}
+
+.editorLegend .legendIcon {
+	position: absolute;
+	top: 2px;
+	left: 0px;
+	opacity: 0.9;
+	width: 100%;
+	height: 100%;
+	background-image: url("../../../images/JustifyAlign.svg");
+	background-size: 28px 22px;
+	background-position: calc(50% - 35px) 50%;
+	background-repeat: no-repeat;
+	transition: left 0.2s ease;
+	line-height: 80px;
+	font-size: 16px;
+	text-align: center;
+	padding-left: 15px;
+}
+
+.editorLegend .legendItem {
+	opacity: 0.01;
+	transition: opacity 0.2s ease;
+}
+
+.editorLegend:hover .legendIcon {
+	left: -500px;
+}
+
+.editorLegend:hover .legendItem {
+	opacity: 1;
+}
+
+.legendItem .legendItemIcon {
+	width: 16px;
+	height: 10px;
+	display: inline-block;
+	border: 1px solid #606060;
+	margin-right: 5px;
+	vertical-align: middle;
+}
+
+#tableEditor .dojoxGridHeader table.dojoxGridRowTable tbody th[idx='0'] {
+	border-right-color: #707070 !important;
+}
+
+#tableEditor .dojoxGridHeader table.dojoxGridRowTable tbody th[idx='0']:hover {
+	background-color: #FFFFFF !important;
+}
+
+#tableEditor .dojoxGridHeader table.dojoxGridRowTable tbody th[idx='0'] .dojoxGridSortNode {
+	font-size: 11px;
+	transform: rotate(0deg);
+}
+
+#tableEditor .dojoxGridHeader .dojoxGridSortNode {
+	position: relative;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+#tableEditor .sortNodeContainer {
+	position: absolute;
+	top: 0px;
+	left: calc(50% - 40px);
+	width: 80px;
+	bottom: 0px;
+	transform: rotate(80deg);
+}
+
+#tableEditor .dojoxGridHeader table.dojoxGridRowTable th {
+	border-right: 1px solid #C0C0C0 !important;
+	border-bottom: 1px solid #707070 !important;
+	color: #606060;
+	line-height: 72px;
+}
+
+#tableEditor div.dojoxGridRowSelected .dojoxGridRowTable tr .dojoxGridCell.fixedCell {
+	background-color: #FAFAFA !important;
+}
+
+#tableEditor div.dojoxGridRowOver .dojoxGridRowTable tr .dojoxGridCell.fixedCell,
+#tableEditor div.dojoxGridRowSelected.dojoxGridRowOver .dojoxGridRowTable tr .dojoxGridCell.fixedCell {
+	*background-color: #CBDCF2 !important;
+	*background-color: #FAF2C0 !important;
+	background-color: #FAF6D9 !important;
+}
+
+#tableEditor div.dojoxGridRowSelected.highlightedRow .dojoxGridRowTable tr .dojoxGridCell.fixedCell {
+	background-color: #FCF6C2 !important;
+}
+
+#tableEditor div.dojoxGridRowOver .dojoxGridRowTable tr .dojoxGridCell,
+#tableEditor div.dojoxGridRowSelected .dojoxGridRowTable tr .dojoxGridCell {
+	background-color: #FFFFFF !important;
+}
+
+#tableEditor div.dojoxGridRow .dojoxGridRowTable tr .dojoxGridCell {
+	padding: 0px 1px 0px 1px !important;
+}
+
+#tableEditor .dojoxGridContent .dojoxGridRowTable .dojoxGridCell.dojoxGridCellOver,
+#tableEditor .dojoxGridContent .dojoxGridRowTable .dojoxGridCell.dojoxGridCellFocus {
+	*background-color: #CBDCF2 !important;
+	*background-color: #E6F0FC !important;
+	background-color: #D3E7EB !important;
+}
+
+#tableEditor .dojoxGridContent .dojoxGridRowTable .dojoxGridCell.dojoxGridCellFocus {
+	border-color: #606060 !important;
+	padding-left: 1px !important;
+	padding-right: 0px !important;
+}
+
+#tableEditor .dojoxGrid .dojoxGridRowTable {
+	border-collapse: separate;
+}
+
+#tableEditor .dojoxGridContent .dojoxGridRowTable {
+	width: 0px !important;
+}
+
+#tableEditor .fixedCell {
+	background-color: #FAFAFA !important;
+	*background-color: #FCF8DC !important;
+	border-color: #C0C0C0 !important;
+	border-right-color: #707070 !important;
+	border-width: 0px 1px 1px 1px !important;
+	outline: none !important;
+	color: #606060;
+	font-size: 11px;
+	text-align: center;
+}
+
+#tableEditor .highlightedRow .fixedCell {
+	background-color: #FCF6C2 !important;
+}
+
+#tableEditor .highlightedRow .fixedCell:after {
+	position: absolute;
+	z-index: 1;
+	content: ' ';
+	top:0px;
+	height: 34px;
+	right: 0px;
+	width: 3px;
+	background-color: #C4BD7E;
+}
+
+#tableEditor .dojoxGridRowTable .dojoxGridCell.fixedCell.dojoxGridCellFocus {
+	background-color: #FAFAFA !important;
+	border-color: #C0C0C0 !important;
+	border-style: none solid solid none !important;
+	border-right-color: #707070 !important;
+	padding-left: 1px !important;
+	padding-right: 1px !important;
+	padding-bottom: 0px !important;
+}
+
+#tableEditor .dojoxGridRow.gridRowGroupSplitter .dojoxGridRowTable .dojoxGridCell {
+	border-bottom: 1px solid #707070 !important;
+}
+
+#tableEditor .dojoxGridRow.gridRowGroupSplitter .dojoxGridRowTable .dojoxGridCell.fixedCell {
+	border-bottom-style: solid !important;
+}
+
+#tableEditor .dojoxGridRow .dojoxGridRowTable .dojoxGridCell.fixedCell span {
+	line-height: 32px;
+}
+
+#tableEditor .dojoxGridHeader .dojoxGridCell .firstGroupItemName, #tableEditor .dojoxGridHeader .editorLegend .horizontalGroupName  {
+	position: absolute;
+	z-index: 5;
+	width: 72px;
+	top: 0px;
+	height: 10px;
+	background-color: #707070;
+	padding: 0px 8px;
+	color: #FFFFFF;
+	line-height: 10px;
+	font-size: 11px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	transform: rotate(90deg);
+	transform-origin: 5px 3px;
+}
+
+#tableEditor .dojoxGridHeader .editorLegend .horizontalGroupName {
+	top: 76px;
+	right: 0px;
+	text-align: center;
+	transform-origin: 100% 100%;
+}
+
+#tableEditor .dojoxGridHeader .dojoxGridCell .firstGroupItemName + .dojoxGridSortNode {
+	left: 4px;
+}
+
+#tableEditor .dojoxGridRow .dojoxGridRowTable .dojoxGridCell .firstGroupItemName, #tableEditor .dojoxGridHeader .editorLegend .verticalGroupName {
+	position: absolute;
+	z-index: 5;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	top: 0px;
+	height: 10px;
+	background-color: #707070;
+	padding: 0px 6px;
+	color: #FFFFFF;
+	line-height: 9px;
+	font-size: 11px;
+	text-align: center;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+#tableEditor .dojoxGridHeader .editorLegend .verticalGroupName {
+	top: auto;
+	bottom: -10px;
+}
+
+#tableEditor .dojoxGridRow .dojoxGridRowTable .dojoxGridCell .firstGroupItemName + span {
+	display: inline-block;
+	line-height: 18px;
+	margin-top: 12px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 100%;
+}
+
+.dijitMenuItem.dijitCheckedMenuItemChecked .dijitMenuArrowCell {
+	width: 25px;
+	background-image: url('../../../images/Checkmark.svg') !important;
+	background-position: 8px 5px !important;
+	background-size: 14px 14px !important;
+	background-repeat: no-repeat !important;
+}
+
+.dojoxGridCell .statusCell {
+	cursor: default;
+	border-width: 1px;
+	border-style: solid;
+	font-size: 12px;
+	line-height: 29px;
+	opacity: 0.8;
+	transition: border-width 0.1s ease, opacity 0.1s ease;
+}
+
+.dojoxGridCell.dojoxGridCellFocus .statusCell {
+	border-width: 2px;
+	border-color: #6B8054;
+	margin-right: 1px;
+	line-height: 26px;
+}
+
+.dojoxGridCell .statusCell.selectedStatusCell {
+	opacity: 1;
+}
+
+.dojoxGridCell .statusCell.unselectedStatusCell {
+	opacity: 0.3;
+}
+
+.dojoxGridCell .statusCell.deletedItem {
+	border-color: #808080;
+	background-color: #F0F0F0 !important;
+	opacity: 0.5 !important;
+}
+
+.includeStatus {
+	background-color: #CEE3B3;
+	border-color: #9BB37F;
+	color: #475733;
+}
+
+.excludeStatus {
+	background-color: #F2A994;
+	border-color: #CC7F6A;
+	color: #783928;
+}
+
+.disabledStatus {
+	color: #808080;
+	border-color: #B0B0B0;
+	background-color: #E0E0E0;
+}
+
+.multipleStatus {
+	background-color: #EDB579;
+	border-color: #B38049;
+	color: #80572B;
+}
+
+.menuItemIcon:before {
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	font-weight: bold;
+	line-height: 16px;
+	text-align: center;
+}
+
+.menuItemIcon.includeIcon:before {
+	content: 'I';
+	background-color: #DEF2C4;
+	border: 1px solid #AEC295;
+	color: #586943;
+}
+
+.menuItemIcon.excludeIcon:before {
+	content: 'E';
+	background-color: #FFBFAD;
+	border: 1px solid #D69583;
+	color: #8F503F;
+}
+
+.itemActionIcon {
+	position: relative;
+	left: -2px;
+	display: inline-block;
+	width: 18px;
+	height: 18px;
+	background-position: 0 0;
+	background-size: 18px 18px;
+	background-repeat: no-repeat;
+	vertical-align: middle;
+}
+
+.errorMessage {
+	position: absolute;
+	cursor: default;
+	top: 1px;
+	right: 1px;
+	width: 7px;
+	bottom: -3px;
+	background-color: #C96A59;
+	font-size: 16px;
+	line-height: 24px;
+	font-style: normal;
+	color: #FFFFFF;
+}
+
+.errorMessage:hover {
+	background-color: #D6806F;
+}
+
+.itemActionIcon.edit, .itemActionIcon.update {
+	background-image: url('../../../images/Change.svg');
+}
+
+.itemActionIcon.add {
+	background-image: url('../../../images/New.svg');
+}
+
+.itemActionIcon.delete {
+	background-image: url('../../../images/Delete.svg');
+}

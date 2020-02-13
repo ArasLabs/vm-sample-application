@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+		@@import "@Url.ContentWithSalt("~/javascript/include.aspx?files=claroGrid.css")";
+		@@import '@Url.ContentWithSalt("~/public/styles/controls.css")';
+		@@import "@Url.ContentWithSalt("~/styles/default.css")";
+		@@import "@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/styles/tableRuleEditor.css")";
+		@@import "@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/styles/cfgTree.css")";
+
+		html, body {
+			overflow: hidden;
+			width: 100%;
+			height: 100%;
+			margin: 0px;
+			padding: 0px;
+		}
+
+		.tableRuleEditor .dijitContentPane {
+			padding: 0px;
+			margin: 0px;
+		}
+
+		.controlTitle {
+			position: relative;
+			z-index: 5;
+			height: 14px;
+			background-color: #606060;
+			padding: 0px 0px 0px 8px !important;
+			line-height: 14px;
+			color:#FFFFFF;
+		}
+	</style>
+	<script type="text/javascript" src="@Url.ContentWithSalt("~/javascript/include.aspx?classes=/dojo.js")" data-dojo-config="isDebug: false, parseOnLoad: false, baseUrl:'@Url.ContentWithSalt("~/javascript/dojo")'"></script>
+	<script type="text/javascript" src="@Url.ContentWithSalt("~/javascript/include.aspx?classes=XmlDocument")"></script>
+	<script type="text/javascript" src="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/Scripts/tableRuleEditor/tableRuleEditorTabViewController.js")"></script>
+</head>
+<body class="claro tableRuleEditor">
+	<div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="liveSplitters:false, gutters:false" id="viewBorderContainer" style="width: 100%; height: 100%;  visibility:hidden;">
+		<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'top'" id="viewToolbar" style="height:30px; overflow: hidden"></div>
+		<div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="region:'left', splitter:true, liveSplitters:false, gutters:false, isVisible: true" id="sideControlsContainer" style="width:500px;">
+			<div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="region:'top', splitter:true, isVisible:true, gutters:false" id="familyTreeContainer" style="height:55%;">
+				<div id="familyTreeTitle" class="controlTitle" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'top', splitter:false" style="margin-bottom: 5px;">Features Tree</div>
+				<div id="familyTree" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'" style="height: 100%; width:100%;"></div>
+			</div>
+			<div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="region:'center', splitter:true, isVisible:true, gutters:false" id="ruleGridContainer">
+				<div id="ruleGridTitle" class="controlTitle" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'top', splitter:false">Rules List</div>
+				<div id="ruleGrid" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'" style="height: 100%; width:100%;"></div>
+			</div>
+		</div>
+		<div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="region:'center', splitter:true, liveSplitters:false, gutters:false" id="tableEditorContainer" style="height:60%; width:70%;">
+			<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center', splitter:true" id="tableEditor" style="top:-1px;"></div>
+			<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'bottom', splitter:true, isVisible:true" id="ruleTextRepresentation" style="height:80px;">
+				<div class="representationTitle">Rule Expression</div>
+				<div class="ruleText"></div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

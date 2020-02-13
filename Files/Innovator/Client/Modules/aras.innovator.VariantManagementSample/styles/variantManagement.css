@@ -1,0 +1,78 @@
+﻿.vm-title {
+	font: bold 1.166667rem / 1.2 Roboto, 'Noto Sans JP', Arial, sans-serif;
+	line-height: 20px;
+}
+
+.vm-fit-all-space {
+	width: 100%;
+	height: 100%;
+}
+
+.vm-padded-container {
+	padding: 16px;
+	padding-top: 12px;
+	box-sizing: border-box;
+}
+
+.vm-padded-page {
+	padding: 3px;
+	padding-top: 1px;
+	padding-left: 12px;
+	box-sizing: border-box;
+}
+
+.vm-flex {
+	display: flex;
+}
+
+.vm-splitter:before,
+.vm-splitter > .aras-splitter-ghost:before {
+	display: none;
+}
+
+.vm-splitter_vertical {
+	width: 0;
+	border-right-width: 2px;
+	border-right-color: #aaaaaa;
+}
+
+.vm-splitter-pane_left {
+	padding-right: 0;
+}
+
+.vm-splitter-pane_right {
+	width: 100%;
+}
+
+.vm-splitter-pane_min-width_305 {
+	min-width: 305px;
+}
+
+.vm-toolbar {
+	padding-bottom: 12px;
+}
+
+.vm-splitter-pane-view__titlebar {
+	padding-bottom: 8px;
+	align-items: center;
+}
+
+.aras-titlebar_c .aras-toolbar__item.vm-splitter-pane-view__title {
+	line-height: 20px;
+	margin-left: 4px;
+	text-overflow: ellipsis;
+}
+
+.vm-splitter-pane-view__close-button {
+	margin-left: auto;
+}
+
+.vm-information-message-container {
+	margin-top: 24%;
+	text-align: center;
+}
+
+.vm-information-message-container__text {
+	display: block;
+	margin-top: 22px;
+}

@@ -1,0 +1,22 @@
+﻿<AML>
+ <Item type="Method" id="679CD3A270CB42BF9D3E68FF038CCEBA" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[Stack<string> selectAttributesOfUsageConditionSourceItems;
+string requestStateKeyToStoreStackOfUsageConditionSourceItemSelectAttributes = "vm_stack_of_select_attributes_for_usage_condition_source_items";
+
+if (RequestState.Contains(requestStateKeyToStoreStackOfUsageConditionSourceItemSelectAttributes))
+{
+	selectAttributesOfUsageConditionSourceItems = (Stack<string>)RequestState[requestStateKeyToStoreStackOfUsageConditionSourceItemSelectAttributes];
+}
+else
+{
+	selectAttributesOfUsageConditionSourceItems = new Stack<string>();
+	RequestState.Add(requestStateKeyToStoreStackOfUsageConditionSourceItemSelectAttributes, selectAttributesOfUsageConditionSourceItems);
+}
+
+selectAttributesOfUsageConditionSourceItems.Push(this.getAttribute("select"));
+return this;]]></method_code>
+  <method_type>C#</method_type>
+  <name>vm_combineUsageStrNotationBefGet</name>
+ </Item>
+</AML>

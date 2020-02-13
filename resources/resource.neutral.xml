@@ -1,0 +1,14 @@
+﻿<resources>
+	<resource key="Innovator.URL" value="Server URL" />
+	<resource key="Innovator.DB" value="Database" />
+	<resource key="Innovator.Username" value="Username" />
+	<resource key="Innovator.Password" value="Password" />
+	<resource key="Innovator.Dir" value="Install Path" />
+
+	<resource key="Pkg.IS.Label" value="Aras Innovator Code Tree Updates" />
+	<resource key="Pkg.IS.Desc" value="Install into Aras Innovator application directory" />
+	<resource key="Pkg.DB.Label" value="Aras Innovator Database Updates" />
+	<resource key="Pkg.DB.Desc" value="Import in Innovator Database" />
+	<resource key="Pkg.DL.Label" value="Sample Data Loader" />
+	<resource key="Pkg.DL.Desc" value="Optional. Imports the action allowing to add sample data for the application" />
+</resources> 

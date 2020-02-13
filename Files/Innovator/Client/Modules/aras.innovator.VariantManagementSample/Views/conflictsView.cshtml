@@ -1,0 +1,34 @@
+﻿@{
+	ViewBag.HideMenu = true;
+	ViewBag.HideToolbar = true;
+	Layout = "../../aras.innovator.core.ItemWindow/Views/Shared/_Layout.cshtml";
+}
+@section style
+{
+	<style type="text/css">
+		@@import "@Url.ContentWithSalt("~/javascript/include.aspx?classes=common.min.css,variantsTree.css")";
+		@@import "@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/styles/conflicts.css")";
+		#top {
+			display: none;
+		}
+		#bottom {
+			bottom: 0;
+			position: fixed;
+			width: 100%;
+		}
+	</style>
+}
+@section header
+{
+	<script type="text/javascript" src="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/Scripts/conflicts/conflictsView.js")"></script>
+}
+@section center
+{
+	<div id="conflictsTitle">
+		<span>Conflicts</span>
+	</div>
+	<div id="conflictsControls">
+	</div>
+	<div id="conflictsContainer">
+	</div>
+}

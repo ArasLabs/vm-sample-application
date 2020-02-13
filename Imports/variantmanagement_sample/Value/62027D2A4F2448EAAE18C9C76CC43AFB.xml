@@ -1,0 +1,8 @@
+﻿<AML>
+ <Item type="Value" id="62027D2A4F2448EAAE18C9C76CC43AFB" action="add">
+  <label xml:lang="en">Variant Management</label>
+  <sort_order>3268</sort_order>
+  <source_id keyed_name="Categories" type="List">EAB29654E2CD4D30B376957788198B40</source_id>
+  <value>Variant Management</value>
+ </Item>
+</AML>

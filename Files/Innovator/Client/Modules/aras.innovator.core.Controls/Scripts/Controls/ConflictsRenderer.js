@@ -2,7 +2,7 @@
 	'dojo/_base/declare',
 	'dojo/_base/connect',
 	'dijit/popup',
-	'Controls/ConflictsVisualizationLayer',
+	'Controls/conflictsVisualizationLayer',
 	'Vendors/d3.min',
 ],
 function(declare, connect, popup, ConflictsLayer, d3Framework) {

@@ -1,0 +1,14 @@
+﻿<AML>
+ <Item type="CommandBarButton" id="C139DB40FDB4402AB55DC16016255A5E" action="add">
+  <additional_data>{
+   "paneId": "variant-tree-view-pane",
+   "contentPath": "/Modules/aras.innovator.VariantManagementSample/variantTreePage",
+   "imageBtnOn": "../images/CFGRule.svg",
+   "imageBtnOff": "../Modules/aras.innovator.VariantManagementSample/images/CFGRuleOff.svg"
+  }</additional_data>
+  <image>../Modules/aras.innovator.VariantManagementSample/images/CFGRuleOff.svg</image>
+  <label xml:lang="en">Variant Tree</label>
+  <on_click_handler keyed_name="vm_itemViewSidebarBtnClick" type="Method">ACCC9B7D9FAC476C832DA03026701A2E</on_click_handler>
+  <name>vm_variabilityItemViewSidebarVariantTreeBtn</name>
+ </Item>
+</AML>

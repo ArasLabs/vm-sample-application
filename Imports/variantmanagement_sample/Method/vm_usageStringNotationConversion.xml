@@ -1,0 +1,344 @@
+﻿<AML>
+ <Item type="Method" id="C59CE545FC504C5C90AE73F823CFD3E6" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[	Dictionary<string, Item> usageConditionItemToProcessHashedById = new Dictionary<string, Item>();
+	Dictionary<string, string> variabilityItemIdHashedByUsageConditionId = new Dictionary<string, string>();
+	Dictionary<string, string> definitionHashedByUsageConditionId = new Dictionary<string, string>();
+
+	HashSet<string> idsOfUsageConditionsWhereRelatedVariabilityItemMissed = new HashSet<string>();
+	HashSet<string> idsOfUsageConditionsWhereDefinitionPropertyMissed = new HashSet<string>();
+	string usageConditionItemType = GetUsageConditionItemType();
+	string usageConditionVariabilityItemRelationshipItemType = this.GetUsageConditionVariabilityItemRelationshipItemType(usageConditionItemType);
+
+	for (int i = 0, usageConditionItemCount = this.getItemCount(); i < usageConditionItemCount; i++)
+	{
+		Item singleIncomingUsageCondition = this.getItemByIndex(i);
+		string singleIncomingUsageConditionId = singleIncomingUsageCondition.getID();
+		Item singleIncomingUsageConditionVariabilityItemRelationship = this.GetSingleRelationshipItem(
+			singleIncomingUsageCondition,
+			usageConditionVariabilityItemRelationshipItemType);
+		string singleIncomingUsageConditionVariabilityItemRelationshipAction = singleIncomingUsageConditionVariabilityItemRelationship != null
+			? singleIncomingUsageConditionVariabilityItemRelationship.getAction()
+			: null;
+		string singleIncomingUsageConditionVariabilityItemId =
+			this.IsRelationshipItemActionValid(singleIncomingUsageConditionVariabilityItemRelationshipAction)
+			? singleIncomingUsageConditionVariabilityItemRelationship.getRelatedItemID()
+			: null;
+		string singleIncomingUsageConditionDefinition = singleIncomingUsageCondition.getProperty(definitionPropertyName);
+
+		bool isRelatedVariabilityItemSpecified = !string.IsNullOrEmpty(singleIncomingUsageConditionVariabilityItemId);
+		bool isDefinitionPropertySpecified = !string.IsNullOrEmpty(singleIncomingUsageConditionDefinition);
+
+		// Only changes in 'definition' property or in related vm_VariabilityItem may lead to a necessity to regenerate usage condition string notation
+		// Pay attention, 'definition' is required property and related vm_VariabilityItem is required for building scope, if at least one of them absent 
+		// during adding an item, the item processing should be skipped here as string notation can't be created without them.
+		if (!isRelatedVariabilityItemSpecified && !isDefinitionPropertySpecified
+			|| string.Equals(addItemActionName, singleIncomingUsageCondition.getAction(), StringComparison.Ordinal)
+				&& (!isRelatedVariabilityItemSpecified || !isDefinitionPropertySpecified))
+		{
+			continue;
+		}
+
+		usageConditionItemToProcessHashedById.Add(singleIncomingUsageConditionId, singleIncomingUsageCondition);
+
+		if (!isRelatedVariabilityItemSpecified)
+		{
+			idsOfUsageConditionsWhereRelatedVariabilityItemMissed.Add(singleIncomingUsageConditionId);
+		}
+		else
+		{
+			variabilityItemIdHashedByUsageConditionId.Add(singleIncomingUsageConditionId, singleIncomingUsageConditionVariabilityItemId);
+		}
+
+		if (!isDefinitionPropertySpecified)
+		{
+			idsOfUsageConditionsWhereDefinitionPropertyMissed.Add(singleIncomingUsageConditionId);
+		}
+		else
+		{
+			definitionHashedByUsageConditionId.Add(singleIncomingUsageConditionId, singleIncomingUsageConditionDefinition);
+		}
+	}
+
+	if (!usageConditionItemToProcessHashedById.Any())
+	{
+		return this;
+	}
+
+	if (idsOfUsageConditionsWhereRelatedVariabilityItemMissed.Any())
+	{
+		variabilityItemIdHashedByUsageConditionId = ResolveMissedUsageConditionRelationshipAndUnionWithExistingValues(
+			variabilityItemIdHashedByUsageConditionId,
+			idsOfUsageConditionsWhereRelatedVariabilityItemMissed,
+			usageConditionVariabilityItemRelationshipItemType);
+	}
+
+	if (idsOfUsageConditionsWhereDefinitionPropertyMissed.Any())
+	{
+		definitionHashedByUsageConditionId = ResolveMissedUsageConditionPropertyAndUnionWithExistingValues(
+			definitionHashedByUsageConditionId,
+			idsOfUsageConditionsWhereDefinitionPropertyMissed,
+			usageConditionItemType,
+			definitionPropertyName);
+	}
+
+	Dictionary<string, Aras.Server.Core.Configurator.Scope> scopeObjectHashedByVariabilityItemId =
+		variabilityItemIdHashedByUsageConditionId.Values.Distinct()
+		.Where(variabilityItemId => !string.IsNullOrEmpty(variabilityItemId)).ToDictionary(
+			variabilityItemId => variabilityItemId,
+			variabilityItemId => BuildScope(variabilityItemId, scopeBuilderMethodName));
+
+	foreach (KeyValuePair<string, string> kvp in definitionHashedByUsageConditionId)
+	{
+		string usageConditionId = kvp.Key;
+		string definition = kvp.Value;
+		string variabilityItemId;
+
+		if (!variabilityItemIdHashedByUsageConditionId.TryGetValue(usageConditionId, out variabilityItemId))
+		{
+			continue;
+		}
+
+		Aras.Server.Core.Configurator.Scope scope = scopeObjectHashedByVariabilityItemId[variabilityItemId];
+		Aras.Server.Core.Configurator.IStringNotationConverter stringNotationConverter = GetCachedStringNotationConverterOrCreateNew(scope);
+
+		Aras.Server.Core.Configurator.ExpressionBase expression = ConvertExpressionXmlDefinitionToExpressionObject(definition);
+		string usageConditionStringNotation = stringNotationConverter.ConvertExpressionToStringNotation(expression);
+
+		Item usageConditionItem = usageConditionItemToProcessHashedById[usageConditionId];
+		usageConditionItem.setProperty(stringNotationPropertyName, usageConditionStringNotation);
+	}
+
+	return this;
+}
+
+private readonly Dictionary<string, Aras.Server.Core.Configurator.IStringNotationConverter> stringNotationConverterHashedByScopeId =
+	new Dictionary<string, Aras.Server.Core.Configurator.IStringNotationConverter>();
+private readonly List<string> allowedRelationshipItemActions = new List<string> { "add", "edit", "merge", "update" };
+
+private readonly string addItemActionName = "add";
+private readonly string definitionPropertyName = "definition";
+private readonly string stringNotationPropertyName = "string_notation";
+private readonly string scopeBuilderMethodName = "vm_scopeBuilder";
+
+private string GetUsageConditionItemType()
+{
+	Item firstUsageConditionItem = this.getItemByIndex(0);
+	string usageConditionItemType = firstUsageConditionItem.getType();
+	if (string.IsNullOrEmpty(usageConditionItemType))
+	{
+		Item usageConditionItemTypeItem = this.newItem("ItemType", "get");
+		usageConditionItemTypeItem.setID(firstUsageConditionItem.getAttribute("typeId"));
+		usageConditionItemTypeItem.setAttribute("select", "name");
+		usageConditionItemTypeItem = usageConditionItemTypeItem.apply();
+
+		if (usageConditionItemTypeItem.isError())
+		{
+			throw new Aras.Server.Core.InnovatorServerException(usageConditionItemTypeItem.dom);
+		}
+
+		usageConditionItemType = usageConditionItemTypeItem.getProperty("name");
+	}
+
+	return usageConditionItemType;
+}
+
+internal virtual string GetUsageConditionVariabilityItemRelationshipItemType(string usageConditionItemType)
+{
+	Item relationshipTypeItem = this.newItem("RelationshipType", "get");
+	relationshipTypeItem.setAttribute("select", "name");
+
+	Item variabilityItemTypeItem = relationshipTypeItem.createPropertyItem("related_id", "ItemType", null);
+	variabilityItemTypeItem.setAttribute("select", "id");
+	variabilityItemTypeItem.setProperty("name", "vm_VariabilityItem");
+
+	Item usageConditionItemTypeItem = relationshipTypeItem.createPropertyItem("source_id", "ItemType", null);
+	usageConditionItemTypeItem.setAttribute("select", "id");
+	usageConditionItemTypeItem.setProperty("name", usageConditionItemType);
+
+	relationshipTypeItem = relationshipTypeItem.apply();
+
+	if (relationshipTypeItem.isError())
+	{
+		throw new Aras.Server.Core.InnovatorServerException(relationshipTypeItem.dom);
+	}
+
+	return relationshipTypeItem.getProperty("name");
+}
+
+internal virtual Item GetSingleRelationshipItem(Item sourceItem, string relationshipItemType)
+{
+	Item relationshipItems = sourceItem.getRelationships(relationshipItemType);
+
+	if (relationshipItems.getItemCount() == 0)
+	{
+		return null;
+	}
+
+	return relationshipItems.getItemByIndex(0);
+}
+
+internal virtual bool IsRelationshipItemActionValid(string action)
+{
+	return allowedRelationshipItemActions.Contains(action);
+}
+
+internal virtual Dictionary<string, string> ResolveMissedUsageConditionProperty(IEnumerable<string> usageConditionItemIdList, string usageConditionItemType, string missedPropertyName)
+{
+	Item usageConditionItems = this.newItem(usageConditionItemType, "get");
+	usageConditionItems.setAttribute("idlist", string.Join(",", usageConditionItemIdList));
+	usageConditionItems.setAttribute("select", missedPropertyName);
+	usageConditionItems = usageConditionItems.apply();
+
+	if (usageConditionItems.isError())
+	{
+		throw new Aras.Server.Core.InnovatorServerException(usageConditionItems.dom);
+	}
+
+	Dictionary<string, string> resolvedPropertyValueByUsageConditionItemId = new Dictionary<string, string>();
+	for (int i = 0, usageConditionItemCount = usageConditionItems.getItemCount(); i < usageConditionItemCount; i++)
+	{
+		Item singleUsageCondition = usageConditionItems.getItemByIndex(i);
+		resolvedPropertyValueByUsageConditionItemId.Add(singleUsageCondition.getID(), singleUsageCondition.getProperty(missedPropertyName));
+	}
+
+	return resolvedPropertyValueByUsageConditionItemId;
+}
+
+internal virtual Dictionary<string, string> ResolveMissedUsageConditionRelationship(
+	IEnumerable<string> usageConditionItemIdList,
+	string missedRelationshipItemType)
+{
+	Item missedRelationships = this.newItem(missedRelationshipItemType, "get");
+	missedRelationships.setAttribute("select", "related_id(id),source_id");
+	missedRelationships.setProperty("source_id", string.Join(",", usageConditionItemIdList));
+	missedRelationships.setPropertyCondition("source_id", "in");
+	missedRelationships = missedRelationships.apply();
+
+	if (missedRelationships.isError() && !missedRelationships.isEmpty())
+	{
+		throw new Aras.Server.Core.InnovatorServerException(missedRelationships.dom);
+	}
+
+	Dictionary<string, string> resolvedRelationshipRelatedItemIdByUsageConditionId = new Dictionary<string, string>();
+	for (int i = 0, missedRelationshipsItemCount = missedRelationships.getItemCount(); i < missedRelationshipsItemCount; i++)
+	{
+		Item singleMissedRelationship = missedRelationships.getItemByIndex(i);
+		resolvedRelationshipRelatedItemIdByUsageConditionId.Add(singleMissedRelationship.getProperty("source_id"), singleMissedRelationship.getRelatedItemID());
+	}
+
+	return resolvedRelationshipRelatedItemIdByUsageConditionId;
+}
+
+internal virtual Aras.Server.Core.Configurator.Scope BuildScope(string scopeId, string scopeBuilderMethodName)
+{
+	Item targetScopeItem = this.newItem();
+	targetScopeItem.setID(scopeId);
+	targetScopeItem.setAction(scopeBuilderMethodName);
+
+	Item scopeStructureItem = this.newItem("Method", "cfg_GetScopeStructure");
+	scopeStructureItem.setPropertyItem("targetScope", targetScopeItem);
+	scopeStructureItem = scopeStructureItem.apply();
+
+	if (scopeStructureItem.isError())
+	{
+		throw new Aras.Server.Core.InnovatorServerException(scopeStructureItem.dom);
+	}
+
+	return ParseScopeStructureItemToScopeObject(scopeStructureItem);
+}
+
+internal virtual Aras.Server.Core.Configurator.Scope ParseScopeStructureItemToScopeObject(Item scopeStructureItem)
+{
+	Aras.Server.Core.Configurator.Scope scope = new Aras.Server.Core.Configurator.Scope()
+	{
+		Id = scopeStructureItem.getID(),
+		Name = scopeStructureItem.getProperty("name")
+	};
+
+	Item variableRelationshipItems = scopeStructureItem.getRelationships("Variable");
+	for (int i = 0, variableRelationshipItemCount = variableRelationshipItems.getItemCount(); i < variableRelationshipItemCount; i++)
+	{
+		Item singleVariableRelationshipItem = variableRelationshipItems.getItemByIndex(i);
+
+		Aras.Server.Core.Configurator.Variable variable = new Aras.Server.Core.Configurator.Variable(null)
+		{
+			Id = singleVariableRelationshipItem.getID(),
+			Name = singleVariableRelationshipItem.getProperty("name")
+		};
+
+		Item namedConstantRelationshipItems = singleVariableRelationshipItem.getRelationships("NamedConstant");
+		int namedConstantRelationshipItemsCount = namedConstantRelationshipItems.getItemCount();
+		if (namedConstantRelationshipItemsCount > 0)
+		{
+			Aras.Server.Core.Configurator.Enum @enum = new Aras.Server.Core.Configurator.Enum(null);
+
+			for (int j = 0; j < namedConstantRelationshipItemsCount; j++)
+			{
+				Item singleNamedConstantRelationshipItem = namedConstantRelationshipItems.getItemByIndex(j);
+				@enum.AddNamedConstant(singleNamedConstantRelationshipItem.getID(), singleNamedConstantRelationshipItem.getProperty("name"), (string)null);
+			}
+
+			variable.Enum = @enum;
+		}
+
+		scope.VariableList.Add(variable);
+	}
+
+	return scope;
+}
+
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Aras.Rules", "ArasRule2:DoNotCreateXmlDocument")]
+internal virtual Aras.Server.Core.Configurator.ExpressionBase ConvertExpressionXmlDefinitionToExpressionObject(string expressionXmlDefinition)
+{
+	XmlDocument xmlDocument = new XmlDocument();
+	xmlDocument.PreserveWhitespace = false;
+	xmlDocument.LoadXml(expressionXmlDefinition);
+
+	return Aras.Server.Core.Configurator.ExpressionConverter.Instance.FromXml(xmlDocument.DocumentElement);
+}
+
+internal virtual Aras.Server.Core.Configurator.IStringNotationConverter GetCachedStringNotationConverterOrCreateNew(
+	Aras.Server.Core.Configurator.Scope scope)
+{
+	Aras.Server.Core.Configurator.IStringNotationConverter stringNotationConverter;
+
+	string scopeId = scope.Id;
+	if (!stringNotationConverterHashedByScopeId.TryGetValue(scopeId, out stringNotationConverter))
+	{
+		stringNotationConverter = CreateNewStringNotationConverter(scope.VariableList);
+		stringNotationConverterHashedByScopeId.Add(scopeId, stringNotationConverter);
+	}
+
+	return stringNotationConverter;
+}
+
+internal virtual Aras.Server.Core.Configurator.IStringNotationConverter CreateNewStringNotationConverter(
+	IEnumerable<Aras.Server.Core.Configurator.Variable> variableContainer)
+{
+	return new Aras.Server.Core.Configurator.ExpressionToStringNotationConverter(variableContainer);
+}
+
+internal virtual Dictionary<string, string> ResolveMissedUsageConditionPropertyAndUnionWithExistingValues(
+	Dictionary<string, string> existingPropertyValuesToUnionWithHashedByUsageConditionId,
+	IEnumerable<string> idsOfUsageConditionsWithMissedProperty,
+	string usageConditionItemType,
+	string missedPropertyName)
+{
+	return existingPropertyValuesToUnionWithHashedByUsageConditionId
+			.Union(ResolveMissedUsageConditionProperty(idsOfUsageConditionsWithMissedProperty, usageConditionItemType, missedPropertyName))
+			.ToDictionary(src => src.Key, src => src.Value);
+}
+
+internal virtual Dictionary<string, string> ResolveMissedUsageConditionRelationshipAndUnionWithExistingValues(
+	Dictionary<string, string> existingRelatedItemIdsToUnionWithHashedByUsageConditionId,
+	IEnumerable<string> idsOfUsageConditionsWithMissedRelationship,
+	string missedRelationshipItemType)
+{
+	return existingRelatedItemIdsToUnionWithHashedByUsageConditionId
+			.Union(ResolveMissedUsageConditionRelationship(idsOfUsageConditionsWithMissedRelationship, missedRelationshipItemType))
+			.ToDictionary(src => src.Key, src => src.Value);]]></method_code>
+  <method_type>C#</method_type>
+  <name>vm_usageStringNotationConversion</name>
+ </Item>
+</AML>

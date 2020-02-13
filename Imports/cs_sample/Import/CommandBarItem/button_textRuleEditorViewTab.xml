@@ -1,9 +1,0 @@
-﻿<AML>
- <Item type="CommandBarButton" id="03301055828D6DBED60E09DB4340326D" action="add">
-  <image>../Images/EditItemOff.svg</image>
-  <label xml:lang="en">Text Rule Editor</label>
-  <on_click_handler keyed_name="cs_sample_SideBarButtonClick" type="Method">C0EEF3A7CDA9CC9CAD54C59ABDE930C3</on_click_handler>
-  <on_init_handler keyed_name="cs_sample_InitSidebarButton" type="Method">93DF26A27E190B15CBF3B2544DFE5D7E</on_init_handler>
-  <name>button_textRuleEditorViewTab</name>
- </Item>
-</AML>

@@ -1,0 +1,54 @@
+﻿<AML>
+ <Item type="Method" id="6D01305B8206432A930346B9E2B1C0E2" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[string relatedId = this.getProperty("related_id");
+
+if (string.IsNullOrEmpty(relatedId))
+{
+	return this;
+}
+
+Item relationshipTypeItem = this.newItem("RelationshipType", "get");
+
+string relationshipItemTypeName = this.getType();
+
+if (!string.IsNullOrEmpty(relationshipItemTypeName))
+{
+	relationshipTypeItem.setProperty("name", relationshipItemTypeName);
+}
+else
+{
+	string relationshipItemTypeId = this.getAttribute("typeId");
+	relationshipTypeItem.setProperty("relationship_id", relationshipItemTypeId);
+}
+
+relationshipTypeItem.setAttribute("select", "related_id(name)");
+relationshipTypeItem = relationshipTypeItem.apply();
+
+if (relationshipTypeItem.isError())
+{
+	return relationshipTypeItem;
+}
+
+Item relationshipTypeItemRelatedItemTypeItem = relationshipTypeItem.getRelatedItem();
+string relationshipTypeItemRelatedItemTypeName = relationshipTypeItemRelatedItemTypeItem.getProperty("name");
+
+Item relatedItem = this.newItem(relationshipTypeItemRelatedItemTypeName, "get");
+relatedItem.setID(relatedId);
+relatedItem.setAttribute("select", "itemtype");
+relatedItem = relatedItem.apply();
+
+if (relatedItem.isError())
+{
+	return relatedItem;
+}
+
+string relatedItemTypeId = relatedItem.getProperty("itemtype");
+
+this.setProperty("related_itemtype", relatedItemTypeId);
+
+return this;]]></method_code>
+  <method_type>C#</method_type>
+  <name>vm_populateRelatedItemTypeProp</name>
+ </Item>
+</AML>

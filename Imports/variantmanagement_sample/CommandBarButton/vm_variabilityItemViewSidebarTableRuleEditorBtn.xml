@@ -1,0 +1,14 @@
+﻿<AML>
+ <Item type="CommandBarButton" id="6CB969F953DD491AB8A4AAE7ABD4CABA" action="add">
+  <additional_data>{
+   "paneId": "table-rule-editor-view-pane",
+   "contentPath": "/Modules/aras.innovator.VariantManagementSample/tableRuleEditorTabView",
+   "imageBtnOn": "../images/Method.svg",
+   "imageBtnOff": "../images/MethodOff.svg"
+  }</additional_data>
+  <image>../images/MethodOff.svg</image>
+  <label xml:lang="en">Table Rule Editor</label>
+  <on_click_handler keyed_name="vm_itemViewSidebarBtnClick" type="Method">ACCC9B7D9FAC476C832DA03026701A2E</on_click_handler>
+  <name>vm_variabilityItemViewSidebarTableRuleEditorBtn</name>
+ </Item>
+</AML>

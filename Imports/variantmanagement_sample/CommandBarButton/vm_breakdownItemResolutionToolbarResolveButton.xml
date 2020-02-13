@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="CommandBarButton" id="B69EC8E331FF4BE785FB8573E3C5825B" action="add">
+  <label xml:lang="en">Resolve</label>
+  <on_click_handler keyed_name="vm_brkdwnItmRsltnResolveBtnClk" type="Method">FB4A5B3098544D5C84A31E165DDB36FA</on_click_handler>
+  <name>vm_breakdownItemResolutionToolbarResolveButton</name>
+ </Item>
+</AML>

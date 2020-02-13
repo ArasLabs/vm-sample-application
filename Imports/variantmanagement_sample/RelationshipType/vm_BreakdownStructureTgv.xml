@@ -1,0 +1,53 @@
+﻿<AML>
+ <Item type="RelationshipType" id="7E5C2EFB47B14D5383D9EE46742E8464" action="add" dependencyLevel="0">
+  <auto_search>1</auto_search>
+  <behavior>float</behavior>
+  <copy_permissions>0</copy_permissions>
+  <create_related>0</create_related>
+  <hide_in_all>0</hide_in_all>
+  <inc_rel_key_name>1</inc_rel_key_name>
+  <inc_related_key_name>1</inc_related_key_name>
+  <is_list_type>0</is_list_type>
+  <label xml:lang="en">Breakdown Structure</label>
+  <new_show_related>0</new_show_related>
+  <related_notnull>0</related_notnull>
+  <related_option>2</related_option>
+  <relationship_id keyed_name="vm_BreakdownStructureTgv" type="ItemType" name="vm_BreakdownStructureTgv">
+   <Item type="ItemType" id="0D67D0ABFEB245C995643BB22374F789" action="add">
+    <allow_private_permission>1</allow_private_permission>
+    <auto_search>0</auto_search>
+    <enforce_discovery>0</enforce_discovery>
+    <hide_where_used>0</hide_where_used>
+    <implementation_type>table</implementation_type>
+    <instance_data>VM_BREAKDOWNSTRUCTURETGV</instance_data>
+    <is_dependent>0</is_dependent>
+    <is_relationship>1</is_relationship>
+    <is_versionable>0</is_versionable>
+    <revisions keyed_name="Default" type="Revision">7FE395DD8B9F4E1090756A34B733D75E</revisions>
+    <show_parameters_tab>1</show_parameters_tab>
+    <structure_view>tabs off</structure_view>
+    <unlock_on_logout>0</unlock_on_logout>
+    <use_src_access>1</use_src_access>
+    <name>vm_BreakdownStructureTgv</name>
+   </Item>
+  </relationship_id>
+  <sort_order>256</sort_order>
+  <source_id keyed_name="vm_BreakdownItem" type="ItemType" name="vm_BreakdownItem">A52B00E494304E8DAC9EFB544EAB61A2</source_id>
+  <name>vm_BreakdownStructureTgv</name>
+  <Relationships>
+   <Item type="Relationship View" id="5D37FD9C79144CC1BABE3BB0E65F68CE" action="add">
+    <parameters>'tgvdId=5D3B757C4F6D4C088867503FAC583A9A&amp;startConditionProvider=ItemDefault({"id":"id"})'</parameters>
+    <related_id keyed_name="World" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>World</name>
+     </Item>
+    </related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="vm_BreakdownStructureTgv" type="RelationshipType">7E5C2EFB47B14D5383D9EE46742E8464</source_id>
+    <start_page>../Modules/aras.innovator.TreeGridView/Views/MainPage.html</start_page>
+   </Item>
+  </Relationships>
+ </Item>
+ <Item type="View" action="delete" where="source_id='0D67D0ABFEB245C995643BB22374F789'" />
+ <Item type="Form" action="delete" where="name='vm_BreakdownStructureTgv'" />
+</AML>

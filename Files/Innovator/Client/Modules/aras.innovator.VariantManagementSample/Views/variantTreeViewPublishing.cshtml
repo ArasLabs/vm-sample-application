@@ -1,0 +1,181 @@
+﻿@{
+	JSManager manager = new JSManager();
+	string styles = manager.GetClassContentWithDependencies("variantsTree.css");
+	string scripts = manager.GetClassContentWithDependencies("publishVariantTree");
+	string gunzip = manager.GetFileContentWithDependencies("gunzip.min.js");
+
+	string variantTreeData = String.Empty;
+	using(StreamReader reader = new StreamReader(Request.InputStream))
+	{
+		variantTreeData = reader.ReadToEnd();
+	}
+
+	string jsonDataTemplate = "{{ \"type\":\"{0}\", \"content\":\"{1}\" }}";
+	System.Text.StringBuilder zippedData = new System.Text.StringBuilder();
+	zippedData.Append("[");
+	zippedData.AppendFormat(jsonDataTemplate, "text/javascript", CompressString(scripts));
+	zippedData.Append(",");
+	zippedData.AppendFormat(jsonDataTemplate, "text/css", CompressString(styles));
+	zippedData.Append(",");
+	zippedData.AppendFormat(jsonDataTemplate, "text/json", CompressString(variantTreeData));
+	zippedData.Append("]");
+	byte[] zippedByteArray = System.Text.Encoding.UTF8.GetBytes(zippedData.ToString());
+	string zippedText = Convert.ToBase64String(zippedByteArray);
+}
+@functions {
+	private static string CompressString(string stringToZip)
+	{
+		byte[] byteArray = System.Text.Encoding.UTF8.GetBytes(stringToZip);
+		using(MemoryStream memoryStream = new MemoryStream())
+		{
+			using (var zip = new System.IO.Compression.GZipStream(memoryStream, System.IO.Compression.CompressionMode.Compress, true))
+			{
+				zip.Write(byteArray, 0, byteArray.Length);
+			}
+			return Convert.ToBase64String(memoryStream.ToArray());
+		}
+	}
+	private string GetCurrentTime()
+	{
+		System.Globalization.CultureInfo ci = new System.Globalization.CultureInfo(Request.UserLanguages.FirstOrDefault());
+		return DateTime.Now.ToString(ci);
+	}
+}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Variant Tree </title>
+		<script type="text/javascript">@Html.Raw(gunzip)</script>
+		<script id="zippedData" type="text/plain">@Html.Raw(zippedText)</script>
+		<style id="styles" type="text/css"></style>
+		<style>
+			#variantTreeTitle {
+				background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0IiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgNjQgNjQiPg0KPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCAtOTI0LjM2MjE4KSI+DQo8cGF0aCBmaWxsPSIjNzI3MjcyIiBkPSJtNDMuNSw5NjAuMzYyYzAsNC4xMzktMy4zNTgsNy41LTcuNDk5LDcuNS00LjE0NCwwLTcuNTAxLTMuMzYxLTcuNTAxLTcuNSAwLTQuMTQ0IDMuMzU3LTcuNSA3LjUwMS03LjUgNC4xNDEsMCA3LjQ5OSwzLjM1NyA3LjQ5OSw3LjV6Ii8+DQo8ZyBmaWxsPSIjMDA3MmM2IiBzdHJva2U9IiMwMDcyYzYiIHN0cm9rZS13aWR0aD0iMiI+DQo8cGF0aCBkPSJtMTAuODY0LDk2Ni4zNjJsLTQuODY0LTEwLjI4NGMwLDAgMTguMjk1LTIyLjI0IDI5LjMwNC0xMy44MDYgMTEuMDA5LDguNDM0LTE0LjYyMy0xMS4yNDQtMjQuNDQsMjQuMDl6Ii8+DQo8cGF0aCBkPSJtMzUuNSw5MzMuMTA3bDEwLjkyNi0yLjc0NWMwLDAgMTguMjM3LDIyLjY0NSA3LjkwNSwzMS44MTItMTAuMzMzLDkuMTY1IDEzLjUzNS0xMi4zODItMTguODMxLTI5LjA2N3oiLz4NCjxwYXRoIGQ9Im01Ny41LDk3MS4xNTNsLTMuMjY1LDEwLjU1OWMwLDAtMjguNjI0LDQuMjQzLTMxLjItOC45NDYtMi41NzYtMTMuMTg3IDMuMzk1LDE3LjU0NiAzNC40NjUtMS42MTN6Ii8+DQo8L2c+DQo8L2c+DQo8L3N2Zz4NCg==')
+			}
+		</style>
+		<script type="text/javascript">
+			function getStringFromUInt8Array(dataArray) {
+				// This check is needed because TextDecoder works faster but it is not supported in IE
+				if ('TextDecoder' in window) {
+					return new TextDecoder('utf-8').decode(dataArray);
+				} else {
+					var result = '';
+					for (var i = 0, length = dataArray.length; i < length; i++) {
+						result += String.fromCharCode(dataArray[i]);
+					}
+					return result;
+				}
+			}
+			function getByteArrayFromZippedString(text) {
+				var encodedNodeText = atob(text);
+				return encodedNodeText.split('').map(function(char) {
+					return char.charCodeAt(0);
+				});
+			}
+			function getUncompressedString(text) {
+				var byteArray = getByteArrayFromZippedString(text);
+				var uncompressedArray = new Zlib.Gunzip(byteArray).decompress();
+				return getStringFromUInt8Array(uncompressedArray);
+			}
+			function createMockArasObject() {
+				// Create 'aras' object in window to mock functions
+				// used in VariantTreeApplicationBase and dependencies
+				window.aras = {
+					Browser: {
+						isIe: function() {
+							// ActiveXObject is defined only in IE
+							return 'ActiveXObject' in window;
+						},
+						isEdge: function() {
+							return /Edge\/\d./i.test(window.navigator.userAgent);
+						}
+					},
+					showStatusMessage: function() {},
+					clearStatusMessage: function() {},
+					getMostTopWindowWithAras: function() {return window;},
+					createXMLDocument: function () {
+						return document.implementation.createDocument('', '', null);
+					},
+					getItemProperty: function(node, element, defaultVal) {
+						if (!node) {
+							return;
+						}
+						var value;
+						if (node.nodeName == 'Item' && element == 'id') {
+							value = node.getAttribute('id');
+						} else {
+							var elementNode = node.selectSingleNode(element);
+							if (elementNode) {
+								var itemNode = elementNode.selectSingleNode('Item');
+								if (itemNode) {
+									value = itemNode.getAttribute('id');
+								} else {
+									value = elementNode.text;
+								}
+							} else {
+								value = (defaultVal === undefined ? '' : defaultVal);
+							}
+						}
+						return value;
+					}
+				};
+			}
+			function createVariantTree() {
+				require(['Modules/aras.innovator.VariantManagementSample/Scripts/variantTree/variantTreeApplicationPublish'],
+					function(VariantTreeApplicationPublish) {
+						window.variantTreeData.validCombinations.forEach(function(combinationList) {
+							combinationList.forEach(function(combination) {
+								combination.getKey = function() {
+									return combination.itemId + combination.variableId;
+								}
+							});
+						});
+						var variantTreePublish = new VariantTreeApplicationPublish({
+							generationData: window.variantTreeData.generationData,
+							validCombinations: window.variantTreeData.validCombinations,
+							settings: window.variantTreeData.settings
+						});
+						variantTreePublish.init();
+						variantTreePublish.loadView();
+					}
+				);
+			}
+
+			createMockArasObject();
+			window.__staticVariablesStorage = true;
+			var zippedDataNode = document.getElementById('zippedData');
+			var data = atob(zippedDataNode.textContent);
+			JSON.parse(data).forEach(function(object) {
+				switch (object.type) {
+					case 'text/css':
+						document.getElementById('styles').textContent = getUncompressedString(object.content);
+						break;
+					case 'text/javascript':
+						var head = document.getElementsByTagName('head')[0];
+						var unzippedScriptNode = document.createElement('script');
+						unzippedScriptNode.type = 'text/javascript';
+						unzippedScriptNode.innerHTML = getUncompressedString(object.content);
+						head.replaceChild(unzippedScriptNode, zippedDataNode);
+						break;
+					case 'text/json':
+						window.variantTreeData = JSON.parse(getUncompressedString(object.content));
+						document.getElementsByTagName('title')[0].innerText += '(' + window.variantTreeData.scopeName + ' - @GetCurrentTime())';
+						break;
+					default: console.log('Unknown object type');
+				}
+			});
+
+			window.addEventListener('load', createVariantTree);
+		</script>
+	</head>
+	<body class="claro">
+		<div id="variantTreeTitle">
+			<span>Variant Tree</span>
+		</div>
+		<div id="variantTreeControls"></div>
+		<div id="variantTreeInfo"></div>
+		<div id="variantTreeContainer">
+		</div>
+	</body>
+</html>

@@ -1,0 +1,341 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+		@import "../../../javascript/include.aspx?files=claroGrid.css";
+		@import '../../../public/styles/controls.css';
+		@import "../../../styles/default.css";
+		@import "../../../Modules/aras.innovator.VariantManagementSample/styles/cfgTree.css";
+
+		html, body {
+			overflow: hidden;
+			width: 100%;
+			height: 100%;
+			margin: 0px;
+			padding: 0px;
+		}
+
+		.claro .dijitContentPane {
+			padding: 0px;
+			margin: 0px;
+		}
+
+		.dojoxGridMasterHeader {
+			display: none !important;
+		}
+
+		.dojoxGrid {
+			border: 1px solid #CCCCCC;
+		}
+
+		.dojoxGrid .dojoxGridContent .dojoxGridCell.dojoxGridCellFocus {
+			border: none !important;
+		}
+
+		.dojoxGrid .dojoxGridContent .dojoxGridCell {
+			border: none !important;
+		}
+
+		.itemTypeIcon {
+			display: inline-block;
+			margin: 0px;
+			height: 20px;
+			width: 20px;
+			background-size: 20px 20px;
+			backgroud-repeat: no-repeat;
+			background-position: 0px 0px;
+			vertical-align: middle;
+		}
+
+		.dialogButton {
+			display: inline-block;
+			float: right;
+			width: 100px;
+			height: 30px;
+			vertical-align: middle;
+		}
+
+		.dialogButton + .dialogButton {
+			margin-right: 10px;
+		}
+
+		#dialogHeader {
+			border-bottom: 1px solid #D0D0D0;
+			line-height: 40px;
+			margin: 0px 15px 5px 15px;
+			padding-left: 38px;
+			background-image: url('../../../images/DocumentView.svg');
+			background-size: 28px 28px;
+			background-position: 5px 5px;
+			background-repeat: no-repeat;
+			font-size: 16px;
+		}
+
+		#dialogFooter {
+			border-top: 1px solid #D0D0D0;
+			padding-top: 10px;
+			margin: 5px 15px 0px 15px;
+		}
+
+		.arasCFGTree.dojoxGrid .ActionButton.checkboxActionButton {
+			width: 16px;
+			height: 16px;
+			background-image: url('../../../images/checkbox-checked.svg');
+			background-size: 16px 16px;
+			background-position: 0px 0px;
+			background-repeat: no-repeat;
+			border: none;
+		}
+
+		.arasCFGTree.dojoxGrid .ActionButton.checkboxActionButton.Unchecked {
+			visibility: visible;
+			background-image: url('../../../images/checkbox-disabled.svg');
+		}
+	</style>
+	<script type="text/javascript" src="../../../javascript/include.aspx?classes=/dojo.js" data-dojo-config="isDebug: false, parseOnLoad: false, baseUrl:'../../../javascript/dojo'"></script>
+	<script type="text/javascript" src="../../../javascript/include.aspx?classes=XmlDocument"></script>
+	<script type="text/javascript">
+		var dialogArguments = frameElement.dialogArguments;
+		var aras = dialogArguments.aras;
+		var filtrationContext = dialogArguments.filtrationContext || {};
+		var viewContext = {
+			data: {
+				filtrationItems: filtrationContext.filtrationItems || []
+			},
+			controls: {
+				treeControl: null
+			},
+			modules: {},
+			eventListeners: {}
+		};
+
+		onload = function() {
+			createUIControls();
+		}
+
+		function createGridLayout(dataTypeName) {
+			var resultLayout = [{
+				field: 'icon',
+				name: 'Icon',
+				width: '30px',
+				styles: 'text-align: center;',
+				formatter: function(storeValue, rowIndex) {
+					return '<div class="itemTypeIcon" style="background-image:url(\'' + storeValue +'\')"></div>';
+				}
+			}, {
+				field: 'name',
+				name: 'Name',
+				width: '80%',
+				styles: 'text-align: left;'
+			}, {
+				field: 'selected',
+				name: 'Check',
+				width: '40px',
+				styles: 'text-align: left;'
+			}];
+
+			return resultLayout;
+		}
+
+		function createUIControls() {
+			require([
+				'dojo/layout',
+				'dojo/parser',
+				'dojo/_base/connect',
+				'dojox/html/metrics',
+				'Modules/aras.innovator.VariantManagementSample/Scripts/scopeRules/dataStore',
+				'Modules/aras.innovator.VariantManagementSample/Scripts/tableRuleEditor/groupTreeGridAdapter',
+				'Controls/Common/RenderUtils'
+			], function(layoutBundle, parser, connect, metrics, DataStore, GroupTreeGridAdapter, RenderUtils) {
+				var viewControls = viewContext.controls;
+				var viewData = viewContext.data;
+				var dataStore = new DataStore({aras: aras});
+				var treeEventListeners = [];
+				var treeControl;
+
+				viewContext.modules.RenderUtils = RenderUtils;
+				metrics.getScrollbar = function() {
+					return {w: 17, h: 17};
+				};
+
+				parser.parse();
+
+				viewContext.gridLayout = createGridLayout('Rule');
+				dataStore.treeModelCollection = viewData.filtrationItems;
+
+				treeControl = new GroupTreeGridAdapter({connectId: 'filterItemsGrid', dataStore: dataStore, modeData: {
+					groups: {
+						checked: {
+							label: 'Checked',
+							cssClass: 'checkboxActionButton'
+						}
+					}
+				}});
+				treeControl.renderCellHTML = renderFamilyListCellHTML;
+				treeControl._createTree();
+
+				treeEventListeners.push(connect.connect(treeControl.gridContainer, 'gridMenuInit', onTreeGridMenuInit));
+				treeEventListeners.push(connect.connect(treeControl.gridContainer, 'gridMenuClick', onTreeGridMenuClick));
+				treeEventListeners.push(connect.connect(treeControl, 'onExecuteAction', onExecuteGridAction));
+				viewContext.eventListeners.treeControl = treeEventListeners;
+
+				addDomEventListener(window, 'beforeunload', onBeforeUnload)
+
+				viewControls.treeControl = treeControl;
+				viewData.dataStore = dataStore;
+			});
+		}
+
+		function onTreeGridMenuInit(rowId, columnIndex) {
+			var treeControl = viewContext.controls.treeControl;
+			var gridMenu = treeControl.gridContainer.getMenu();
+
+			gridMenu.removeAll();
+
+			gridMenu.addRange([
+				{id: 'selectall', name: 'Select All'},
+				{id: 'unselectall', name: 'Unselect All'}
+			]);
+
+			return true;
+		}
+
+		function onTreeGridMenuClick(commandId, rowId, columnIndex) {
+			var viewData = viewContext.data;
+			var treeControl = viewContext.controls.treeControl;
+			var modelItem;
+			var i;
+
+			switch (commandId) {
+				case 'selectall':
+					var rootLevelItems = viewData.filtrationItems;
+
+					for (i = 0; i < rootLevelItems.length; i++) {
+						modelItem = rootLevelItems[i];
+
+						modelItem.removeItemGroup('checked', {suppressEvent: true});
+						modelItem.setItemGroup('checked', {suppressEvent: true});
+					}
+
+					treeControl.gridWidget.render();
+					break;
+				case 'unselectall':
+					var rootLevelItems = viewData.filtrationItems;
+
+					for (i = 0; i < rootLevelItems.length; i++) {
+						modelItem = rootLevelItems[i];
+						modelItem.removeItemGroup('checked', {suppressEvent: true});
+					}
+
+					treeControl.gridWidget.render();
+					break;
+				default:
+					break;
+			}
+		}
+
+		function addDomEventListener(targetNode, eventType, eventHandler) {
+			if (targetNode && eventType && eventHandler) {
+				var domEventListeners = viewContext.eventListeners.DOM || (viewContext.eventListeners.DOM = []);
+
+				targetNode.addEventListener(eventType, eventHandler);
+				domEventListeners.push({targetNode: targetNode, eventType: eventType, eventHandler: eventHandler});
+			}
+		}
+
+		function removeEventListeners() {
+			var eventGroup;
+			var groupDescriptors;
+			var currentDescriptor;
+			var i;
+
+			for (eventGroup in viewContext.eventListeners) {
+				groupDescriptors = viewContext.eventListeners[eventGroup];
+
+				for (i = 0; i < groupDescriptors.length; i++) {
+					currentDescriptor = groupDescriptors[i];
+
+					if (currentDescriptor.remove) {
+						currentDescriptor.remove();
+					} else if (currentDescriptor.targetNode) {
+						currentDescriptor.targetNode.removeEventListener(currentDescriptor.eventType, currentDescriptor.eventHandler);
+					}
+				}
+			}
+		}
+
+		function onBeforeUnload() {
+			removeEventListeners();
+		}
+
+		function renderFamilyListCellHTML(storeValue, rowIndex, level, layoutCell) {
+			var modelItem = storeValue;
+			var htmlRenderUtils = viewContext.modules.RenderUtils.HTML;
+			var propertyValue = modelItem.getItemProperty('name');
+			var cellHTML = htmlRenderUtils.wrapInTag(propertyValue, 'span', {class: 'NameElementNamePart', title: propertyValue});
+			var groupsCount = this.getCheckGroupsCount();
+
+			switch (modelItem.itemType) {
+				case 'Family':
+					propertyValue = modelItem.getItemProperty('code');
+					cellHTML = (propertyValue ? htmlRenderUtils.wrapInTag(propertyValue, 'span', {class: 'CodeElementNamePart'}) : '') + cellHTML;
+					break;
+				case 'Variant':
+					propertyValue = modelItem.getItemProperty('vcode');
+					cellHTML = (propertyValue ? htmlRenderUtils.wrapInTag(propertyValue, 'span', {class: 'CodeElementNamePart'}) : '') + cellHTML;
+					break;
+				default:
+					break;
+			}
+
+			return htmlRenderUtils.wrapInTag(cellHTML, 'div', {class: 'CellTextContent', style: 'left:' + (level * 28 + 45) + 'px;right:' + groupsCount * 25 + 'px;'}) +
+				this._renderGroupButtons(storeValue);;
+		}
+
+		function onExecuteGridAction(actionName, actionArguments, storeItem) {
+			var treeControl = viewContext.controls.treeControl;
+			var gridStore = treeControl.gridWidget.store;
+			var modelItem = gridStore.getValue(storeItem, 'modelItem');
+
+			switch (actionName) {
+				case 'setGroup':
+					modelItem.setItemGroup(actionArguments);
+					this.gridContainer.updateRenderedRows();
+					break;
+				case 'removeGroup':
+					modelItem.removeItemGroup(actionArguments);
+					this.gridContainer.updateRenderedRows();
+					break;
+				default:
+					break;
+			}
+		}
+
+		function onGridClickHandler(rowId, columnIndex) {
+			var itemsModule = ruleGridControl.items_Experimental;
+			var isItemSelected = itemsModule.get(rowId, 'value', 'selected');
+
+			itemsModule.set(rowId, 'value', 'selected', !isItemSelected);
+		}
+
+		function onApply() {
+			dialogArguments.dialog.close('ok');
+		}
+
+		function onCancel() {
+			dialogArguments.dialog.close('cancel');
+		}
+	</script>
+</head>
+<body class="claro">
+	<div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="liveSplitters:false, gutters:false" id="viewBorderContainer" style="width: 100%; height: 100%;">
+		<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'top'" id="dialogHeader" style="height:35px; overflow:hidden;">Select Filter Items
+		</div>
+		<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'" id="filterItemsGrid" style="overflow:hidden; padding: 0px 15px 0px 15px;"></div>
+		<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'bottom'" id="dialogFooter" style="height:40px;">
+			<input id="cancelButton" type="button" class="dialogButton btn cancel_button" onclick="onCancel()" value="Cancel"/>
+			<input id="applyButton" type="button" class="dialogButton btn" onclick="onApply()" value="Apply Filter"/>
+		</div>
+	</div>
+</body>
+</html>

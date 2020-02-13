@@ -1,0 +1,13 @@
+﻿<AML>
+ <Item type="PresentationConfiguration" id="2CD99A6186C0EA4C36326AA7318BB90D" action="add">
+  <name>vm_Feature_TOC_Configuration</name>
+  <Relationships>
+   <Item type="PresentationCommandBarSection" id="2CD99A6186C0EA4CBDEE61C462534D75" action="add">
+    <related_id keyed_name="vm_Feature_TOC_Content" type="CommandBarSection">2CD99A6186C0EA4C618120D9625E4BB8</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="vm_Feature_TOC_Configuration" type="PresentationConfiguration">2CD99A6186C0EA4C36326AA7318BB90D</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

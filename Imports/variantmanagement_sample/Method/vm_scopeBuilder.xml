@@ -1,0 +1,160 @@
+﻿<AML>
+ <Item type="Method" id="15FDD8E5A6D24CB9ACB001887CF2D43B" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[//MethodTemplateName=CSharp:Aras.Server.Core.Configurator;
+		private Scope Scope { get; set; }
+		private List<string> dependensIds { get; set; }
+		public override Scope BuildScope()
+		{
+			Item rootVariabilityItem = base.ScopeItem.newItem("vm_VariabilityItem", "get");
+			rootVariabilityItem.setID(base.ScopeItem.getID());
+			rootVariabilityItem = rootVariabilityItem.apply();
+
+			Scope = new Scope()
+			{
+				Id = rootVariabilityItem.getID(),
+				Name = rootVariabilityItem.getProperty("name"),
+			};
+
+			var variabilityItemdIdList = GetVariabilityItemIdList();
+			Item variabilityItem = GetVariabilityItemList(variabilityItemdIdList).getItemsByXPath("//Item[@type='vm_VariabilityItem']");
+			for (var idx = 0; idx < variabilityItem.getItemCount(); idx++)
+			{
+				parseVariabilityItem(variabilityItem.getItemByIndex(idx));
+			}
+
+			dependensIds = new List<string>(variabilityItemdIdList);
+			foreach (Variable variable in Scope.VariableList)
+			{
+				dependensIds.Add(variable.Id);
+				if (variable.Enum != null)
+				{
+					dependensIds.Add(variable.Enum.Id);
+					foreach (INamedConstant namedConstant in variable.Enum.NamedConstantList)
+						dependensIds.Add(namedConstant.Id);
+				}
+			}
+			foreach (Aras.Server.Core.Configurator.Rule rule in Scope.RuleList)
+			{
+				dependensIds.Add(rule.Id);
+			}
+			return Scope;
+		}
+		private void parseVariabilityItem(Item variabilityItem)
+		{
+			var featureList = variabilityItem.getItemsByXPath("Relationships/Item[@type='vm_VariabilityItemFeature']/related_id/Item[@type='vm_Feature']");
+			for (var idx = 0; idx < featureList.getItemCount(); idx++)
+			{
+				Item featureItem = featureList.getItemByIndex(idx);
+				string featureId = featureItem.getID();
+				if (Scope.VariableList.FirstOrDefault(x => x.Id == featureId) != null)
+					continue;
+				Aras.Server.Core.Configurator.Enum var_enum = new Aras.Server.Core.Configurator.Enum(DataType.String) { Name = featureItem.getProperty("name") };
+				var optionList = featureItem.getItemsByXPath("Relationships/Item[@type='vm_FeatureOption']");
+				for (var i = 0; i < optionList.getItemCount(); i++)
+				{
+					var option = optionList.getItemByIndex(i).getRelatedItem();
+					var_enum.AddNamedConstant(option.getID(), option.getProperty("name"), option.getProperty("name"));
+				}
+				Scope.VariableList.Add(new Variable(var_enum.DataType) { Enum = var_enum, Name = var_enum.Name, Id = featureId });
+			}
+			var ruleList = variabilityItem.getItemsByXPath("Relationships/Item[@type='vm_VariabilityItemRule']/related_id/Item[@type='vm_Rule']");
+			for (var idx = 0; idx < ruleList.getItemCount(); idx++)
+			{
+				var ruleItem = ruleList.getItemByIndex(idx);
+				ExpressionBase expression = GetConditionExpression(ruleItem.node);
+				Scope.RuleList.Add(new Aras.Server.Core.Configurator.Rule { Name = ruleItem.getProperty("name"), Definition = expression, Id = ruleItem.getID() });
+			}
+		}
+		internal static XmlNode GetExpressionFromText(XmlDocument xmlDoc, string text)
+		{
+			xmlDoc.PreserveWhitespace = false;
+			xmlDoc.LoadXml(text);
+			return xmlDoc.SelectSingleNode("expression");
+		}
+		private Aras.Server.Core.Configurator.ExpressionBase GetConditionExpression(XmlElement condition)
+		{
+			var definition = condition.SelectSingleNode("definition");
+			if (definition == null)
+				return null;
+			Aras.Server.Core.Configurator.ExpressionConverter converter = new Aras.Server.Core.Configurator.ExpressionConverter();
+			return converter.FromXml(GetExpressionFromText(condition.OwnerDocument, definition.InnerText));
+		}
+		private IEnumerable<string> GetVariabilityItemIdList()
+		{
+			Item variabilityItemStructure = base.ScopeItem.newItem("vm_VariabilityItemStructure");
+			variabilityItemStructure.setAttribute("select", "related_id");
+			variabilityItemStructure.setAttribute("repeatProp", "related_id");
+			variabilityItemStructure.setAttribute("repeatTimes", "0");
+			variabilityItemStructure.setPropertyItem("related_id", base.ScopeItem.newItem("vm_VariabilityItem"));
+
+			Item rootVariabilityItem = base.ScopeItem.newItem("vm_VariabilityItem", "GetItemRepeatConfig");
+			rootVariabilityItem.setID(base.ScopeItem.getID());
+			rootVariabilityItem.setAttribute("select", "id");
+			rootVariabilityItem.addRelationship(variabilityItemStructure);
+			rootVariabilityItem = rootVariabilityItem.apply();
+
+			List<string> list = new List<string>();
+			Item variabilityItemList = rootVariabilityItem.getItemsByXPath("//Item[@type='vm_VariabilityItem']");
+			for (var idx = 0; idx < variabilityItemList.getItemCount(); idx++)
+			{
+				Item loopVariabilityItem = variabilityItemList.getItemByIndex(idx);
+				list.Add(loopVariabilityItem.getID());
+			}
+			return list;
+		}
+		private Item GetVariabilityItemList(IEnumerable<string> ids)
+		{
+			Item option = base.ScopeItem.newItem("vm_Option");
+			option.setAttribute("select", "name");
+
+			Item featureOption = base.ScopeItem.newItem("vm_FeatureOption");
+			featureOption.setAttribute("select", "related_id");
+			featureOption.setPropertyItem("related_id", option);
+
+			Item feature = base.ScopeItem.newItem("vm_Feature");
+			feature.setAttribute("select", "name");
+			feature.addRelationship(featureOption);
+
+			Item relevantFamilies = base.ScopeItem.newItem("vm_VariabilityItemFeature");
+			relevantFamilies.setAttribute("select", "related_id");
+			relevantFamilies.setPropertyItem("related_id", feature);
+
+			Item rule = base.ScopeItem.newItem("vm_Rule");
+			rule.setAttribute("select", "name, definition");
+
+			Item variabilityItemRule = base.ScopeItem.newItem("vm_VariabilityItemRule");
+			variabilityItemRule.setAttribute("select", "related_id");
+			variabilityItemRule.setPropertyItem("related_id", rule);
+
+			Item variabilityItemStructure = base.ScopeItem.newItem("vm_VariabilityItem", "get");
+			variabilityItemStructure.setAttribute("idlist", string.Join(",", ids));
+			variabilityItemStructure.setAttribute("select", "name");
+			variabilityItemStructure.addRelationship(relevantFamilies);
+			variabilityItemStructure.addRelationship(variabilityItemRule);
+
+			return variabilityItemStructure.apply();
+		}
+		public override ArrayList GetCustomKey()
+		{
+			return new ArrayList {
+				ScopeItem.getID(),
+			};
+		}
+		public override string[] GetGuidsItemDependsOn()
+		{
+			return dependensIds.ToArray();
+		}
+		public override List<string> GetItemTypeNamesItemDependsOn()
+		{
+			return new List<string> {
+					"vm_Feature",
+					"vm_VariabilityItem",
+					"vm_Option",
+					"vm_Rule"
+			};
+		}]]></method_code>
+  <method_type>C#</method_type>
+  <name>vm_scopeBuilder</name>
+ </Item>
+</AML>

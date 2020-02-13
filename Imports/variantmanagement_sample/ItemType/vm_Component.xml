@@ -1,0 +1,268 @@
+﻿<AML>
+ <Item type="ItemType" id="7362573D6A7644BAACC0A81C918642F4" action="add">
+  <allow_private_permission>1</allow_private_permission>
+  <auto_search>0</auto_search>
+  <enforce_discovery>1</enforce_discovery>
+  <hide_where_used>0</hide_where_used>
+  <implementation_type>polymorphic</implementation_type>
+  <instance_data>VM_COMPONENT</instance_data>
+  <is_dependent>0</is_dependent>
+  <is_relationship>0</is_relationship>
+  <is_versionable>1</is_versionable>
+  <label xml:lang="en">Component</label>
+  <label_plural xml:lang="en">Components</label_plural>
+  <manual_versioning>0</manual_versioning>
+  <revisions keyed_name="Default" type="Revision">7FE395DD8B9F4E1090756A34B733D75E</revisions>
+  <show_parameters_tab>1</show_parameters_tab>
+  <structure_view>tabs off</structure_view>
+  <unlock_on_logout>0</unlock_on_logout>
+  <use_src_access>0</use_src_access>
+  <name>vm_Component</name>
+  <Relationships>
+   <Item type="Property" id="56B67B98439141D4BE68B182EBA72809" action="add">
+    <column_alignment>left</column_alignment>
+    <column_width>200</column_width>
+    <data_type>string</data_type>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Name</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>3584</sort_order>
+    <source_id keyed_name="vm_Component" type="ItemType" name="vm_Component">7362573D6A7644BAACC0A81C918642F4</source_id>
+    <stored_length>128</stored_length>
+    <track_history>0</track_history>
+    <name>name</name>
+   </Item>
+   <Item type="Server Event" id="9965606D21504470989C9829E2ACEDB8" action="add">
+    <event_version>version_1</event_version>
+    <is_required>0</is_required>
+    <related_id keyed_name="polymorphic_item_onBeforeAdd" type="Method">
+     <Item type="Method" action="get" select="id">
+      <name>polymorphic_item_onBeforeAdd</name>
+     </Item>
+    </related_id>
+    <server_event>onBeforeAdd</server_event>
+    <sort_order>768</sort_order>
+    <source_id keyed_name="vm_Component" type="ItemType" name="vm_Component">7362573D6A7644BAACC0A81C918642F4</source_id>
+   </Item>
+   <Item type="Server Event" id="1E2A159521FC475E939F9DC7218C0D62" action="add">
+    <event_version>version_1</event_version>
+    <is_required>0</is_required>
+    <related_id keyed_name="polymorphic_item_onBeforeCopy" type="Method">
+     <Item type="Method" action="get" select="id">
+      <name>polymorphic_item_onBeforeCopy</name>
+     </Item>
+    </related_id>
+    <server_event>onBeforeCopy</server_event>
+    <sort_order>896</sort_order>
+    <source_id keyed_name="vm_Component" type="ItemType" name="vm_Component">7362573D6A7644BAACC0A81C918642F4</source_id>
+   </Item>
+   <Item type="Server Event" id="CBF4F19F582449578A8A910C94A75A5F" action="add">
+    <event_version>version_1</event_version>
+    <is_required>0</is_required>
+    <related_id keyed_name="polymorphic_item_onBeforeDelete" type="Method">
+     <Item type="Method" action="get" select="id">
+      <name>polymorphic_item_onBeforeDelete</name>
+     </Item>
+    </related_id>
+    <server_event>onBeforeDelete</server_event>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="vm_Component" type="ItemType" name="vm_Component">7362573D6A7644BAACC0A81C918642F4</source_id>
+   </Item>
+   <Item type="Server Event" id="F03CB361F7E74CF9A5F644F96A1E00E6" action="add">
+    <event_version>version_1</event_version>
+    <is_required>0</is_required>
+    <related_id keyed_name="polymorphic_item_onBeforeLock" type="Method">
+     <Item type="Method" action="get" select="id">
+      <name>polymorphic_item_onBeforeLock</name>
+     </Item>
+    </related_id>
+    <server_event>onBeforeLock</server_event>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="vm_Component" type="ItemType" name="vm_Component">7362573D6A7644BAACC0A81C918642F4</source_id>
+   </Item>
+   <Item type="Server Event" id="A9D9D87F30C64C1B97483FD3564A7960" action="add">
+    <event_version>version_1</event_version>
+    <is_required>0</is_required>
+    <related_id keyed_name="polymorphic_item_onBeforeUnlock" type="Method">
+     <Item type="Method" action="get" select="id">
+      <name>polymorphic_item_onBeforeUnlock</name>
+     </Item>
+    </related_id>
+    <server_event>onBeforeUnlock</server_event>
+    <sort_order>384</sort_order>
+    <source_id keyed_name="vm_Component" type="ItemType" name="vm_Component">7362573D6A7644BAACC0A81C918642F4</source_id>
+   </Item>
+   <Item type="Server Event" id="7C9EC35DC89A4256B0258CFDC7AFA629" action="add">
+    <event_version>version_1</event_version>
+    <is_required>0</is_required>
+    <related_id keyed_name="polymorphic_item_onBeforeUpdate" type="Method">
+     <Item type="Method" action="get" select="id">
+      <name>polymorphic_item_onBeforeUpdate</name>
+     </Item>
+    </related_id>
+    <server_event>onBeforeUpdate</server_event>
+    <sort_order>640</sort_order>
+    <source_id keyed_name="vm_Component" type="ItemType" name="vm_Component">7362573D6A7644BAACC0A81C918642F4</source_id>
+   </Item>
+   <Item type="Server Event" id="6D5488D3DDFD4D2691D54973F3D67EF7" action="add">
+    <event_version>version_1</event_version>
+    <is_required>0</is_required>
+    <related_id keyed_name="polymorphic_item_onBeforeVersion" type="Method">
+     <Item type="Method" action="get" select="id">
+      <name>polymorphic_item_onBeforeVersion</name>
+     </Item>
+    </related_id>
+    <server_event>onBeforeVersion</server_event>
+    <sort_order>512</sort_order>
+    <source_id keyed_name="vm_Component" type="ItemType" name="vm_Component">7362573D6A7644BAACC0A81C918642F4</source_id>
+   </Item>
+   <Item type="Can Add" id="FF680237D6D7442AA2AC589B8254DADE" action="add">
+    <can_add>1</can_add>
+    <related_id keyed_name="World" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>World</name>
+     </Item>
+    </related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="vm_Component" type="ItemType" name="vm_Component">7362573D6A7644BAACC0A81C918642F4</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+ <Item type="ItemType" id="7362573D6A7644BAACC0A81C918642F4" action="edit">
+  <Relationships>
+   <Item type="Property" action="edit" where="source_id='7362573D6A7644BAACC0A81C918642F4' and name='itemtype'">
+    <column_alignment>left</column_alignment>
+    <data_source keyed_name="vm_Component">
+     <Item type="List" action="get" select="id" page="1" pagesize="1">
+      <name>vm_Component</name>
+     </Item>
+    </data_source>
+    <data_type>list</data_type>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">ItemType</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>1</readonly>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="vm_Component" type="ItemType" name="vm_Component">7362573D6A7644BAACC0A81C918642F4</source_id>
+    <stored_length>64</stored_length>
+    <track_history>0</track_history>
+    <name>itemtype</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='7362573D6A7644BAACC0A81C918642F4' and name='keyed_name'">
+    <column_alignment>left</column_alignment>
+    <column_width>95</column_width>
+    <data_type>string</data_type>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Item</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>384</sort_order>
+    <source_id keyed_name="vm_Component" type="ItemType" name="vm_Component">7362573D6A7644BAACC0A81C918642F4</source_id>
+    <stored_length>128</stored_length>
+    <track_history>0</track_history>
+    <name>keyed_name</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='7362573D6A7644BAACC0A81C918642F4' and name='major_rev'">
+    <column_alignment>left</column_alignment>
+    <column_width>65</column_width>
+    <data_type>string</data_type>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Revision</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>1920</sort_order>
+    <source_id keyed_name="vm_Component" type="ItemType" name="vm_Component">7362573D6A7644BAACC0A81C918642F4</source_id>
+    <stored_length>8</stored_length>
+    <track_history>0</track_history>
+    <name>major_rev</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='7362573D6A7644BAACC0A81C918642F4' and name='state'">
+    <column_alignment>left</column_alignment>
+    <column_width>80</column_width>
+    <data_type>string</data_type>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">State</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>1</readonly>
+    <sort_order>1536</sort_order>
+    <source_id keyed_name="vm_Component" type="ItemType" name="vm_Component">7362573D6A7644BAACC0A81C918642F4</source_id>
+    <stored_length>32</stored_length>
+    <track_history>0</track_history>
+    <name>state</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='7362573D6A7644BAACC0A81C918642F4' and name='superseded_date'">
+    <column_alignment>left</column_alignment>
+    <data_type>date</data_type>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Superseded Date</label>
+    <pattern>short_date_time</pattern>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>3328</sort_order>
+    <source_id keyed_name="vm_Component" type="ItemType" name="vm_Component">7362573D6A7644BAACC0A81C918642F4</source_id>
+    <track_history>0</track_history>
+    <name>superseded_date</name>
+   </Item>
+  </Relationships>
+ </Item>
+ <Item type="View" action="delete" where="source_id='7362573D6A7644BAACC0A81C918642F4'" />
+ <Item type="Form" action="delete" where="name='vm_Component'" />
+ <Item type="ItemType" id="7362573D6A7644BAACC0A81C918642F4" action="edit">
+  <Relationships>
+   <Item type="Morphae" id="091691AE91B34D509EED7E44B2E8B908" action="add">
+    <related_id keyed_name="vm_VariableComponent" type="ItemType" name="vm_VariableComponent">6B7BF3405E2D4BFC906F296FD7A7F658</related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="vm_Component" type="ItemType" name="vm_Component">7362573D6A7644BAACC0A81C918642F4</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+ <Item type="ItemType" id="7362573D6A7644BAACC0A81C918642F4" action="edit">
+  <Relationships>
+   <Item type="Morphae" id="578A134AC5FA4C0FB7CDB8C938A50011" action="add">
+    <related_id keyed_name="Part" type="ItemType" name="Part">4F1AC04A2B484F3ABA4E20DB63808A88</related_id>
+    <sort_order>256</sort_order>
+	<source_id keyed_name="vm_Component" type="ItemType" name="vm_Component">7362573D6A7644BAACC0A81C918642F4</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+ <Item type="ItemType" id="7362573D6A7644BAACC0A81C918642F4" action="edit">
+  <Relationships>
+   <Item type="Morphae" id="3AE3051BF72544E985923208D7C1A6F9" action="add">
+    <related_id keyed_name="Document" type="ItemType" name="Document">B88C14B99EF449828C5D926E39EE8B89</related_id>
+    <sort_order>384</sort_order>
+    <source_id keyed_name="vm_Component" type="ItemType" name="vm_Component">7362573D6A7644BAACC0A81C918642F4</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

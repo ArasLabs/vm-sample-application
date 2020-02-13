@@ -1,0 +1,250 @@
+﻿/*
+	GrammarInputGroup grammar (Usage condition expressions parsing)
+	Should export two start rules: LexemAnalysis and ExpressionAnalysis
+
+	Limitations:
+		1. Whitespace lexem rule should return 'whitespace' type.
+		2. Unknown lexem rule should return 'unknown' type.
+*/
+
+{
+	const parserInstance = this;
+	const ruleNameValueCollectionMap = {
+		FeatureName: '_FeatureNames',
+		AllOptionName: '_OptionNames',
+		LogicOperator: ['OR', 'AND'],
+		OpenBracket: ['('],
+		CloseBracket: [')'],
+		OpenSquareBracket: ['['],
+		CloseSquareBracket: [']'],
+		NotLiteral: ['NOT'],
+		BooleanOperator: ['='],
+		OptionName: '_ValidOptionNames'
+	};
+
+	if (!parserInstance.standardGrammarLexemes) {
+		parserInstance.standardGrammarLexemes = new Set(
+			[].concat(
+				ruleNameValueCollectionMap.LogicOperator,
+				ruleNameValueCollectionMap.OpenBracket,
+				ruleNameValueCollectionMap.CloseBracket,
+				ruleNameValueCollectionMap.OpenSquareBracket,
+				ruleNameValueCollectionMap.CloseSquareBracket,
+				ruleNameValueCollectionMap.NotLiteral,
+				ruleNameValueCollectionMap.BooleanOperator
+			)
+		);
+	}
+
+	function validateWithValueCollection(valueCollectionName, key) {
+		let valueCollection = parserInstance.getValueCollectionByRuleName(valueCollectionName);
+
+		key = key.toLowerCase();
+		valueCollection = Array.isArray(valueCollection) ? valueCollection : Object.keys(valueCollection);
+
+		for (let i = 0; i < valueCollection.length; i++) {
+			const lowerCaseValue = valueCollection[i].toLowerCase();
+
+			if (key === lowerCaseValue) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	function setupValidOptionNames(featureName) {
+		const valueCollection = parserInstance.getValueCollectionByRuleName('AllOptionName');
+		const validNames = {};
+
+		Object.keys(valueCollection).forEach(function(optionName) {
+			if (valueCollection[optionName].indexOf(featureName) !== -1) {
+				validNames[optionName] = true;
+			}
+		});
+
+		parserInstance._ValidOptionNames = validNames;
+	}
+
+	function foldLogicOperationList(operator, head, tail) {
+		if (tail.length) {
+			for (let i = 0; i < tail.length; i++) {
+				const logicOperation = tail[i][3];
+
+				if (head.type === 'LogicExpression' && head.op === operator) {
+					head.children.push(logicOperation);
+				} else {
+					head = {
+						type: 'LogicExpression',
+						op: operator,
+						children: [head].concat(logicOperation)
+					};
+				}
+			}
+		}
+
+		return head;
+	}
+
+	parserInstance.getValueCollectionByRuleName = function(ruleName) {
+		const mappedCollection = ruleNameValueCollectionMap[ruleName];
+
+		return (typeof mappedCollection == 'string' ? this[mappedCollection] : mappedCollection) || [];
+	};
+}
+
+// Lexem Analysis rules section
+LexemAnalysis
+	= Lexem*
+
+Lexem
+	= _ / OpenBracket / CloseBracket / LexemLogicOperatorLiteral / LexemNotLiteral / BooleanOperator / LexemFeatureName / LexemOptionName
+	/ OpenSquareBracket/ CloseSquareBracket / LexemUnknown
+
+LexemLogicOperatorLiteral 'LogicOperatorLiteral'
+	= lexem:('OR'i / 'AND'i) ws:_ {return [{type: 'LogicOperator', text: lexem}, ws];}
+
+LexemNotLiteral 'NotLiteral'
+	= lexem:'NOT'i ws:_ {return [{type: 'NotLiteral', text: lexem}, ws];}
+
+LexemFeatureName 'FeatureName'
+	= feature:$noSpecialCharactersString & {
+		return validateWithValueCollection('FeatureName', feature);
+	} {
+		return {type: 'FamilyName', text: feature}
+	}
+	/ open:OpenSquareBracket feature:$noSquareBracketString close:CloseSquareBracket & {
+		return validateWithValueCollection('FeatureName', feature);
+	} {
+		return [{type: 'itembracket', text: open.text}, {type: 'FamilyName', text: feature}, {type: 'itembracket', text: close.text}];
+	}
+
+LexemOptionName 'AllOptionName'
+	= option:$noSpecialCharactersString & {
+		return validateWithValueCollection('AllOptionName', option);
+	} {
+		return {type: 'ValidOptionName', text: option}
+	}
+	/ open:OpenSquareBracket option:$noSquareBracketString close:CloseSquareBracket & {
+		return validateWithValueCollection('AllOptionName', option);
+	} {
+		return [{type: 'itembracket', text: open.text}, {type: 'ValidOptionName', text: option}, {type: 'itembracket', text: close.text}];
+	}
+
+// all unknown lexems should have 'unknown' type
+LexemUnknown
+	= lexem:$.+ {return {type: 'unknown', text: lexem}}
+
+// Expression Analysis rules section
+ExpressionAnalysis
+	= SimpleExpression
+
+SimpleExpression
+	= __ expression:LogicOrExpression {
+		return expression;
+	}
+
+LogicOrExpression
+	= head:LogicAndExpression tail:(_ ExpressionLogicOrOperatorLiteral _ LogicAndExpression)* {
+		return foldLogicOperationList('OR', head, tail);
+	}
+
+LogicAndExpression
+	= head:NotExpression tail:(_ ExpressionLogicAndOperatorLiteral _ NotExpression)* {
+		return foldLogicOperationList('AND', head, tail);
+	}
+
+NotExpression
+	= head:(ExpressionNotOperatorLiteral _)? expr:ParenthesisExpression {
+		return head ? {type: 'LogicExpression', op: 'NOT', children: [expr]} : expr;
+	} / head:(ExpressionNotOperatorLiteral _)? expr:BinaryExpression {
+		return head ? {type: 'LogicExpression', op: 'NOT', children: [expr]} : expr;
+	}
+
+ParenthesisExpression
+	= OpenBracket __ expr:SimpleExpression __ CloseBracket {
+		return expr;
+	}
+
+BinaryExpression
+	= left:ExpressionValidFeatureName __ operator:BooleanOperator __ right:ExpressionValidOptionName {
+		return {type: 'BinaryExpression', op: operator.text, leftOperand: left, rightOperand: right};
+	}
+
+ExpressionLogicOrOperatorLiteral 'LogicOperator'
+	= 'OR'i
+
+ExpressionLogicAndOperatorLiteral 'LogicOperator'
+	= 'AND'i
+
+ExpressionNotOperatorLiteral 'NotLiteral'
+	= 'NOT'i
+
+OpenBracket 'OpenBracket'
+	= '(' {return {type: 'bracket', text: text()}}
+
+OpenSquareBracket 'OpenSquareBracket'
+	= '[' {return {type: 'squarebracket', text: text()}}
+
+CloseBracket 'CloseBracket'
+	= ')' {return {type: 'bracket', text: text()}}
+
+CloseSquareBracket 'CloseSquareBracket'
+	= ']' {return {type: 'squarebracket', text: text()}}
+
+BooleanOperator 'BooleanOperator'
+	= ('=') {return {type: 'BooleanOperator', text: text()}}
+
+ExpressionValidFeatureName
+	= ExpressionFeatureName / OpenSquareBracket feature:BracketFeatureName CloseSquareBracket {
+		return feature;
+	}
+
+BracketFeatureName 'FeatureName'
+	= feature:$noSquareBracketString  & {
+		return validateWithValueCollection('FeatureName', feature);
+	} {
+		setupValidOptionNames(feature);
+		return {type: 'feature', text: feature};
+	}
+
+ExpressionFeatureName 'FeatureName'
+	= feature:$noSpecialCharactersString & {
+		return validateWithValueCollection('FeatureName', feature);
+	} {
+		setupValidOptionNames(feature);
+		return {type: 'feature', text: feature}
+	}
+
+ExpressionValidOptionName
+	= ExpressionOptionName / OpenSquareBracket option:ExpressionBracketOptionName CloseSquareBracket {
+		return option;
+	}
+
+ExpressionOptionName 'OptionName'
+	= option:$noSpecialCharactersString & {
+		return validateWithValueCollection('OptionName', option);
+	} {
+		return {type: 'option', text: option};
+	}
+
+ExpressionBracketOptionName 'OptionName'
+= option:$noSquareBracketString & {
+	return validateWithValueCollection('OptionName', option);
+} {
+	return {type: 'option', text: option};
+}
+
+noSquareBracketString 'noSquareBracketString'
+	= [^\[\]]+
+
+noSpecialCharactersString 'noSpecialCharactersString'
+	= [0-9A-Za-z]+
+
+_ 'whitespace'
+	= [ \t\n\r]+ {return {type: 'whitespace', text: text()}}
+
+__ 'softWhitespace'
+	= ws:$[ \t\n\r]* {
+		return ws ? {type: 'whitespace', text: ws} : null;
+	}

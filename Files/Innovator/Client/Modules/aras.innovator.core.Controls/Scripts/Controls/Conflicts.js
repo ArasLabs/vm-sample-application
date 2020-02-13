@@ -1,7 +1,7 @@
 ﻿define([
 	'dojo/_base/declare',
 	'dojo/_base/connect',
-	'Controls/ConflictsRenderer'
+	'Controls/conflictsRenderer'
 ],
 function(declare, connect, ConflictsRenderer) {
 	return declare('Controls.Conflicts', null, {

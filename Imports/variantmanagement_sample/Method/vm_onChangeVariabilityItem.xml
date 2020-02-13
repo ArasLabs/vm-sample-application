@@ -1,0 +1,24 @@
+﻿<AML>
+ <Item type="Method" id="5DA4FFF36F5D4F0A92D9BE47035768B3" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[const ruleEditorField = window.getFieldByName('rule_editor');
+const ruleEditorFrame = ruleEditorField.querySelector('iframe');
+
+// We use this way of scopeId getting because type-ahead and search dialog are triggering OnChange
+// event handler, but they have a different flow of value-updating and event-handling.
+// When we use search dialog, selecting the value and applying it, it is going like - update
+// the actual value and then invoke all the events on the change.
+// But it is not the case for type-ahead functionality -  when we select some option from
+// suggestions the value is updated after the event was fired and also there is no other
+// easy way to get id info, the only value is transferred to handlers. That is why we implement
+// another mechanism of getting it and then just getting it from the expression item. In the case
+// of type-ahead expression item is not in the new state when the event is fired.
+const selectedScopeKeyedName = window.getFieldComponentByName('variability_item').getValue();
+const scopeItem = aras.uiGetItemByKeyedName('vm_VariabilityItem', selectedScopeKeyedName);
+const scopeId = aras.getItemProperty(scopeItem, 'id');
+
+ruleEditorFrame.contentWindow.ruleEditorController.loadEditorState(scopeId);]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>vm_onChangeVariabilityItem</name>
+ </Item>
+</AML>

@@ -1,0 +1,38 @@
+﻿<AML>
+ <Item type="ItemType" id="A22EC0C6A1B940FB94654AB060F21459" action="edit">
+  <Relationships>
+   <Item type="Morphae" id="6983322D6C424C6AA434A8ADB9B796CC" action="add">
+    <related_id keyed_name="vm_Feature" type="ItemType" name="vm_Feature">E5DEE4162E334342B998034B75FF1BEA</related_id>
+    <sort_order>1920</sort_order>
+    <source_id keyed_name="ScopeCacheDependency" type="ItemType" name="ScopeCacheDependency">A22EC0C6A1B940FB94654AB060F21459</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+ <Item type="ItemType" id="A22EC0C6A1B940FB94654AB060F21459" action="edit">
+  <Relationships>
+   <Item type="Morphae" id="85248A914A6B4939B808518CDCBE0281" action="add">
+    <related_id keyed_name="vm_VariabilityItem" type="ItemType" name="vm_VariabilityItem">A2A374A6028444A58989E0A38E7222B7</related_id>
+    <sort_order>2048</sort_order>
+    <source_id keyed_name="ScopeCacheDependency" type="ItemType" name="ScopeCacheDependency">A22EC0C6A1B940FB94654AB060F21459</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+ <Item type="ItemType" id="A22EC0C6A1B940FB94654AB060F21459" action="edit">
+  <Relationships>
+   <Item type="Morphae" id="CDF3E6CA76F84B3B8E9C4C95BA579C88" action="add">
+    <related_id keyed_name="vm_Option" type="ItemType" name="vm_Option">BFB79DCBD8C04933A11A0E8E22C9A7BE</related_id>
+    <sort_order>2176</sort_order>
+    <source_id keyed_name="ScopeCacheDependency" type="ItemType" name="ScopeCacheDependency">A22EC0C6A1B940FB94654AB060F21459</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+ <Item type="ItemType" id="A22EC0C6A1B940FB94654AB060F21459" action="edit">
+  <Relationships>
+   <Item type="Morphae" id="7A77C96DA1D14B24B17D104A4D561FBD" action="add">
+    <related_id keyed_name="vm_Rule" type="ItemType" name="vm_Rule">4E7A6E982D6144A3AD8B2CDE7008BDCA</related_id>
+    <sort_order>2304</sort_order>
+    <source_id keyed_name="ScopeCacheDependency" type="ItemType" name="ScopeCacheDependency">A22EC0C6A1B940FB94654AB060F21459</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

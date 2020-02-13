@@ -1,0 +1,151 @@
+﻿<AML>
+ <Item type="Method" id="56ACED043BB1476ABDE771200F52B814" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[	// method takes the package file path and loads the data files
+	Innovator inn = this.getInnovator();
+	string path = this.getProperty("path");
+
+	if (string.IsNullOrEmpty(path))
+	{
+		return inn.newError("Error in vm_loadSampleData: 'path' property must be passed in method call.");
+	}
+
+	path = Path.Combine(path, @"SampleData\Data");
+
+	// {filename,itemtype}
+	Dictionary<string,string> loadItems = new Dictionary<string,string>();
+
+	loadItems.Add("001-vm_VariabilityItem.txt", "vm_VariabilityItem");
+	loadItems.Add("002-vm_VariabilityItemStructure.txt", "vm_VariabilityItemStructure");
+	loadItems.Add("003-vm_Feature.txt", "vm_Feature");
+	loadItems.Add("004-vm_VariabilityItemFeature.txt", "vm_VariabilityItemFeature");
+	loadItems.Add("005-vm_Option.txt", "vm_Option");
+	loadItems.Add("006-vm_FeatureOption.txt", "vm_FeatureOption");
+	loadItems.Add("007-vm_Rule.txt", "vm_Rule");
+	loadItems.Add("008-vm_VariabilityItemRule.txt", "vm_VariabilityItemRule");
+	loadItems.Add("009-Document.txt", "Document");
+	loadItems.Add("010-Part.txt", "Part");
+	loadItems.Add("011-Part_BOM.txt", "Part BOM");
+	loadItems.Add("012-vm_VariableComponent.txt.", "vm_VariableComponent");
+	loadItems.Add("013-vm_VariableComponentAsset.txt", "vm_VariableComponentAsset");
+	loadItems.Add("014-vm_VarComponentAssetUsage.txt", "vm_VarComponentAssetUsage");
+	loadItems.Add("015-vm_VarComponentAssetUsageVarIt.txt", "vm_VarComponentAssetUsageVarIt");
+	loadItems.Add("016-vm_VarComponentVariabilityItem.txt", "vm_VarComponentVariabilityItem");
+	loadItems.Add("017-vm_BreakdownItem.txt", "vm_BreakdownItem");
+	loadItems.Add("018-vm_BreakdownItemStructure.txt", "vm_BreakdownItemStructure");
+	loadItems.Add("019-vm_BreakdownItemComponent.txt", "vm_BreakdownItemComponent");
+	loadItems.Add("020-vm_BreakdownItemVarItem.txt", "vm_BreakdownItemVarItem");
+
+	foreach (KeyValuePair<string,string> item in loadItems)
+	{
+		string filename = item.Key;
+		string itemtype = item.Value;
+
+		using (StreamReader sr = new StreamReader(path + @"\" + filename))
+		{
+			string content = sr.ReadToEnd();
+
+			// parse data files, build AML, and load items
+			Item res = createItems(inn, itemtype, content, path);
+
+			if (res.isError())
+			{
+				return res;
+			}
+		}
+	}
+
+	return inn.newResult("Success!");
+}
+
+public static Item createItems(Innovator inn, string itemtype, string content, string path)
+{
+	// validate parameters
+	if (string.IsNullOrEmpty(itemtype) || string.IsNullOrEmpty(content))
+	{
+		return inn.newError("Error in createItems(): 'itemtype' and 'content' properties cannot be empty.");
+	}
+
+	// build aml from input
+	string aml = "<AML>\n";
+
+	// first line in file contains properties
+	string[] lines = content.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+	string[] props = lines[0].Split('\t');
+
+	for (int i = 1; i < lines.Length; i++)
+	{
+		string line = lines[i];
+
+		if (string.IsNullOrEmpty(line)) continue; // line is blank
+
+		string itemId = line.Split('\t')[0]; // assumes 'id' is always the first col
+		string item = "<Item type='" + itemtype + "' action='add' id='" + itemId + "' doGetItem='0'>\n";
+
+		int propIndex = 0;
+		while (propIndex < props.Length)
+		{
+			int nextTab = line.IndexOf('\t');
+			string prop = props[propIndex];
+
+			if (nextTab == 0)
+			{
+				// we hit a null property value. skip this property.
+				if (line.Length > 0)
+					line = line.Substring(1);
+				propIndex++;
+			}
+			else if (nextTab < 0)
+			{
+				// end of line
+				if (line.Length > 0 && !string.IsNullOrWhiteSpace(prop))
+				{
+					item += WrapPropertyInTag(prop, line);
+				}
+				break;
+			}
+			else
+			{
+				// add property to aml
+				string value = line.Substring(0, nextTab);
+				item += WrapPropertyInTag(prop, value);
+
+				// remove the property we just processed and the tab
+				line = line.Substring(nextTab);
+				if (line.Length > 0)
+					line = line.Substring(1);
+
+				propIndex++;
+			}
+		}
+
+		item += "</Item>\n";
+		aml += item;
+	}
+
+	aml += "</AML>";
+
+	// write log for debugging load issues
+	logAML(path + @"\Logs\" + itemtype + ".xml", aml);
+
+	Item res = inn.applyAML(aml);
+
+	return res;
+}
+
+public static string WrapPropertyInTag(string propertyName, string value)
+{
+	return string.Format(CultureInfo.InvariantCulture, "<{0}><![CDATA[{1}]]]]><![CDATA[></{0}>\n", propertyName, value);
+}
+
+public static void logAML(string name, string aml)
+{
+	// print AML to file for debugging
+	System.IO.FileInfo file = new System.IO.FileInfo(name);
+	file.Directory.Create(); 
+	System.IO.File.WriteAllText(file.FullName, aml);
+]]></method_code>
+  <method_type>C#</method_type>
+  <name>vm_loadSampleData</name>
+ </Item>
+</AML>

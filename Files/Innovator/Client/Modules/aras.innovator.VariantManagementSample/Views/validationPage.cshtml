@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<style>
+		@@import "@Url.ContentWithSalt("~/javascript/include.aspx?classes=DynamicTreeGrid.css")";
+		@@import "@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/styles/validationPage.css")";
+		@@import "@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/styles/vmGridFormatters.css")";
+		@@import "@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/styles/vmSelectionTree.css")";
+		@@import "@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/styles/variantManagement.css")";
+	</style>
+	<script src="@Url.ContentWithSalt("~/javascript/include.aspx?classes=ArasModules,DynamicTreeGrid")"></script>
+	<script src="@Url.ContentWithSalt("~/jsBundles/cui.js")"></script>
+	<script src="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/Scripts/vmExpressionBuilder.js")"></script>
+	<script src="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/Scripts/vmSwitcherManager.js")"></script>
+	<script src="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/Scripts/vmGridFormatters.js")"></script>
+	<script src="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/Scripts/vmSelectionTree.js")"></script>
+	<script src="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/Scripts/vmBooleanMutuallyExclusiveSelectionTree.js")"></script>
+	<script src="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/Scripts/vmBooleanMutuallyExclusiveFeatureOptionSelectionTree.js")"></script>
+	<script src="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/Scripts/variabilityItemStructureSelectionTreeDataProvider.js")"></script>
+	<script src="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/Scripts/validation/vmValidationResultGrid.js")"></script>
+	<script src="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/Scripts/validation/autoValidationTabViewController.js")"></script>
+	<script src="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/Scripts/validation/selectionValidationTabViewController.js")"></script>
+	<script src="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/Scripts/validation/validationPageViewController.js")"></script>
+	<base href="../../../scripts/">
+</head>
+<body class="vm-padded-page">
+	<div class="aras-accordion vm-fit-all-space vm-flex aras-flex_column">
+		<aras-tabs class="aras-accordion__header validation-tabs"></aras-tabs>
+		<div class="aras-accordion__content aras-flex aras-flex-grow">
+			<iframe id="dimmer_spinner" class="aras-hide" src="@Url.ContentWithSalt("~/scripts/spinner.html")"></iframe>
+			<aras-switcher id="validation-type-switcher" class="tab-content-switcher aras-flex-grow">
+				<div class="vm-fit-all-space vm-padded-container aras-flex aras-flex_column" switcher-pane-id="auto-validation-pane">
+					<div class="auto-validation-pane-toolbar vm-toolbar"></div>
+					<div class="auto-validation-pane-grid aras-flex-grow"></div>
+				</div>
+				<div class="vm-fit-all-space vm-selection-validation aras-flex" switcher-pane-id="selection-validation-pane">
+					<div class="vm-splitter-pane_left vm-splitter-pane_min-width_305 aras-flex aras-flex_column aras-flex-grow">
+						<div class="vm-selection-tree vm-selection-validation__selection-tree aras-flex aras-flex_column aras-flex-grow effs-no-overflow">
+							<div class="vm-selection-tree__title vm-title"></div>
+							<div class="vm-selection-tree__toolbar vm-toolbar"></div>
+							<div class="vm-selection-tree__selection-area aras-flex-grow"></div>
+						</div>
+						<div class="vm-selection-validation__buttons-container aras-flex">
+							<button class="vm-selection-validation__validate-selection-btn aras-button">
+								<span class="aras-button__text"></span>
+							</button>
+							<button class="vm-selection-validation__get-reasons-btn aras-button">
+								<span class="aras-button__text"></span>
+							</button>
+						</div>
+					</div>
+					<div class="aras-splitter vm-splitter vm-splitter_vertical"></div>
+					<div class="vm-splitter-pane_right vm-splitter-pane_min-width_305 vm-padded-container">
+						<div class="vm-selection-validation__validation-result-grid aras-flex-grow"></div>
+					</div>
+				</div>
+			</aras-switcher>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../../../javascript/include.aspx?classes=common.min.css" />
+	<link rel="stylesheet" href="../styles/variantManagement.css" />
+	<script src="../../../javascript/include.aspx?classes=ArasModules"></script>
+	<script src="../../../jsBundles/cui.js"></script>
+	<script src="../Scripts/usageConditionItemGridController.js"></script>
+	<script>
+		window.addEventListener('DOMContentLoaded', function() {
+			const dialogArguments = window.frameElement.dialogArguments;
+			const aras = dialogArguments.aras;
+			// window.aras is required for CUI and other common stuff
+			window.aras = aras;
+			const parameters = {
+				aras: aras,
+				title: dialogArguments.title,
+				usageConditionSourceItemId: dialogArguments.usageConditionSourceItemId,
+				usageConditionItemsLoader: dialogArguments.usageConditionItemsLoader,
+				getDefaultVariabilityItem: dialogArguments.getDefaultVariabilityItem,
+				titleElement: document.querySelector('.vm-splitter-pane-view__title'),
+				closeButtonElement: document.querySelector('.vm-splitter-pane-view__close-button'),
+				closeButtonClickHandler: dialogArguments.closeButtonClickHandler,
+				toolbarElement: document.querySelector('.vm-usage-conditions-item-grid-view__toolbar'),
+				gridElement: document.querySelector('.vm-usage-conditions-item-grid-view__grid')
+			};
+			new UsageConditionItemGridController(parameters);
+		});
+	</script>
+</head>
+<body class="vm-usage-conditions-item-grid-view vm-splitter-pane-view aras-flex aras-flex_column">
+	<div class="vm-splitter-pane-view__titlebar aras-titlebar aras-titlebar_c aras-flex">
+		<img class="aras-toolbar__item aras-toolbar__icon" src="../images/UsageCondition.svg">
+		<span class="vm-splitter-pane-view__title aras-toolbar__item aras-toolbar__title vm-title"></span>
+		<span class="vm-splitter-pane-view__close-button aras-toolbar__item aras-toolbar__icon aras-hide aras-dialog__close-button aras-icon-close"></span>
+	</div>
+	<div class="vm-usage-conditions-item-grid-view__toolbar vm-toolbar"></div>
+	<div class="vm-usage-conditions-item-grid-view__grid"></div>
+</body>
+</html>

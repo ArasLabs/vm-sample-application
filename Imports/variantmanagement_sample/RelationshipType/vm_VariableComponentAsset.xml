@@ -1,0 +1,205 @@
+﻿<AML>
+ <Item type="RelationshipType" id="1582D53C2B9E409E8AE64AEDD473A6F7" action="add" dependencyLevel="0">
+  <auto_search>1</auto_search>
+  <behavior>float</behavior>
+  <copy_permissions>0</copy_permissions>
+  <create_related>0</create_related>
+  <grid_view>intermix</grid_view>
+  <hide_in_all>0</hide_in_all>
+  <inc_rel_key_name>1</inc_rel_key_name>
+  <inc_related_key_name>1</inc_related_key_name>
+  <is_list_type>0</is_list_type>
+  <label xml:lang="en">Assets</label>
+  <new_show_related>0</new_show_related>
+  <related_id keyed_name="vm_Asset" type="ItemType" name="vm_Asset">F16C4298A92F4E2F97754671FF529224</related_id>
+  <related_notnull>0</related_notnull>
+  <related_option>0</related_option>
+  <relationship_id keyed_name="vm_VariableComponentAsset" type="ItemType" name="vm_VariableComponentAsset">
+   <Item type="ItemType" id="57817FA5F5E7493F85BC99F7536C71AC" action="add">
+    <allow_private_permission>1</allow_private_permission>
+    <auto_search>0</auto_search>
+    <enforce_discovery>0</enforce_discovery>
+    <hide_where_used>0</hide_where_used>
+    <implementation_type>table</implementation_type>
+    <instance_data>VM_VARIABLECOMPONENTASSET</instance_data>
+    <is_dependent>0</is_dependent>
+    <is_relationship>1</is_relationship>
+    <is_versionable>0</is_versionable>
+    <label xml:lang="en">Asset</label>
+    <label_plural xml:lang="en">Assets</label_plural>
+    <revisions keyed_name="Default" type="Revision">7FE395DD8B9F4E1090756A34B733D75E</revisions>
+    <show_parameters_tab>1</show_parameters_tab>
+    <structure_view>tabs off</structure_view>
+    <unlock_on_logout>0</unlock_on_logout>
+    <use_src_access>1</use_src_access>
+    <name>vm_VariableComponentAsset</name>
+    <Relationships>
+     <Item type="ITPresentationConfiguration" id="B79C3EB50CAE4A6F8D339AF3C8EDFCA6" action="add">
+      <client>js</client>
+      <related_id keyed_name="vm_VariableComponentAsset Presentation Configuration" type="PresentationConfiguration">A2B7EDAF0D414F2F965798D2017C85D1</related_id>
+      <sort_order>128</sort_order>
+      <source_id keyed_name="vm_VariableComponentAsset" type="ItemType" name="vm_VariableComponentAsset">57817FA5F5E7493F85BC99F7536C71AC</source_id>
+     </Item>
+     <Item type="Property" id="D7585FB9AA324B938F83283CDE1997F4" action="add">
+      <column_alignment>left</column_alignment>
+      <column_width>520</column_width>
+      <data_type>federated</data_type>
+      <is_hidden>1</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Usage Condition</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>1</readonly>
+      <sort_order>3840</sort_order>
+      <source_id keyed_name="vm_VariableComponentAsset" type="ItemType" name="vm_VariableComponentAsset">57817FA5F5E7493F85BC99F7536C71AC</source_id>
+      <track_history>0</track_history>
+      <name>vm_expression_string_notation</name>
+     </Item>
+     <Item type="Property" id="3C0986EB8CB14A4D9C809817BB722960" action="add">
+      <column_alignment>left</column_alignment>
+      <data_source keyed_name="ItemType" type="ItemType" name="ItemType">450906E86E304F55A34B3C0D65C097EA</data_source>
+      <data_type>item</data_type>
+      <is_hidden>1</is_hidden>
+      <is_hidden2>1</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <item_behavior>float</item_behavior>
+      <range_inclusive>0</range_inclusive>
+      <readonly>1</readonly>
+      <sort_order>3584</sort_order>
+      <source_id keyed_name="vm_VariableComponentAsset" type="ItemType" name="vm_VariableComponentAsset">57817FA5F5E7493F85BC99F7536C71AC</source_id>
+      <track_history>0</track_history>
+      <name>related_itemtype</name>
+     </Item>
+     <Item type="Property" id="72797055DCEF45F49857B883D94B1C30" action="add">
+      <column_alignment>center</column_alignment>
+      <column_width>32</column_width>
+      <data_source>
+       <Item type="Property" action="get" select="id">
+        <name>related_itemtype</name>
+        <source_id>57817FA5F5E7493F85BC99F7536C71AC</source_id>
+       </Item>
+      </data_source>
+      <data_type>foreign</data_type>
+      <foreign_property>
+       <Item type="Property" action="get" select="id">
+        <keyed_name>open_icon</keyed_name>
+        <source_id>
+         <Item type="ItemType" action="get" select="id">
+          <name>ItemType</name>
+         </Item>
+        </source_id>
+       </Item>
+      </foreign_property>
+      <is_hidden>1</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Icon</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>1</readonly>
+      <sort_order>64</sort_order>
+      <source_id keyed_name="vm_VariableComponentAsset" type="ItemType" name="vm_VariableComponentAsset">57817FA5F5E7493F85BC99F7536C71AC</source_id>
+      <track_history>0</track_history>
+      <name>related_itemtype_icon</name>
+     </Item>
+     <Item type="Server Event" id="50BE6F1662A44FCB8C9C6EBD9E20AF5D" action="add">
+      <event_version>version_1</event_version>
+      <is_required>1</is_required>
+      <related_id keyed_name="vm_combineUsageStrNotationAftGet" type="Method">
+       <Item type="Method" action="get" select="id">
+        <name>vm_combineUsageStrNotationAftGet</name>
+       </Item>
+      </related_id>
+      <server_event>onAfterGet</server_event>
+      <sort_order>384</sort_order>
+      <source_id keyed_name="vm_VariableComponentAsset" type="ItemType" name="vm_VariableComponentAsset">57817FA5F5E7493F85BC99F7536C71AC</source_id>
+     </Item>
+     <Item type="Server Event" id="BCA0B03A62724425A3E04547C68FB72A" action="add">
+      <event_version>version_1</event_version>
+      <is_required>1</is_required>
+      <related_id keyed_name="vm_populateRelatedItemTypeProp" type="Method">
+       <Item type="Method" action="get" select="id">
+        <name>vm_populateRelatedItemTypeProp</name>
+       </Item>
+      </related_id>
+      <server_event>onBeforeAdd</server_event>
+      <sort_order>128</sort_order>
+      <source_id keyed_name="vm_VariableComponentAsset" type="ItemType" name="vm_VariableComponentAsset">57817FA5F5E7493F85BC99F7536C71AC</source_id>
+     </Item>
+     <Item type="Server Event" id="3A192238EAEB4B43BD023EAAAD9B1591" action="add">
+      <event_version>version_1</event_version>
+      <is_required>1</is_required>
+      <related_id keyed_name="vm_combineUsageStrNotationBefGet" type="Method">
+       <Item type="Method" action="get" select="id">
+        <name>vm_combineUsageStrNotationBefGet</name>
+       </Item>
+      </related_id>
+      <server_event>onBeforeGet</server_event>
+      <sort_order>512</sort_order>
+      <source_id keyed_name="vm_VariableComponentAsset" type="ItemType" name="vm_VariableComponentAsset">57817FA5F5E7493F85BC99F7536C71AC</source_id>
+     </Item>
+     <Item type="Server Event" id="FBD7952D070B4415B0DB0621C0925024" action="add">
+      <event_version>version_1</event_version>
+      <is_required>1</is_required>
+      <related_id keyed_name="vm_populateRelatedItemTypeProp" type="Method">
+       <Item type="Method" action="get" select="id">
+        <name>vm_populateRelatedItemTypeProp</name>
+       </Item>
+      </related_id>
+      <server_event>onBeforeUpdate</server_event>
+      <sort_order>256</sort_order>
+      <source_id keyed_name="vm_VariableComponentAsset" type="ItemType" name="vm_VariableComponentAsset">57817FA5F5E7493F85BC99F7536C71AC</source_id>
+     </Item>
+    </Relationships>
+   </Item>
+  </relationship_id>
+  <sort_order>128</sort_order>
+  <source_id keyed_name="vm_VariableComponent" type="ItemType" name="vm_VariableComponent">6B7BF3405E2D4BFC906F296FD7A7F658</source_id>
+  <name>vm_VariableComponentAsset</name>
+  <Relationships>
+   <Item type="Relationship Grid Event" id="724C19C50DC54522B8196C7AC4328A67" action="add">
+    <grid_event>onselectrow</grid_event>
+    <related_id keyed_name="vm_varComponentAssetViewUsgOnSel" type="Method">
+     <Item type="Method" action="get" select="id">
+      <name>vm_varComponentAssetViewUsgOnSel</name>
+     </Item>
+    </related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="vm_VariableComponentAsset" type="RelationshipType">1582D53C2B9E409E8AE64AEDD473A6F7</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+ <Item type="ItemType" id="57817FA5F5E7493F85BC99F7536C71AC" action="edit">
+  <Relationships>
+   <Item type="Property" action="edit" where="source_id='57817FA5F5E7493F85BC99F7536C71AC' and name='sort_order'">
+    <column_alignment>left</column_alignment>
+    <column_width>72</column_width>
+    <data_type>integer</data_type>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Sequence</label>
+    <order_by>0</order_by>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>3200</sort_order>
+    <source_id keyed_name="vm_VariableComponentAsset" type="ItemType" name="vm_VariableComponentAsset">57817FA5F5E7493F85BC99F7536C71AC</source_id>
+    <track_history>0</track_history>
+    <name>sort_order</name>
+   </Item>
+  </Relationships>
+ </Item>
+ <Item type="View" action="delete" where="source_id='57817FA5F5E7493F85BC99F7536C71AC'" />
+ <Item type="Form" action="delete" where="name='vm_VariableComponentAsset'" />
+</AML>

@@ -1,0 +1,30 @@
+﻿<AML>
+ <Item type="PresentationCommandBarSection" id="88EB60A2531347A8B70D48C0F154F1B6" action="add">
+  <related_id keyed_name="vm_selectionTreeToolbar" type="CommandBarSection">
+   <Item type="CommandBarSection" id="74F381317FB746268DA097001DCF465F" action="add">
+    <classification>Data Model</classification>
+    <location keyed_name="vm_selectionTreeToolbar" type="cui_Location">816E1A58CE1E43D3961EA395CE7B30AC</location>
+    <name>vm_selectionTreeToolbar</name>
+    <Relationships>
+     <Item type="CommandBarSectionItem" id="A5AB87D7D2DF41378D02FC48F6F253AE" action="add">
+      <action>Add</action>
+      <related_id keyed_name="vm_selectionTreeToolbarExpandBtn" type="CommandBarItem">2DBD859EBE4249CF9C84C647EA668AD6</related_id>
+      <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+      <sort_order>128</sort_order>
+      <source_id keyed_name="vm_selectionTreeToolbar" type="CommandBarSection">74F381317FB746268DA097001DCF465F</source_id>
+     </Item>
+     <Item type="CommandBarSectionItem" id="3E777691B19E4AD188E338F54C7D2384" action="add">
+      <action>Add</action>
+      <related_id keyed_name="vm_selectionTreeToolbarCollapseBtn" type="CommandBarItem">769359931EBB402E940CD8435A8FB2A8</related_id>
+      <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+      <sort_order>256</sort_order>
+      <source_id keyed_name="vm_selectionTreeToolbar" type="CommandBarSection">74F381317FB746268DA097001DCF465F</source_id>
+     </Item>
+    </Relationships>
+   </Item>
+  </related_id>
+  <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+  <sort_order>9856</sort_order>
+  <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+ </Item>
+</AML>

@@ -1,0 +1,8 @@
+﻿<AML>
+ <Item type="Value" id="C21078C9B7BB41C4876429E3B64098F4" action="add">
+  <label xml:lang="en">Dictionary</label>
+  <sort_order>3396</sort_order>
+  <source_id keyed_name="Categories" type="List">EAB29654E2CD4D30B376957788198B40</source_id>
+  <value>Variant Management/Dictionary</value>
+ </Item>
+</AML>

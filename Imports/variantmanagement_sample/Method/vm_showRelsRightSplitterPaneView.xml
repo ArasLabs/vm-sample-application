@@ -1,0 +1,48 @@
+﻿<AML>
+ <Item type="Method" id="C7B4A8C9868D43C1B5DE11D20AD3A44B" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[const relationshipTabId = inArgs.relationshipTabId || parent.relationships.relTabbar.GetSelectedTab();
+
+const splitter = document.getElementById(relationshipTabId + '_splitter');
+splitter.classList.toggle('aras-hide', false);
+
+const rightSplitterPane = document.getElementById(relationshipTabId + '_right_splitter_pane');
+rightSplitterPane.classList.toggle('aras-hide', false);
+
+const viewPath = inArgs.viewPath;
+
+const renderRightSplitterPaneIframe = function() {
+	const rightSplitterPaneIframeVNode = window.Inferno.createVNode(
+		window.Inferno.getFlagsForElementVnode('iframe'),
+		'iframe',
+		'effs-relationship-container__pane-content effs-relationship-container__pane-content-iframe',
+		null,
+		ArasModules.utils.infernoFlags.hasInvalidChildren,
+		null,
+		null,
+		function(node) {
+			if (!node) {
+				return;
+			}
+
+			const closeButtonClickHandler = function() {
+				splitter.classList.toggle('aras-hide', true);
+				rightSplitterPane.classList.toggle('aras-hide', true);
+			};
+
+			node.dialogArguments = Object.assign({closeButtonClickHandler: closeButtonClickHandler}, inArgs);
+
+			// "src" attribute can be set in createVNode function, but in this case iframe will be rendered only for the first call
+			// that's why it is set in callback function
+			node.src = viewPath;
+		}
+	);
+
+	window.Inferno.render(rightSplitterPaneIframeVNode, rightSplitterPane);
+};
+
+renderRightSplitterPaneIframe();]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>vm_showRelsRightSplitterPaneView</name>
+ </Item>
+</AML>

@@ -1,0 +1,155 @@
+﻿<AML>
+ <Item type="Form" id="A27702413E7347B4AAC8213F03858B7F" action="add">
+  <category_form>0</category_form>
+  <height>415</height>
+  <stylesheet><![CDATA[../styles/default.css]]></stylesheet>
+  <width>699</width>
+  <name>vm_Expression</name>
+  <Relationships>
+   <Item type="Body" id="9796389943A74A4C8A265837979F2677" action="add">
+    <css>div[name='variability_item'] &gt; fieldset,
+div[name='rule_editor'] &gt; fieldset {
+	padding: 0;
+}
+
+div[name='rule_editor'] .effs-definition-editor__source-frame  {
+	position: fixed;
+	padding-top: 4px;
+	width: 100%;
+	height: calc(100% - 67px);
+}
+
+.aras-field__label {
+	padding-bottom: 4px;
+}
+
+.aras-field__label,
+.sys_f_label {
+	line-height: 14px;
+}
+</css>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="vm_Expression" type="Form">A27702413E7347B4AAC8213F03858B7F</source_id>
+    <Relationships>
+     <Item type="Field" id="1C28E9D2D78043D1B12AB02E4442B6F3" action="add">
+      <bg_color>beige  </bg_color>
+      <border_width>0</border_width>
+      <display_length_unit>px</display_length_unit>
+      <field_type>textarea</field_type>
+      <font_color>#000000</font_color>
+      <font_family>arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>0</is_disabled>
+      <is_visible>0</is_visible>
+      <label xml:lang="en">Definition</label>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <propertytype_id keyed_name="definition" type="Property">44A3294184BB4535B5C7371ADA655848</propertytype_id>
+      <sort_order>512</sort_order>
+      <source_id keyed_name="9796389943A74A4C8A265837979F2677" type="Body">9796389943A74A4C8A265837979F2677</source_id>
+      <tab_index>3584</tab_index>
+      <tab_stop>1</tab_stop>
+      <x>190</x>
+      <y>58</y>
+      <name>definition</name>
+     </Item>
+     <Item type="Field" id="737A35F81B874E349DBFD4FA1E3A8B1A" action="add">
+      <border_width>0</border_width>
+      <display_length_unit>px</display_length_unit>
+      <field_type>html</field_type>
+      <font_color>#000000</font_color>
+      <font_family>Roboto, 'Noto Sans JP', Arial, sans-serif</font_family>
+      <font_size>12px</font_size>
+      <font_weight>bold</font_weight>
+      <html_code><![CDATA[<iframe class="effs-definition-editor__source-frame" src="../Modules/aras.innovator.VariantManagementSample/Views/usageDefinitionEditor.html" style="border-width: 0px" width="700px" height="400px"></iframe>]]></html_code>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label xml:lang="en">Usage Condition</label>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <sort_order>256</sort_order>
+      <source_id keyed_name="9796389943A74A4C8A265837979F2677" type="Body">9796389943A74A4C8A265837979F2677</source_id>
+      <tab_stop>1</tab_stop>
+      <x>0</x>
+      <y>49</y>
+      <name>rule_editor</name>
+     </Item>
+     <Item type="Field" id="FF874C28ACF543ABA5CB4E9ED6A5CB3B" action="add">
+      <border_width>0</border_width>
+      <display_length>220</display_length>
+      <display_length_unit>px</display_length_unit>
+      <field_type>item</field_type>
+      <font_color>#000000</font_color>
+      <font_family>Roboto, 'Noto Sans JP', Arial, sans-serif</font_family>
+      <font_size>12px</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label xml:lang="en">Variability Item</label>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <sort_order>128</sort_order>
+      <source_id keyed_name="9796389943A74A4C8A265837979F2677" type="Body">9796389943A74A4C8A265837979F2677</source_id>
+      <tab_stop>1</tab_stop>
+      <x>0</x>
+      <y>0</y>
+      <name>variability_item</name>
+      <Relationships>
+       <Item type="Field Event" id="68CB8B8422A14D7AB725B7469B7C6D82" action="add">
+        <field_event>onchange</field_event>
+        <related_id keyed_name="vm_onChangeVariabilityItem" type="Method">
+         <Item type="Method" action="get" select="id">
+          <name>vm_onChangeVariabilityItem</name>
+         </Item>
+        </related_id>
+        <sort_order>128</sort_order>
+        <source_id keyed_name="variability_item" type="Field">FF874C28ACF543ABA5CB4E9ED6A5CB3B</source_id>
+       </Item>
+       <Item type="Field Event" id="C979CFD1C8E740AFA77C7441CACC9CC9" action="add">
+        <field_event>onchange</field_event>
+        <related_id keyed_name="vm_usageEditorVarItmChgEvntPbls" type="Method">
+         <Item type="Method" action="get" select="id">
+          <name>vm_usageEditorVarItmChgEvntPbls</name>
+         </Item>
+        </related_id>
+        <sort_order>256</sort_order>
+        <source_id keyed_name="variability_item" type="Field">FF874C28ACF543ABA5CB4E9ED6A5CB3B</source_id>
+       </Item>
+      </Relationships>
+     </Item>
+    </Relationships>
+   </Item>
+   <Item type="Form Event" id="B70D278EACD2490B84168DDB750028FE" action="add">
+    <form_event>onformpopulated</form_event>
+    <related_id keyed_name="effs_InitializeExpressionEditor" type="Method">
+     <Item type="Method" action="get" select="id">
+      <name>effs_InitializeExpressionEditor</name>
+     </Item>
+    </related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="vm_Expression" type="Form">A27702413E7347B4AAC8213F03858B7F</source_id>
+   </Item>
+   <Item type="Form Event" id="E3F4C47C526C41A5B15D65325D40F279" action="add">
+    <form_event>onload</form_event>
+    <related_id keyed_name="vm_usageEditorInputChgEvntPbls" type="Method">
+     <Item type="Method" action="get" select="id">
+      <name>vm_usageEditorInputChgEvntPbls</name>
+     </Item>
+    </related_id>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="vm_Expression" type="Form">A27702413E7347B4AAC8213F03858B7F</source_id>
+   </Item>
+   <Item type="Form Event" id="0CA873F7DC8B477982BC259117358178" action="add">
+    <form_event>onload</form_event>
+    <related_id keyed_name="vm_usageEditorVarItmChgEvntPbls" type="Method">
+     <Item type="Method" action="get" select="id">
+      <name>vm_usageEditorVarItmChgEvntPbls</name>
+     </Item>
+    </related_id>
+    <sort_order>384</sort_order>
+    <source_id keyed_name="vm_Expression" type="Form">A27702413E7347B4AAC8213F03858B7F</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

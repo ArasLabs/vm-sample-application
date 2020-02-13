@@ -1,0 +1,25 @@
+﻿.aras-accordion > .aras-accordion__content {
+	padding: 0;
+}
+
+.vm-resolution-selection__title {
+	padding-bottom: 8px;
+}
+
+.vm-resolution-selection__variability-item-field {
+	width: 184px;
+}
+
+.vm-resolution-evaluation {
+	padding: 12px;
+	box-sizing: border-box;
+}
+
+.vm-resolution-evaluation__title {
+	padding-bottom: 8px;
+}
+
+.vm-resolution-evaluation__tree-grid-view {
+	width: 100%;
+	border: 0;
+}

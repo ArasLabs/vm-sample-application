@@ -1,0 +1,12 @@
+﻿<AML>
+ <Item type="CommandBarMenuButton" id="FA10282CBD75B9D399E9D85137DB46EF" action="add">
+  <additional_data>{
+  "itemTypeId": "A2A374A6028444A58989E0A38E7222B7",
+  "tocAccessId": "D345F6DB586B42178B4D1646F326EDED"
+}</additional_data>
+  <image>../images/DefaultItemType.svg</image>
+  <label xml:lang="en">Variability Items</label>
+  <parent_menu keyed_name="com.aras.innovator.cui_default.toc_Variant Management" type="CommandBarMenu">8FEEF64352593BA81B1FE36BEE101724</parent_menu>
+  <name>com.aras.innovator.cui_default.toc_vm_VariabilityItem_FA10282CBD75B9D3FC908851FDE69567</name>
+ </Item>
+</AML>

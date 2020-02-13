@@ -1,0 +1,187 @@
+﻿/* Workaround: fixed problem with svg images loading in IE11("plus" and "minus" icons sometimes do not appears) */
+.dojoxGrid::before {
+	content: '';
+	display: none;
+	background-image: url("../../../images/plus.svg");
+}
+
+.dojoxGrid::after {
+	content: '';
+	display: none;
+	background-image: url("../../../images/minus.svg");
+}
+/* end of Workaround */
+
+.arasCFGTree.dojoxGrid .dojoxGridExpando.dojoxGridExpandoOpened .dojoxGridExpandoNode {
+	background-image: url("../../../images/minus.svg");
+}
+
+.arasCFGTree.dojoxGrid .dojoxGridExpando .dojoxGridExpandoNode {
+	background-image: url("../../../images/plus.svg");
+	background-position: 0px 0px;
+	background-repeat: no-repeat;
+}
+
+.arasCFGTree.dojoxGrid .dojoxGridExpando {
+	display: inline-block;
+	height: 22px;
+	float: none;
+	vertical-align: middle;
+	width: 45px !important;
+}
+
+.arasCFGTree.dojoxGrid .dojoxGridRow .dojoxGridNoChildren .dojoxGridExpando {
+	width: 45px !important;
+}
+
+.arasCFGTree.dojoxGrid .dojoxGridContent .dojoxGridRow, .arasCFGTree .dojoxGridContent .dojoxGridRow .dojoxGridCell {
+	border: 0px !important;
+}
+
+.arasCFGTree.dojoxGrid .dojoxGridRowOdd .dojoxGridRowTable tr {
+	background-color: #FFFFFF;
+}
+
+.arasCFGTree.dojoxGrid  .dojoxGridRow {
+	height: 24px;
+	position: relative;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	transition: background-color 0.25s ease;
+}
+
+.arasCFGTree.dojoxGrid .dojoxGridContent .dojoxGridRow .dojoxGridRowTable{
+	height: 24px;
+}
+
+.arasCFGTree.dojoxGrid {
+	border: none !important;
+}
+
+.arasCFGTree.dojoxGrid .dojoxGridMasterHeader {
+	display: none !important;
+}
+
+.arasCFGTree .dojoxGridContent .dojoxGridRow .dojoxGridCell > div {
+	position: relative;
+}
+
+.arasCFGTree.dojoxGrid .dojoxGridRow .dojoxGridExpandoNode {
+	display: inline-block;
+	float: none;
+	width: 13px;
+	height: 13px;
+	background-size: 13px;
+	background-repeat: no-repeat;
+	background-position: 0 0;
+	vertical-align: middle;
+}
+
+.arasCFGTree.dojoxGrid .dojoxGridRow .dojoxGridNoChildren .dojoxGridExpandoNode {
+	display: none;
+}
+
+.arasCFGTree.dojoxGrid .dojoxGridRow .dijitTreeExpando.dijitTreeExpandoLeaf {
+	background-image: none;
+}
+
+.arasCFGTree.dojoxGrid .dojoxGridContent .dojoxGridRowSelected {
+	background-color: #dde7f5;
+	border-width: 0px;
+	background-image: none;
+}
+
+.arasCFGTree.dojoxGrid .dojoxGridContent .dojoxGridRowSelected .dojoxGridCell, .arasCFGTree.dojoxGrid .dojoxGridContent .dojoxGridRowOver .dojoxGridCell {
+	background-color: #dde7f5 !important;
+}
+
+.arasCFGTree.dojoxGrid .dojoxGridRow .dojoxGridCell {
+	white-space: normal;
+}
+
+.arasCFGTree.dojoxGrid .dojoxGridContent  .aras_lazytreegrid_icon {
+	max-height: 22px;
+	max-width: 22px;
+	vertical-align: middle;
+	margin-left: 5px;
+	background-repeat: no-repeat;
+}
+
+.arasCFGTree .dojoxGridNoChildren .aras_lazytreegrid_icon {
+	margin-left: 18px;
+}
+
+.arasCFGTree.dojoxGrid .dojoxGridRow .dojoxGridCell, .arasCFGTree.dojoxGrid .dojoxGridContent .dojoxGridCell.dojoxGridCellFocus {
+	padding: 0px 5px 0px 10px !important;
+}
+
+.arasCFGTree.dojoxGrid .dojoxGridContent .dojoxGridCell.dojoxGridCellFocus {
+	background-color: #CEDDF2 !important;
+}
+
+.arasCFGTree.dojoxGrid .dojoxGridExpando .treeExpandoLeaf, .arasCFGTree.dojoxGrid .aras_lazytreegrid_vert_dots {
+	display: none;
+}
+
+.arasCFGTree .CodeElementNamePart {
+	margin-right: 6px;
+	padding: 0px 2px 0px 2px;
+	line-height: 6px;
+	border: 1px dotted #404040;
+	background-color: #E6EFF7;
+	font-size: 10px;
+	color: #374857;
+}
+
+.arasCFGTree .dojoxGridRowSelected .CodeElementNamePart {
+	border-style: dashed;
+	color: #23313D;
+}
+
+.arasCFGTree .dojoxGridRow .ActionButton {
+	cursor: pointer;
+	position: absolute;
+	right: 0px;
+	top: 4px;
+	margin-right: 3px;
+	display: inline-block;
+	width: 22px;
+	height: 14px;
+	max-width: 22px;
+	max-height: 22px;
+	border: 0.5px dashed #606060;
+	background-color: #F0F0F0;
+	text-align: center;
+	color: #FFFFFF;
+	font-size: 10px;
+	font-weight: bold;
+	line-height: 15px;
+}
+
+.arasCFGTree .dojoxGridRow .ActionButton.Unchecked {
+	visibility: hidden;
+	opacity: 0.5;
+}
+
+.arasCFGTree .dojoxGridRow:hover .ActionButton.Unchecked, .ActionButton.Checked {
+	visibility: visible;
+}
+
+.arasCFGTree .ActionButton.Checked {
+	opacity: 1;
+}
+
+.arasCFGTree .dojoxGridRow .ActionButton.Unchecked:hover {
+	opacity: 0.7;
+}
+
+.dojoxGridCell .CellTextContent {
+	position: absolute;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	top: 0px;
+	height: 100%;
+	right: 0px;
+	line-height: 24px;
+	white-space: nowrap;
+}

@@ -1,0 +1,44 @@
+﻿<AML>
+ <Item type="CommandBarSection" id="B98F510269C24894807370086F3AB0C7" action="add">
+  <classification>Data Model</classification>
+  <location keyed_name="ItemWindowSidebar" type="cui_Location">BC1CFDCECA434111B7A88A51EE430CC5</location>
+  <name>vm_variabilityItemViewSidebar</name>
+  <Relationships>
+   <Item type="CommandBarSectionItem" id="C5B0B83507B44CF9B444A6EF5B399C9D" action="add">
+    <action>Add</action>
+    <related_id keyed_name="vm_itemViewSidebarShowFormBtn" type="CommandBarItem">1F54DA88AF864B93BAB5C75A1794436D</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="vm_variabilityItemViewSidebar" type="CommandBarSection">B98F510269C24894807370086F3AB0C7</source_id>
+   </Item>
+   <Item type="CommandBarSectionItem" id="241C653AC871435D93CD95EF1D9C57C3" action="add">
+    <action>Add</action>
+    <related_id keyed_name="vm_variabilityItemViewSidebarTableRuleEditorBtn" type="CommandBarItem">6CB969F953DD491AB8A4AAE7ABD4CABA</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="vm_variabilityItemViewSidebar" type="CommandBarSection">B98F510269C24894807370086F3AB0C7</source_id>
+   </Item>
+   <Item type="CommandBarSectionItem" id="D98C26DB1E9C440AA14022020E215C41" action="add">
+    <action>Add</action>
+    <related_id keyed_name="vm_variabilityItemViewSidebarTextRuleEditorBtn" type="CommandBarItem">3E5119587AD64691B246BBDB76952B97</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>384</sort_order>
+    <source_id keyed_name="vm_variabilityItemViewSidebar" type="CommandBarSection">B98F510269C24894807370086F3AB0C7</source_id>
+   </Item>
+   <Item type="CommandBarSectionItem" id="95CE9A2F00E74C23A8481CE7A17999B2" action="add">
+    <action>Add</action>
+    <related_id keyed_name="vm_variabilityItemViewSidebarVariantTreeBtn" type="CommandBarItem">C139DB40FDB4402AB55DC16016255A5E</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>512</sort_order>
+    <source_id keyed_name="vm_variabilityItemViewSidebar" type="CommandBarSection">B98F510269C24894807370086F3AB0C7</source_id>
+   </Item>
+   <Item type="CommandBarSectionItem" id="7C48EF8A688A478A88932D73F8150667" action="add">
+    <action>Add</action>
+    <related_id keyed_name="vm_variabilityItemViewSidebarValidationBtn" type="CommandBarItem">5DB916A734084F0CA81D87D705ADCDB6</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>640</sort_order>
+    <source_id keyed_name="vm_variabilityItemViewSidebar" type="CommandBarSection">B98F510269C24894807370086F3AB0C7</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

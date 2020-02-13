@@ -1,0 +1,339 @@
+﻿<AML>
+ <Item type="Method" id="8ADC06A76500444EA0B2D099303037B9" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[string targetScopeItemId = this.getID();
+	string selectedOptionIdByFeatureIdJson = this.getProperty("selected_option_id_by_feature_id");
+	Dictionary<string, string> selectedOptionIdByFeatureId =
+		Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, string>>(selectedOptionIdByFeatureIdJson);
+
+	Dictionary<string, List<string>> optionIdsByFeatureId = GetOptionIdsByFeatureId(targetScopeItemId);
+
+	List<List<Expression>> intersectingExpressions = new List<List<Expression>>();
+
+	if (optionIdsByFeatureId.Any(kvp => kvp.Value.Count > 0))
+	{
+		List<List<Dictionary<string, string>>> cartesianProducts = GetCartesianProducts(selectedOptionIdByFeatureId,
+			optionIdsByFeatureId);
+
+		foreach (List<Dictionary<string, string>> expressionSets in cartesianProducts)
+		{
+			intersectingExpressions.AddRange(GetIntersectingExpressions(targetScopeItemId, expressionSets));
+		}
+	}
+
+	OptionsAvailabilityDetails optionsAvailabilityDetails = GetOptionsAvailabilityDetails(optionIdsByFeatureId, intersectingExpressions);
+	return this.getInnovator().newResult(Newtonsoft.Json.JsonConvert.SerializeObject(optionsAvailabilityDetails));
+}
+
+private const string NoExcludedFeatureExpressionId = "no_excluded_feature";
+
+private OptionsAvailabilityDetails GetOptionsAvailabilityDetails(Dictionary<string, List<string>> optionIdsByFeatureId,
+	List<List<Expression>> intersectingExpressions)
+{
+	Dictionary<string, List<string>> availableOptionsByFeatureId = new Dictionary<string, List<string>>();
+	Dictionary<string, List<string>> optionsToHighlightByFeatureId = new Dictionary<string, List<string>>();
+
+	OptionsAvailabilityDetails optionsAvailabilityDetails = new OptionsAvailabilityDetails()
+	{
+		AvailableOptionsByFeatureId = availableOptionsByFeatureId,
+		OptionsToHighlightByFeatureId = optionsToHighlightByFeatureId
+	};
+
+	Dictionary<string, HashSet<OptionExpressionId>> availableOptionsByExcludedFeatureId = new Dictionary<string, HashSet<OptionExpressionId>>();
+
+	foreach (List<Expression> cortege in intersectingExpressions)
+	{
+		string excludedFeatureId = cortege[0].Id;
+		OptionExpressionId optionExpressionId = new OptionExpressionId(cortege[1].Id);
+
+		HashSet<OptionExpressionId> availableOptions;
+		if (!availableOptionsByExcludedFeatureId.TryGetValue(excludedFeatureId, out availableOptions))
+		{
+			availableOptions = new HashSet<OptionExpressionId>(); 
+			availableOptionsByExcludedFeatureId.Add(excludedFeatureId, availableOptions);
+		}
+		availableOptions.Add(optionExpressionId);
+	}
+
+	HashSet<OptionExpressionId> availableOptionsForNoExcludedFeature;
+
+	availableOptionsByExcludedFeatureId.TryGetValue(NoExcludedFeatureExpressionId, out availableOptionsForNoExcludedFeature);
+	foreach (KeyValuePair<string, List<string>> featureIdOptionIds in optionIdsByFeatureId)
+	{
+		string featureId = featureIdOptionIds.Key;
+		List<string> optionIds = featureIdOptionIds.Value;
+
+		foreach (string optionId in optionIds)
+		{
+			OptionExpressionId optionExpressionId = new OptionExpressionId(featureId, optionId);
+			bool isAvailable = availableOptionsForNoExcludedFeature != null && availableOptionsForNoExcludedFeature.Contains(optionExpressionId);
+			HashSet<OptionExpressionId> availableOptionsForExcludedFeature;
+			bool isToHighlight = availableOptionsByExcludedFeatureId.TryGetValue(optionExpressionId.FeatureId, out availableOptionsForExcludedFeature) ? 
+				!availableOptionsForExcludedFeature.Contains(optionExpressionId)
+				: !isAvailable;
+
+			TryToAddOptionToCollection(isAvailable, availableOptionsByFeatureId, optionExpressionId);
+			TryToAddOptionToCollection(isToHighlight, optionsToHighlightByFeatureId, optionExpressionId);
+		}
+	}
+
+	return optionsAvailabilityDetails;
+}
+
+private void TryToAddOptionToCollection(bool shouldAddOptionToCollection, Dictionary<string, List<string>> optionsByFeatureId,
+	OptionExpressionId optionExpressionId)
+{
+	if (!shouldAddOptionToCollection)
+	{
+		return;
+	}
+
+	List<string> availableOptions;
+	if (!optionsByFeatureId.TryGetValue(optionExpressionId.FeatureId, out availableOptions))
+	{
+		availableOptions = new List<string>();
+		optionsByFeatureId.Add(optionExpressionId.FeatureId, availableOptions);
+	}
+	availableOptions.Add(optionExpressionId.OptionId);
+}
+
+private List<List<Expression>> GetIntersectingExpressions(string targetScopeItemId, List<Dictionary<string, string>> expressionSets)
+{
+	Item intersectingExpressionsItem = this.newItem("Method", "cfg_GetIntersectingExpressions");
+	Item targetScopeItem = BuildTargetScopeItem(targetScopeItemId);
+	XmlElement cartesianNode = intersectingExpressionsItem.dom.CreateElement("cartesian-product");
+
+	intersectingExpressionsItem.setPropertyItem("targetScope", targetScopeItem);
+	intersectingExpressionsItem.dom.DocumentElement.AppendChild(cartesianNode);
+
+	foreach (Dictionary<string, string> expressionSet in expressionSets)
+	{
+		XmlElement setNode = intersectingExpressionsItem.dom.CreateElement("set");
+
+		foreach (KeyValuePair<string, string> expression in expressionSet)
+		{
+			string expressionId = expression.Key;
+			string expressionDefinition = expression.Value;
+
+			XmlElement expressionNode = intersectingExpressionsItem.dom.CreateElement("expression");
+
+			expressionNode.SetAttribute("id", expressionId);
+			expressionNode.InnerText = expressionDefinition;
+
+			setNode.AppendChild(expressionNode);
+		}
+
+		cartesianNode.AppendChild(setNode);
+	}
+
+	intersectingExpressionsItem = intersectingExpressionsItem.apply();
+
+	if (intersectingExpressionsItem.isError())
+	{
+		throw new Aras.Server.Core.InnovatorServerException(intersectingExpressionsItem.dom);
+	}
+
+	// Response of "cfg_GetIntersectingExpressions" method is a list of corteges. A Cortege is a list of intersecting expressions.
+	return Newtonsoft.Json.JsonConvert.DeserializeObject<List<List<Expression>>>(intersectingExpressionsItem.getResult());
+}
+
+private List<List<Dictionary<string, string>>> GetCartesianProducts(Dictionary<string, string> selectedOptionIdByFeatureId,
+	Dictionary<string, List<string>> optionIdsByFeatureId)
+{
+	Dictionary<string, Dictionary<string, string>> expressionPerOptionPerFeature = new Dictionary<string, Dictionary<string, string>>();
+	foreach (KeyValuePair<string, List<string>> featureIdOptions in optionIdsByFeatureId)
+	{
+		string featureId = featureIdOptions.Key;
+		List<string> options = featureIdOptions.Value;
+		Dictionary<string, string> expressionByOptionId = new Dictionary<string, string>();
+
+		expressionPerOptionPerFeature.Add(featureId, expressionByOptionId);
+		foreach (string optionId in options)
+		{
+			expressionByOptionId.Add(optionId,
+				BuildExpressionDefinition(new Dictionary<string, string>(){{ featureId, optionId }}));
+		}
+	}
+
+	List<string> featureIdsToExclude = new List<string>(selectedOptionIdByFeatureId.Keys);
+	featureIdsToExclude.Add(NoExcludedFeatureExpressionId);
+
+	List<List<Dictionary<string, string>>> cartesianProducts = new List<List<Dictionary<string, string>>>();
+	foreach (string featureIdToExclude in featureIdsToExclude)
+	{
+		string selectionExpression = BuildExpressionDefinition(
+			selectedOptionIdByFeatureId.Where(kvp => !string.Equals(kvp.Key, featureIdToExclude, StringComparison.Ordinal))
+				.ToDictionary(kvp => kvp.Key, kvp => kvp.Value));
+
+		Dictionary<string, string> excludedFeatureSet = new Dictionary<string, string>() {
+				{ featureIdToExclude, selectionExpression}
+			};
+
+		Dictionary<string, Dictionary<string, string>> optionsExpressionsToCheck =
+			string.Equals(featureIdToExclude, NoExcludedFeatureExpressionId, StringComparison.Ordinal) ?
+				expressionPerOptionPerFeature :
+				new Dictionary<string, Dictionary<string, string>>(){{
+					featureIdToExclude, expressionPerOptionPerFeature[featureIdToExclude] }};
+
+		Dictionary<string, string> excludedFeatureOptionsSet = new Dictionary<string, string>();
+		foreach (KeyValuePair<string, Dictionary<string, string>> featureIdOptionIds in optionsExpressionsToCheck)
+		{
+			string featureId = featureIdOptionIds.Key;
+			Dictionary<string, string> expressionsByOptionIds = featureIdOptionIds.Value;
+
+			foreach (KeyValuePair<string, string> optionIdExpressionDefinition in expressionsByOptionIds)
+			{
+				string optionId = optionIdExpressionDefinition.Key;
+				string expressionDefinition = optionIdExpressionDefinition.Value;
+
+				excludedFeatureOptionsSet.Add(new OptionExpressionId(featureId, optionId).ToString(),
+					expressionDefinition);
+			}
+		}
+
+		cartesianProducts.Add(new List<Dictionary<string, string>>(){
+			excludedFeatureSet,
+			excludedFeatureOptionsSet
+		});
+	};
+
+	return cartesianProducts;
+}
+
+private string BuildExpressionDefinition(Dictionary<string, string> optionIdByFeatureId)
+{
+	XmlDocument expressionDefinitionDoc = new XmlDocument();
+	XmlElement expressionDefinitionElement = expressionDefinitionDoc.CreateElement("expression");
+	expressionDefinitionDoc.AppendChild(expressionDefinitionElement);
+
+	foreach (KeyValuePair<string, string> featureIdOptionId in optionIdByFeatureId)
+	{
+		string featureId = featureIdOptionId.Key;
+		string optionId = featureIdOptionId.Value;
+
+		XmlElement variableElement = expressionDefinitionDoc.CreateElement("variable");
+		variableElement.SetAttribute("id", featureId);
+
+		XmlElement constantElement = expressionDefinitionDoc.CreateElement("named-constant");
+		constantElement.SetAttribute("id", optionId);
+
+		XmlElement eqElement = expressionDefinitionDoc.CreateElement("eq");
+		eqElement.AppendChild(variableElement);
+		eqElement.AppendChild(constantElement);
+		expressionDefinitionElement.AppendChild(eqElement);
+	}
+
+	return expressionDefinitionDoc.InnerXml;
+}
+
+private Item BuildTargetScopeItem(string targetScopeItemId)
+{
+	Item targetScopeItem = this.newItem("Method", "vm_scopeBuilder");
+	targetScopeItem.setID(targetScopeItemId);
+
+	return targetScopeItem;
+}
+
+private Dictionary<string, List<string>> GetOptionIdsByFeatureId(string targetScopeItemId)
+{
+	Item targetScopeItem = BuildTargetScopeItem(targetScopeItemId);
+	Item scopeItem = this.newItem("Method", "cfg_GetScopeStructure");
+	scopeItem.setPropertyItem("targetScope", targetScopeItem);
+
+	scopeItem = scopeItem.apply();
+
+	if (scopeItem.isError())
+	{
+		throw new Aras.Server.Core.InnovatorServerException(scopeItem.dom);
+	}
+
+	Dictionary<string, List<string>> optionIdsByFeatureId = new Dictionary<string, List<string>>();
+	Item variableItems = scopeItem.getRelationships("Variable");
+	int variableCount = variableItems.getItemCount();
+	for (int variableIndex = 0; variableIndex < variableCount; variableIndex++)
+	{
+		Item variableItem = variableItems.getItemByIndex(variableIndex);
+		string featureId = variableItem.getID();
+
+		if (!optionIdsByFeatureId.ContainsKey(featureId))
+		{
+			List<string> featureOptions = new List<string>();
+			Item namedConstantItems = variableItem.getRelationships("NamedConstant");
+			int namedConstantCount = namedConstantItems.getItemCount();
+			for (int namedConstantIndex = 0; namedConstantIndex < namedConstantCount; namedConstantIndex++)
+			{
+				Item namedConstantItem = namedConstantItems.getItemByIndex(namedConstantIndex);
+				featureOptions.Add(namedConstantItem.getID());
+			}
+			optionIdsByFeatureId.Add(featureId, featureOptions);
+		}
+	}
+
+	return optionIdsByFeatureId;
+}
+
+public class OptionsAvailabilityDetails
+{
+	[Newtonsoft.Json.JsonProperty(PropertyName = "availableOptionsByFeatureId")]
+	public Dictionary<string, List<string>> AvailableOptionsByFeatureId { get; set; }
+
+	[Newtonsoft.Json.JsonProperty(PropertyName = "optionsToHighlightByFeatureId")]
+	public Dictionary<string, List<string>> OptionsToHighlightByFeatureId { get; set; }
+}
+
+public class OptionExpressionId
+{
+	private const char Delimiter = '_';
+
+	private readonly string _id;
+
+	public string FeatureId { get; }
+	public string OptionId { get; }
+
+	public OptionExpressionId(string featureId, string optionId)
+	{
+		FeatureId = featureId;
+		OptionId = optionId;
+
+		_id = $"{FeatureId}_{OptionId}";
+	}
+
+	public OptionExpressionId(string id)
+	{
+		_id = id;
+
+		char[] delimiter = { Delimiter }; 
+		string[] splittingResult = _id.Split(delimiter);
+		FeatureId = splittingResult[0];
+		OptionId = splittingResult[1];
+	}
+
+	public override string ToString()
+	{
+		return _id;
+	}
+
+	public override bool Equals(Object obj)
+	{
+		OptionExpressionId expressionId = obj as OptionExpressionId;
+		if (expressionId == null)
+		{
+			return false;
+		}
+		return string.Equals(ToString(), expressionId.ToString(), StringComparison.Ordinal);
+	}
+
+	public override int GetHashCode()
+	{
+		return _id.GetHashCode();
+	}
+}
+
+public class Expression
+{
+	[Newtonsoft.Json.JsonProperty(PropertyName = "id")]
+	public string Id { get; set; }]]></method_code>
+  <method_type>C#</method_type>
+  <name>vm_getOptionsAvailabilityDetails</name>
+ </Item>
+</AML>

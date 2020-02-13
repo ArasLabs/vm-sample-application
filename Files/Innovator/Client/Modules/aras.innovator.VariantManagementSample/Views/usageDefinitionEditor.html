@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<style>
+		@import '../../../javascript/include.aspx?classes=common.min.css';
+		@import '../../../styles/default.css';
+		@import '../../../public/styles/controls.css';
+		@import '../../../Modules/aras.innovator.core.Controls/Styles/Controls/ruleEditor.css';
+	</style>
+
+	<script src="../../../javascript/include.aspx?classes=/dojo.js"
+		data-dojo-config="parseOnLoad: true, baseUrl:'../../../javascript/dojo'"></script>
+	<script src="../../../javascript/include.aspx?classes=polyfillsBundle,XmlDocument"></script>
+	<script src="../Scripts/vmUsageDefinitionEditorController.js"></script>
+	<script>
+		window.addEventListener('DOMContentLoaded', function() {
+			const aras = parent.aras;
+			require([
+				'Modules/aras.innovator.VariantManagementSample/Scripts/common/ruleEditor/vmExpressionSerializer',
+				'Modules/aras.innovator.VariantManagementSample/Scripts/common/ruleEditor/vmRuleEditorControl',
+				'Modules/aras.innovator.VariantManagementSample/Scripts/common/ruleEditor/vmUsageConditionTemplate',
+				'Controls/Common/RenderUtils'
+			], function (ExpressionSerializerControl, RuleEditorControl, ruleTemplate, renderUtils) {
+				const parameters = {
+					aras: aras,
+					ExpressionSerializerControl: ExpressionSerializerControl,
+					RuleEditorControl: RuleEditorControl,
+					ruleTemplate: ruleTemplate,
+					renderUtils: renderUtils,
+					editorControlContainer: document.querySelector('.effs-definition-editor'),
+					ruleEditorContainer: document.querySelector('.effs-definition-editor__rule-editor'),
+					messageContainer: document.querySelector('.effs-definition-editor__message')
+				};
+
+				window.ruleEditorController = new VmUsageDefinitionEditorController(parameters);
+			});
+		});
+	</script>
+</head>
+<body class="claro">
+	<div class="effs-definition-editor">
+		<div class="effs-definition-editor__rule-editor"></div>
+		<div class="effs-definition-editor__message"></div>
+	</div>
+</body>
+</html>

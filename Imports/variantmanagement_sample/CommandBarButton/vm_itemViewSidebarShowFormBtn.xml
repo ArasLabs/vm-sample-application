@@ -1,0 +1,15 @@
+﻿<AML>
+ <Item type="CommandBarButton" id="1F54DA88AF864B93BAB5C75A1794436D" action="add">
+  <additional_data>{
+   "paneId": "item-view-pane",
+   "imageBtnOn": "../images/ShowFormOn.svg",
+   "imageBtnOff": "../images/ShowFormOff.svg"
+  }</additional_data>
+  <image>../images/ShowFormOn.svg</image>
+  <label xml:lang="en">Show Form</label>
+  <on_click_handler keyed_name="vm_itemViewSidebarBtnClick" type="Method">ACCC9B7D9FAC476C832DA03026701A2E</on_click_handler>
+  <on_init_handler keyed_name="vm_itemViewSidebarShowFormBtnInt" type="Method">91EAE27DCBAC495EABF2EB54C0BB1092</on_init_handler>
+  <tooltip_template xml:lang="en">Form of ${ItemType:label} '${Item:keyed_name}'</tooltip_template>
+  <name>vm_itemViewSidebarShowFormBtn</name>
+ </Item>
+</AML>

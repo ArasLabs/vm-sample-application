@@ -2,16 +2,17 @@
 
 *This project may also be called the Configuration Services Sample Application.*
 
-Aras Configurator Services has been developed to make Variant Management easier for customers by providing APIs that enable developers to create custom variant management applications. This sample application is designed to show developers how they can use the Configurator Services API to create custom applications. For more information on the Configurator Services API, check out the [Configurator Services Programmers Guide](./Documentation/Aras%20Innovator%2012.0%20-%20Configurator%20Services%20Programmers%20Guide.pdf)
+The Variant Management sample application is designed to show developers how they can use the Configurator Services API to create custom variant management applications. The sample application demonstrates how product variability can be managed, how variability can be applied to product breakdown structures and how these configurable 150% breakdown structures are resolved when a set of options are selected. For more information on the Configurator Services API, check out the [Configurator Services Programmer's Guide](./Documentation/Aras%20Innovator%2012.0%20-%20Configurator%20Services%20Programmers%20Guide.pdf).
 
-This sample application is an Aras Community Project. It is not a standard product, and should not be deployed to production as-is. The purpose of the sample application is to demonstrate the Configurator Services API capabilities so that custom applications can be built to address specific business requirements and processes. 
+This sample application is an Aras Community Project. It is not a standard product, and should not be deployed to production as-is. The purpose of the sample application is to demonstrate the Configurator Services API capabilities so that custom applications can be built to address speific business requirements and processes.
 
-Sample data is provided along with the sample application. Loading the sample data is optional. The purpose of the sample data is merely to help follow [the documentation](./Documentation/Configurator%20Services%20Sample%20Application.pdf) within your sample application installation.
+Sample data is provided along with the sample application. Loading the sample data is optional. The purpose of the sample data is to help follow [the documentation](./Documentation/Configurator%20Services%20Sample%20Application.pdf) and provide ideas on how variability definition and breakdown structures can be organized and connected to each other. 
 
 ## History
 
 Release | Notes
 --------|--------
+[2.0.0](https://github.com/ArasLabs/vm-sample-application/releases/tag/12.0R2.0) | Redesign. Updated to support Aras 12.0 SP4.
 [12.0 R2.0](https://github.com/ArasLabs/vm-sample-application/releases/tag/12.0R2.0) | Updated to support Aras 12.0 SP1
 [12.0.0.1](https://github.com/ArasLabs/vm-sample-application/releases/tag/12.0.0.1) | Updated to support Aras 12.0 SP0.
 [11.0.15.1](https://github.com/ArasLabs/vm-sample-application/releases/tag/11.0.15.1) | Updated to support Aras 11.0 SP15.
@@ -22,6 +23,7 @@ Release | Notes
 
 Project | Aras
 --------|------
+[2.0.0](https://github.com/ArasLabs/vm-sample-application/releases/tag/12.0R2.0) | 12.0 SP4
 [12.0 R2.0](https://github.com/ArasLabs/vm-sample-application/releases/tag/12.0R2.0) | 12.0 SP1
 [12.0.0.1](https://github.com/ArasLabs/vm-sample-application/releases/tag/12.0.0.1) | 12.0 SP0
 [11.0.15.1](https://github.com/ArasLabs/vm-sample-application/releases/tag/11.0.15.1) | 11.0 SP15
@@ -35,13 +37,11 @@ Project | Aras
 
 ### Pre-requisites
 
-1. Aras Innovator installed (version 12.0 SP1)
+1. Aras Innovator installed (version 12.0 SP4)
 2. [Aras Update](http://www.aras.com/support/downloads/) installed (version 1.6+)
 3. Variant Management Sample Application package
 
 ### Install Steps
-
-<!-- TODO: Add screenshot(s) -->
 
 1. Run Aras Update.
 2. Select **Local** in the sidebar.
@@ -54,18 +54,18 @@ Project | Aras
 6. Choose **Detailed Logging** and click **Next**.
 7. Enter the required parameters for the target Aras Innovator instance. Which parameters are required varies based on which components you have selected to install.
     * When selecting the install path for your Innovator instance, be sure to select the Innovator subfolder. 
-    * Example: If your Innovator instance is installed in `C:\Program Files (x86)\Aras\120SP1`, select `C:\Program Files (x86)\Aras\120SP1\Innovator`.
+    * Example: If your Innovator instance is installed in `C:\Program Files (x86)\Aras\120SP4`, select `C:\Program Files (x86)\Aras\120SP4\Innovator`.
 8. Click **Install** to begin installing the package.
 9. When the package finishes installing, close Aras Update.
 
 ### Load Sample Data (Optional)
 
 1. Log into Innovator as admin.
-2. In the main menu, select **Actions > Load Variant Sample Data**.
+2. In the main menu, select **Actions > Load Variant Management Sample Data**.
 3. When prompted, enter the file path of the Variant Management Sample Application package.
     * Example: If the Variant Management Sample Application package was downloaded and unzipped to `C:\VMSample`, enter `C:\VMSample`.
-4. Running the **Load Variant Sample Data** action will overwrite any variant sample data loaded by a previous execution. Click **Ok** in the warning prompt to continue loading.
-5. After the load completes, navigate to **Configurator > Generic Item** in the TOC to confirm that the Generic Items have been added.
+4. Running the **Load Variant Management Sample Data** action will overwrite any variant sample data loaded by a previous execution. Click **Ok** in the warning prompt to continue loading.
+5. After the load completes, navigate to **Variant Management** in the TOC to confirm that instances of Features, Options, Breakdown Items, Variability Items, and Variable Components have been added.
 
 ## Usage
 

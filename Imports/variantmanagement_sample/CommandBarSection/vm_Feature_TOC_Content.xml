@@ -1,0 +1,16 @@
+﻿<AML>
+ <Item type="CommandBarSection" id="2CD99A6186C0EA4C618120D9625E4BB8" action="add">
+  <classification>Data Model</classification>
+  <location keyed_name="TOC" type="cui_Location">02A5F61EF1C94C41834486FA8D76B4E1</location>
+  <name>vm_Feature_TOC_Content</name>
+  <Relationships>
+   <Item type="CommandBarSectionItem" id="71B10E6053353F9770324B028304242F" action="add">
+    <action>Add</action>
+    <related_id keyed_name="com.aras.innovator.cui_default.toc_vm_Feature_71B10E6053353F9770324B028304242F" type="CommandBarItem">71B10E6053353F9799E9D85137DB46EF</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="vm_Feature_TOC_Content" type="CommandBarSection">2CD99A6186C0EA4C618120D9625E4BB8</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

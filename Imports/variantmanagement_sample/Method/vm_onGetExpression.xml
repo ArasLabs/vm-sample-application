@@ -1,0 +1,155 @@
+﻿<AML>
+ <Item type="Method" id="F8A813CAAA8E43E8B84C00E2489AEFB6" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[	//MethodTemplateName=CSharpInOut;
+	XmlElement requestItemXml = inDom.DocumentElement;
+
+	XmlNode inputDefinitionNode = requestItemXml.SelectSingleNode("definition");
+	if (inputDefinitionNode == null)
+	{
+		eventData.BaseGetItem(outDom);
+		return;
+	}
+
+	string inputExpressionInPlainText = inputDefinitionNode.InnerText;
+
+	XmlDocument doc = new XmlDocument();
+	doc.LoadXml(inputExpressionInPlainText);
+	XmlElement inputExpressionNode = doc.DocumentElement;
+
+	string resolutionTargetScopeId = inputExpressionNode.GetAttribute("resolutionTargetScopeId");
+	string queryValidationUuid = requestItemXml.GetAttribute("queryValidationUuid");
+	bool isInQueryBuilderRequestExecution = requestItemXml.HasAttribute("queryValidationUuid");
+
+	if (string.IsNullOrEmpty(resolutionTargetScopeId))
+	{
+		// From user's perspective not selecting a Variability Item for resolution
+		// is equivalent to selecting a Variability Item and not selecting any
+		// options. Therefore, all assets should be displayed in the resolved
+		// structure. Existence of the empty "resolutionTargetScopeId" attribute in
+		// the "expression" node is the criteria for this case. In order to get all
+		// assets empty "definition" node should be removed from request.
+		if (inputExpressionNode.HasAttribute("resolutionTargetScopeId"))
+		{
+			requestItemXml.RemoveChild(inputDefinitionNode);
+		}
+
+		eventData.BaseGetItem(outDom);
+		return;
+	}
+
+	string resolutionTargetScopeBuilderMethod = inputExpressionNode.GetAttribute("resolutionTargetScopeBuilderMethod");
+	if (string.IsNullOrEmpty(resolutionTargetScopeBuilderMethod))
+	{
+		throw new ArgumentException("'resolutionTargetScopeBuilderMethod' attribute in expression node must not be empty");
+	}
+
+	// In this block queryValidationUuid attribute and definition node are removed
+	// in order to get expressions based on criteria supplied in incoming request
+	string inputSelectAttribute = requestItemXml.GetAttribute("select");
+	requestItemXml.RemoveAttribute("queryValidationUuid");
+	requestItemXml.RemoveChild(inputDefinitionNode);
+	requestItemXml.SetAttribute("select", "definition");
+	eventData.BaseGetItem(outDom);
+
+	XmlNodeList expressionNodes = outDom.SelectNodes(Item.XPathResultItem);
+
+	if (expressionNodes.Count > 0)
+	{
+		if (InnovatorServerASP == null)
+		{
+			throw new ArgumentNullException("InnovatorServerASP");
+		}
+		Innovator innovator = new Innovator(InnovatorServerASP);
+
+		System.Collections.Generic.List<string> intersectingExpressionIds = GetIntersectingExpressionIds(
+			innovator,
+			resolutionTargetScopeId,
+			resolutionTargetScopeBuilderMethod,
+			expressionNodes,
+			inputExpressionInPlainText);
+
+		XmlElement requestItemIdPropertyNode = requestItemXml.SelectSingleNode("id") as XmlElement;
+		requestItemIdPropertyNode.SetAttribute("condition", "in");
+		requestItemIdPropertyNode.InnerText = string.Format(CultureInfo.InvariantCulture, "'{0}'", string.Join("','", intersectingExpressionIds));
+	}
+
+	if (isInQueryBuilderRequestExecution)
+	{
+		requestItemXml.SetAttribute("queryValidationUuid", queryValidationUuid);
+	}
+
+	requestItemXml.SetAttribute("select", inputSelectAttribute);
+
+	eventData.BaseGetItem(outDom);
+}
+
+private System.Collections.Generic.List<string> GetIntersectingExpressionIds(
+	Innovator innovator,
+	string resolutionTargetScopeId,
+	string resolutionTargetScopeBuilderMethod,
+	XmlNodeList expressionNodes,
+	string inputExpressionInPlainText)
+{
+	Item targetScopeItem = innovator.newItem("Method");
+	targetScopeItem.setID(resolutionTargetScopeId);
+	targetScopeItem.setAction(resolutionTargetScopeBuilderMethod);
+
+	Item intersectingExpressionsItem = innovator.newItem("Method", "cfg_GetIntersectingExpressions");
+	intersectingExpressionsItem.setPropertyItem("targetScope", targetScopeItem);
+
+	XmlElement cartesianNode = intersectingExpressionsItem.dom.CreateElement("cartesian-product");
+	intersectingExpressionsItem.dom.DocumentElement.AppendChild(cartesianNode);
+
+	XmlElement expressionsSet = intersectingExpressionsItem.dom.CreateElement("set");
+	cartesianNode.AppendChild(expressionsSet);
+
+	foreach (XmlElement expressionNode in expressionNodes)
+	{
+		string expressionId = expressionNode.GetAttribute("id");
+
+		XmlElement expressionElement = intersectingExpressionsItem.dom.CreateElement("expression");
+		expressionElement.SetAttribute("id", expressionId);
+		expressionElement.InnerText = expressionNode.SelectSingleNode("definition").InnerText;
+
+		expressionsSet.AppendChild(expressionElement);
+	}
+
+	XmlElement inputExpressionSet = intersectingExpressionsItem.dom.CreateElement("set");
+	cartesianNode.AppendChild(inputExpressionSet);
+
+	string resolutionConditionId = "resolutionConditionId";
+	XmlElement inputExpressionElement = intersectingExpressionsItem.dom.CreateElement("expression");
+	inputExpressionElement.SetAttribute("id", resolutionConditionId);
+	inputExpressionElement.InnerText = inputExpressionInPlainText;
+
+	inputExpressionSet.AppendChild(inputExpressionElement);
+
+	intersectingExpressionsItem = intersectingExpressionsItem.apply();
+	if (intersectingExpressionsItem.isError())
+	{
+		throw new Aras.Server.Core.InnovatorServerException(intersectingExpressionsItem.dom);
+	}
+
+	System.Collections.Generic.List<string> intersectingExpressionIds = new System.Collections.Generic.List<string>();
+
+	Newtonsoft.Json.Linq.JArray intersectingExpressionsCorteges =
+		Newtonsoft.Json.JsonConvert.DeserializeObject<Newtonsoft.Json.Linq.JArray>(intersectingExpressionsItem.getResult());
+
+	foreach (Newtonsoft.Json.Linq.JArray intersectingExpressionsCortege in intersectingExpressionsCorteges)
+	{
+		foreach (Newtonsoft.Json.Linq.JObject expression in intersectingExpressionsCortege)
+		{
+			string expressionId = (string)expression["id"];
+			if (!string.Equals(expressionId, resolutionConditionId, StringComparison.Ordinal))
+			{
+				intersectingExpressionIds.Add(expressionId);
+			}
+		}
+	}
+
+	return intersectingExpressionIds;]]></method_code>
+  <method_type>C#</method_type>
+  <name>vm_onGetExpression</name>
+ </Item>
+</AML>

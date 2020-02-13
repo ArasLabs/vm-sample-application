@@ -1,5 +1,5 @@
-<imports>
-	<package name="com.aras.innovator.solution.cs_sample" path="cs_sample\Import" >
-		<dependson name="com.aras.innovator.cfg_core" />
-	</package>
+﻿<imports>
+  <package name="com.aras.innovator.solution.variantmanagement_sample" path="variantmanagement_sample">
+    <dependson name="com.aras.innovator.configurator" />
+  </package>
 </imports>

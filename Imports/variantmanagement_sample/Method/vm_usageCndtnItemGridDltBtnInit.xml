@@ -1,0 +1,14 @@
+﻿<AML>
+ <Item type="Method" id="6B13F949556D48F2B6A50B5DC20F7457" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[const usageConditionsContext = options.usageConditionsContext;
+
+usageConditionsContext.grid.on('selectRow', usageConditionsContext.setDeleteButtonState);
+
+return {
+	disabled: true
+};]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>vm_usageCndtnItemGridDltBtnInit</name>
+ </Item>
+</AML>

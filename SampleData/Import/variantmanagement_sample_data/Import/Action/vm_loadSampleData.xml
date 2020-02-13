@@ -1,0 +1,15 @@
+﻿<AML>
+ <Item type="Action" id="D2B96BEA8C384FB786AA67B85A1631F5" action="add">
+  <item_query />
+  <label xml:lang="en">Load Variant Management Sample Data</label>
+  <location>client</location>
+  <method keyed_name="vm_loadSampleData" type="Method">
+   <Item type="Method" action="get" select="id">
+    <name>vm_openSampleDataLoadDialog</name>
+   </Item>
+  </method>
+  <target>none</target>
+  <type>generic</type>
+  <name>vm_loadSampleData</name>
+ </Item>
+</AML>

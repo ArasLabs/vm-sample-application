@@ -1,9 +1,0 @@
-﻿<AML>
- <Item type="CommandBarButton" id="975498A27A934D67B4340926248B4584" action="add">
-  <image>../Images/CheckmarkOff.svg</image>
-  <label xml:lang="en">Validation and Resolution</label>
-  <on_click_handler keyed_name="cs_sample_SideBarButtonClick" type="Method">C0EEF3A7CDA9CC9CAD54C59ABDE930C3</on_click_handler>
-  <on_init_handler keyed_name="cs_sample_InitSidebarButton" type="Method">93DF26A27E190B15CBF3B2544DFE5D7E</on_init_handler>
-  <name>button_validationResolutionViewTab</name>
- </Item>
-</AML>

@@ -1,0 +1,30 @@
+﻿<AML>
+ <Item type="PresentationCommandBarSection" id="6396B2AA6656441BA21E27ABC6128BA1" action="add">
+  <related_id keyed_name="vm_usageConditionItemGridCtxMenu" type="CommandBarSection">
+   <Item type="CommandBarSection" id="DE04D42A21824FB0B083B0366938425F" action="add">
+    <classification>Data Model</classification>
+    <location keyed_name="vm_usageConditionItemGridCtxMenu" type="cui_Location">E64F539711E44E0E84689A6F64DEE9A5</location>
+    <name>vm_usageConditionItemGridCtxMenu</name>
+    <Relationships>
+     <Item type="CommandBarSectionItem" id="3494A47423774ABBADBC12E266361FF9" action="add">
+      <action>Add</action>
+      <related_id keyed_name="vm_usageConditionItemGridCtxMenuViewUsageCondition" type="CommandBarItem">501CC894E0B346ACB12BD0EA2F2071A2</related_id>
+      <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+      <sort_order>128</sort_order>
+      <source_id keyed_name="vm_usageConditionItemGridCtxMenu" type="CommandBarSection">DE04D42A21824FB0B083B0366938425F</source_id>
+     </Item>
+     <Item type="CommandBarSectionItem" id="A81D5B0E7A0E4BA3823D627D4569827A" action="add">
+      <action>Add</action>
+      <related_id keyed_name="vm_usageConditionItemGridCtxMenuEditUsageCondition" type="CommandBarItem">95AAD3C12ADA4F5798EF335D5301B0A2</related_id>
+      <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+      <sort_order>256</sort_order>
+      <source_id keyed_name="vm_usageConditionItemGridCtxMenu" type="CommandBarSection">DE04D42A21824FB0B083B0366938425F</source_id>
+     </Item>
+    </Relationships>
+   </Item>
+  </related_id>
+  <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+  <sort_order>10112</sort_order>
+  <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+ </Item>
+</AML>

@@ -1,0 +1,16 @@
+﻿<AML>
+ <Item type="CommandBarSection" id="2D0266E04160436BB9E060C0865A3507" action="add">
+  <classification>Data Model</classification>
+  <location keyed_name="vm_variabilityItemAutoValidationTabToolbar" type="cui_Location">9EDE03920AE748F6A902F23657A36FA9</location>
+  <name>vm_variabilityItemAutoValidationTabToolbar</name>
+  <Relationships>
+   <Item type="CommandBarSectionItem" id="E0774801F7A24907857AB9C98A4EE9D8" action="add">
+    <action>Add</action>
+    <related_id keyed_name="vm_variabilityItemAutoValidationTabToolbarRefreshBtn" type="CommandBarItem">1629C65BCD024849B081577EE72D9A63</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="vm_variabilityItemAutoValidationTabToolbar" type="CommandBarSection">2D0266E04160436BB9E060C0865A3507</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

@@ -1,0 +1,53 @@
+﻿@{
+	Layout = "../../../aras.innovator.core.ItemWindow/Views/Shared/_cuiTabItemViewLayout.cshtml";
+
+	string state = Request.QueryString["state"];
+}
+
+@RenderBody()
+
+@section extra_header
+{
+	<link rel="stylesheet" href="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/styles/_vmSwitchableTabItemViewLayout.css")" />
+
+	<script src="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/Scripts/vmSwitcherManager.js")"></script>
+	<script src="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/Scripts/vmSwitchableTabItemViewController.js")"></script>
+
+	<script>
+		document.addEventListener('loadSideBar', function() {
+			const switcherElement = document.querySelector('.vm-item-view-switcher');
+			const switcherManager = new VmSwitcherManager(window.aras, switcherElement);
+
+			window.vmSwitchableTabItemViewController = VmSwitchableTabItemViewController.createInstance(window.getSidebar(), switcherManager);
+		});
+	</script>
+
+	@RenderSection("extra_view_header", false)
+}
+
+@section center
+{
+	<aras-switcher id="vm-item-view-switcher" class="vm-item-view-switcher">
+		<div id="CenterBorderContainer" class="aras-item-view__content" switcher-pane-id="item-view-pane">
+			@if (IsSectionDefined("instance"))
+			{
+				@RenderSection("instance")
+			}
+			else
+			{
+				<div id="formContentPane" @(state == "tabs off" ? Html.Raw("style=\"height:100%;\"") : Html.Raw(""))>
+					<div id="formLayoutContainer" class="aras-item-view__form-layout">
+						<div id="placeHolderContentPane" class="aras-item-view__placeholder-pane">
+							<div data-dojo-type="Controls/SimpleTabContainer" id="viewers" class="aras-item-view__viewers">
+								<div class="aras-item-view__form-tab" data-dojo-type="Controls/Tab" data-dojo-props="selected:true" id="formTab">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			}
+
+			@RenderSection("relationships", false)
+		</div>
+	</aras-switcher>
+}

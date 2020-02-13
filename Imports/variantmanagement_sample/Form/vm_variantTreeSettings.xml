@@ -1,0 +1,251 @@
+﻿<AML>
+ <Item type="Form" id="06F6C0FD097A4FE6A3772473F94D256E" action="add">
+  <category_form>0</category_form>
+  <height>234</height>
+  <stylesheet><![CDATA[../styles/default.css]]></stylesheet>
+  <width>400</width>
+  <name>vm_variantTreeSettings</name>
+  <Relationships>
+   <Item type="Body" id="D4772C1FCB1A49E7938642BE596D0717" action="add">
+    <css>@import  '../Modules/aras.innovator.VariantManagementSample/styles/cfgTree.css';
+
+#groupsGrid {
+	width: 320px;
+	height: 320px;
+	overflow: hidden;
+	border: 1px solid #606060;
+	padding-top: 5px;
+	transition: padding-top 0.1s ease, height 0.1s ease;
+}
+
+#groupsGrid:before {
+	content: '';
+	display: none;
+	background-image: url('../images/checkbox-checked.svg'), url('../images/checkbox-disabled.svg');
+}
+
+.moveUpButton, .moveDownButton, .searchButton {
+	background-color: #FFFFFF;
+	background-size: 14px 20px;
+	background-position: 2px 2px;
+	background-repeat: no-repeat;
+	border: 1px solid #A0A0A0;
+	width: 20px !important;
+	padding: 0px !important;
+	min-width: 20px !important;
+	height: 26px !important;
+}
+
+.searchInput {
+	display: none;
+	height: 20px;
+	border: 1px dashed #C0C0C0;
+	padding: 1px 3px;
+	font-size: 12px;
+}
+
+.NameElementMatch {
+	background-color: #F7EAAD;
+}
+
+.searchButton {
+	background-image: url('../images/Search.svg');
+	background-size: 14px 16px;
+	background-position: 2px 3px;
+	height: 24px !important;
+}
+
+.moveUpButton {
+	background-image: url('../images/PageUp.svg');
+}
+
+.moveDownButton {
+	background-image: url('../images/PageDown.svg');
+}
+
+.moveUpButton:hover, .moveDownButton:hover {
+	border: 1px solid #808080;
+	background-color: #DDE7F5;
+}
+
+.arasCFGTree.dojoxGrid .ActionButton.checkboxActionButton {
+	width: 16px;
+	height: 16px;
+	background-image: url('../images/checkbox-checked.svg');
+	background-size: 16px 16px;
+	background-position: 0px 0px;
+	background-repeat: no-repeat;
+	border: none;
+}
+
+.arasCFGTree.dojoxGrid .ActionButton.checkboxActionButton.Unchecked {
+	visibility: visible;
+	background-image: url('../images/checkbox-disabled.svg');
+}
+
+.lineSeparator {
+	border-bottom: 1px solid #A0A0A0;
+}
+
+.applySettingsButton {
+	min-width: auto;
+	width: 94px;
+}</css>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="vm_variantTreeSettings" type="Form">06F6C0FD097A4FE6A3772473F94D256E</source_id>
+    <Relationships>
+     <Item type="Field" id="F0D6BE7791514AF7AA5ED4FD71FDEBB7" action="add">
+      <border_width>0</border_width>
+      <display_length_unit>px</display_length_unit>
+      <field_type>button</field_type>
+      <font_color>#000000</font_color>
+      <font_family>tahoma, arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label xml:lang="en">Apply settings</label>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <sort_order>256</sort_order>
+      <source_id keyed_name="D4772C1FCB1A49E7938642BE596D0717" type="Body">D4772C1FCB1A49E7938642BE596D0717</source_id>
+      <tab_stop>1</tab_stop>
+      <x>268</x>
+      <y>381</y>
+      <name>applySettingsButton</name>
+     </Item>
+     <Item type="Field" id="DA3C524DF69C40E9879451C2E1979919" action="add">
+      <border_width>0</border_width>
+      <display_length_unit>px</display_length_unit>
+      <field_type>html</field_type>
+      <font_color>#000000</font_color>
+      <font_family>tahoma, arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <html_code><![CDATA[<div class="lineSeparator" style="width:347px;"></div>]]></html_code>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <sort_order>1024</sort_order>
+      <source_id keyed_name="D4772C1FCB1A49E7938642BE596D0717" type="Body">D4772C1FCB1A49E7938642BE596D0717</source_id>
+      <tab_stop>1</tab_stop>
+      <x>15</x>
+      <y>368</y>
+      <name>bottomSeparator</name>
+     </Item>
+     <Item type="Field" id="3084FF5B6D7343319CEB7D98D64B5E7C" action="add">
+      <border_width>0</border_width>
+      <display_length_unit>px</display_length_unit>
+      <field_type>html</field_type>
+      <font_color>#000000</font_color>
+      <font_family>tahoma, arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <html_code><![CDATA[<div id="groupsGrid"></div>]]></html_code>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label xml:lang="en">Groups</label>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <sort_order>640</sort_order>
+      <source_id keyed_name="D4772C1FCB1A49E7938642BE596D0717" type="Body">D4772C1FCB1A49E7938642BE596D0717</source_id>
+      <tab_stop>1</tab_stop>
+      <x>15</x>
+      <y>17</y>
+      <z_index>1</z_index>
+      <name>groups_grid</name>
+     </Item>
+     <Item type="Field" id="055690B969CC4DE8B36CD28ACF9A18FB" action="add">
+      <border_width>0</border_width>
+      <display_length_unit>px</display_length_unit>
+      <field_type>button</field_type>
+      <font_color>#000000</font_color>
+      <font_family>tahoma, arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <sort_order>896</sort_order>
+      <source_id keyed_name="D4772C1FCB1A49E7938642BE596D0717" type="Body">D4772C1FCB1A49E7938642BE596D0717</source_id>
+      <tab_stop>1</tab_stop>
+      <x>341</x>
+      <y>92</y>
+      <name>moveDownButton</name>
+     </Item>
+     <Item type="Field" id="C0BF5038B56A40668E498A61FE2CF03F" action="add">
+      <border_width>0</border_width>
+      <display_length_unit>px</display_length_unit>
+      <field_type>button</field_type>
+      <font_color>#000000</font_color>
+      <font_family>tahoma, arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <sort_order>768</sort_order>
+      <source_id keyed_name="D4772C1FCB1A49E7938642BE596D0717" type="Body">D4772C1FCB1A49E7938642BE596D0717</source_id>
+      <tab_stop>1</tab_stop>
+      <x>341</x>
+      <y>62</y>
+      <name>moveUpButton</name>
+     </Item>
+     <Item type="Field" id="5DF606E19F1C4E6F97CEDF875E5E02E1" action="add">
+      <border_width>0</border_width>
+      <display_length_unit>px</display_length_unit>
+      <field_type>button</field_type>
+      <font_color>#000000</font_color>
+      <font_family>tahoma, arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <sort_order>1280</sort_order>
+      <source_id keyed_name="D4772C1FCB1A49E7938642BE596D0717" type="Body">D4772C1FCB1A49E7938642BE596D0717</source_id>
+      <tab_stop>1</tab_stop>
+      <x>341</x>
+      <y>32</y>
+      <name>searchButton</name>
+     </Item>
+     <Item type="Field" id="695B5D0A07AE4DC790D35FE8971C166B" action="add">
+      <border_width>0</border_width>
+      <display_length>302</display_length>
+      <display_length_unit>px</display_length_unit>
+      <field_type>text</field_type>
+      <font_color>#000000</font_color>
+      <font_family>tahoma, arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <sort_order>1152</sort_order>
+      <source_id keyed_name="D4772C1FCB1A49E7938642BE596D0717" type="Body">D4772C1FCB1A49E7938642BE596D0717</source_id>
+      <tab_stop>1</tab_stop>
+      <x>20</x>
+      <y>35</y>
+      <z_index>1</z_index>
+      <name>searchInput</name>
+     </Item>
+    </Relationships>
+   </Item>
+   <Item type="Form Event" id="29EC03D94F104C3190E8D20EB95620A2" action="add">
+    <form_event>onload</form_event>
+    <related_id keyed_name="vm_variantTreeSettingsAPI" type="Method">
+     <Item type="Method" action="get" select="id">
+      <name>vm_variantTreeSettingsAPI</name>
+     </Item>
+    </related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="vm_variantTreeSettings" type="Form">06F6C0FD097A4FE6A3772473F94D256E</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

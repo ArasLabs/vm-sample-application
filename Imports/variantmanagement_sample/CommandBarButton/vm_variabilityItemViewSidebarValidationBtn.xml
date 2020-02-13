@@ -1,0 +1,14 @@
+﻿<AML>
+ <Item type="CommandBarButton" id="5DB916A734084F0CA81D87D705ADCDB6" action="add">
+  <additional_data>{
+   "paneId": "validation-view-pane",
+   "contentPath": "/Modules/aras.innovator.VariantManagementSample/validationPage",
+   "imageBtnOn": "../images/Checkmark.svg",
+   "imageBtnOff": "../Modules/aras.innovator.VariantManagementSample/images/CheckmarkOff.svg"
+  }</additional_data>
+  <image>../Modules/aras.innovator.VariantManagementSample/images/CheckmarkOff.svg</image>
+  <label xml:lang="en">Validation</label>
+  <on_click_handler keyed_name="vm_itemViewSidebarBtnClick" type="Method">ACCC9B7D9FAC476C832DA03026701A2E</on_click_handler>
+  <name>vm_variabilityItemViewSidebarValidationBtn</name>
+ </Item>
+</AML>

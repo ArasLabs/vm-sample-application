@@ -1,0 +1,62 @@
+﻿<ui_resources>
+	<!-- START: Variability item resources -->
+		<!-- START: Validation page resources -->
+		<resource key="variability_item.validation_page.auto-validation-pane.label" value="Validate" />
+		<resource key="variability_item.validation_page.validation_result_grid.type_column_label" value="Type" />
+		<resource key="variability_item.validation_page.validation_result_grid.result_column_label" value="Result" />
+		<resource key="variability_item.validation_page.validation_result_grid.message_column_label" value="Message" />
+		<resource key="variability_item.validation_page.selection-validation-pane.label" value="Validate Selection" />
+		<resource key="variability_item.validation_page.selection-validation-pane.selection_tree_title" value="Relevant Features" />
+		<resource key="variability_item.validation_page.selection-validation-pane.validate_selection_button_label" value="Validate Selection" />
+		<resource key="variability_item.validation_page.selection-validation-pane.get_reasons_button_label" value="Get Reasons" />
+		<resource key="variability_item.validation_page.selection-validation-pane.selection_validation_type" value="Validation" />
+		<resource key="variability_item.validation_page.selection-validation-pane.selection_validation_result_successful" value="Successful" />
+		<resource key="variability_item.validation_page.selection-validation-pane.selection_validation_result_failed" value="Failed" />
+		<resource key="variability_item.validation_page.selection-validation-pane.selection_validation_error_message" value="These options cannot be selected with the current selection" />
+		<!-- END: Validation page resources -->
+	<!-- END: Variability item resources -->
+
+	<!-- START: Breakdown item resources -->
+		<!-- START: Resolution page resources -->
+		<resource key="breakdown_item.resolution_page.selection.title" value="Variability Item Selection" />
+		<resource key="breakdown_item.resolution_page.selection.toolbar.item_field.change_variability_item_message" value="Changing of the Variability Item will reset the selected options" />
+		<resource key="breakdown_item.resolution_page.resolution_evaluation_view.title" value="Resolved Structure" />
+		<!-- END: Resolution page resources -->
+	<!-- END: Breakdown item resources -->
+
+	<!-- START: Variable Component item resources -->
+		<!-- START: Usage Condition Table Editor page resources -->
+		<resource key="variable_component_item.usage_condition_table_editor_page.selection.title" value="Variability Item" />
+		<resource key="variable_component_item.usage_condition_table_editor_page.selection.variability_item_field.change_item_confirmation_message" value="Changing of the Variability Item will affect usage conditions in the table editor" />
+		<!-- END: Usage Condition Table Editor page resources -->
+	<!-- END: Variable Component item resources -->
+
+	<!-- START: Conflicts page resources -->
+		<resource key="conflicts_page.title" value="{0} - Conflicts" />
+	<!-- END: Conflicts page resources -->
+
+	<!-- START: Splitter pane view resources -->
+	<resource key="splitter_pane_view.close_button.tooltip" value="Close" />
+	<!-- END: Splitter pane view resources -->
+
+	<!-- START: Usage Condition Item Grid resources -->
+	<resource key="usage_condition_item_grid_view.title" value="Usage Conditions" />
+	<resource key="usage_condition_item_grid_view.title_divider" value=": " />
+	<resource key="usage_condition_item_grid_view.grid.variability_item_column_label" value="Variability Item" />
+	<resource key="usage_condition_item_grid_view.grid.usage_condition_column_label" value="Usage Condition" />
+	<resource key="usage_condition_item_grid_view.delete_confirmation.title" value="Confirm Delete" />
+	<resource key="usage_condition_item_grid_view.delete_confirmation.message" value="Are you sure you want to delete selected usage condition(s)?" />
+	<!-- END: Usage Condition Item Grid resources -->
+
+	<!-- START: Usage Condition Editor resources -->
+	<resource key="usage_condition_editor_view.title" value="Usage Condition" />
+	<resource key="usage_condition_editor_view.apply_button_label" value="Apply" />
+	<resource key="usage_condition_editor_view.cancel_button_label" value="Cancel" />
+	<resource key="usage_condition_editor_view.edit_button_label" value="Edit" />
+	<resource key="usage_condition_editor_view.changes_not_saved" value="Usage Condition changes have not been saved. What do you want to do?" />
+	<!-- END: Usage Condition Editor resources -->
+
+	<!-- START: Usage Condition common resources -->
+	<resource key="usage_condition_source_item_grid.single_row_must_be_selected_to_view_usage_conditions_error_message" value="Select a single row to show usage conditions" />
+	<!-- END: Usage Condition common resources -->
+</ui_resources>

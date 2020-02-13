@@ -1,0 +1,30 @@
+﻿<AML>
+ <Item type="PresentationCommandBarSection" id="D24966395529476AB3B53AF14B7CE980" action="add">
+  <related_id keyed_name="vm_usageConditionItemGridToolbar" type="CommandBarSection">
+   <Item type="CommandBarSection" id="E7E96A24D29342E192FC7527692DCE02" action="add">
+    <classification>Data Model</classification>
+    <location keyed_name="vm_usageConditionItemGridToolbar" type="cui_Location">32F4BF3DE6A043C39E5CFEFCA02355B2</location>
+    <name>vm_usageConditionItemGridToolbar</name>
+    <Relationships>
+     <Item type="CommandBarSectionItem" id="08A87CFECF6542268AFE492B94F51A05" action="add">
+      <action>Add</action>
+      <related_id keyed_name="vm_usageConditionItemGridToolbarCreateItemButton" type="CommandBarItem">6AC367700B1B4A2FB44529D9208CB626</related_id>
+      <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+      <sort_order>128</sort_order>
+      <source_id keyed_name="vm_usageConditionItemGridToolbar" type="CommandBarSection">E7E96A24D29342E192FC7527692DCE02</source_id>
+     </Item>
+     <Item type="CommandBarSectionItem" id="2E019272E8664020A328B875E1BC812C" action="add">
+      <action>Add</action>
+      <related_id keyed_name="vm_usageConditionItemGridToolbarDeleteItemButton" type="CommandBarItem">FB410C7EECAA4A99888156ACEC21CBB3</related_id>
+      <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+      <sort_order>256</sort_order>
+      <source_id keyed_name="vm_usageConditionItemGridToolbar" type="CommandBarSection">E7E96A24D29342E192FC7527692DCE02</source_id>
+     </Item>
+    </Relationships>
+   </Item>
+  </related_id>
+  <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+  <sort_order>9984</sort_order>
+  <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+ </Item>
+</AML>

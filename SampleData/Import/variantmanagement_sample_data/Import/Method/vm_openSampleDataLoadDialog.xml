@@ -1,0 +1,34 @@
+﻿<AML>
+ <Item type="Method" id="D8D25C24E07041C7A0F41C4A7E371137" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[const inn = aras.IomInnovator;
+let path = '';
+
+while (path === '')
+{
+	path = prompt('Specify path to a root folder of the "Aras Variant Management – Sample" package. Example: "C:\\VariantManagementSample"', '');
+}
+
+if (path === null)
+{
+	return;
+}
+
+if (!confirm('Warning! This action will overwrite any previously loaded Variant Management sample data.'))
+{
+	return;
+}
+
+const aml = '<path>' + path + '</path>';
+const res = inn.applyMethod('vm_loadSampleData', aml);
+
+if (res.isError())
+{
+	return alert(res.getErrorString());
+}
+
+alert(res.getResult());]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>vm_openSampleDataLoadDialog</name>
+ </Item>
+</AML>

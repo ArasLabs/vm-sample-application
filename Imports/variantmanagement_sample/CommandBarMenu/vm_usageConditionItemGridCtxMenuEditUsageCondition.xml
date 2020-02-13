@@ -1,0 +1,8 @@
+﻿<AML>
+ <Item type="CommandBarMenu" id="95AAD3C12ADA4F5798EF335D5301B0A2" action="add">
+  <label xml:lang="en">Edit Usage Condition</label>
+  <on_click_handler keyed_name="vm_usageCndtnItemGridEditUsgClk" type="Method">5E23EF3AEC924FFB97F76F5175B23B35</on_click_handler>
+  <on_init_handler keyed_name="vm_usageCndtnItemGridEditUsgInit" type="Method">805B82BF2D9B4795BC479B260E5E9247</on_init_handler>
+  <name>vm_usageConditionItemGridCtxMenuEditUsageCondition</name>
+ </Item>
+</AML>

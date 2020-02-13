@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="@Url.ContentWithSalt("~/javascript/include.aspx?classes=common.min.css,DynamicTreeGrid.css")" />
+		<link rel="stylesheet" href="@Url.ContentWithSalt("~/Modules/aras.innovator.core.EffectivityServices/Styles/EffectivityStyles.min.css")" />
+		<link rel="stylesheet" href="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/styles/vmGridFormatters.css")" />
+		<link rel="stylesheet" href="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/styles/vmSelectionTree.css")"; />
+		<link rel="stylesheet" href="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/styles/breakdownItemResolution.css")" />
+		<link rel="stylesheet" href="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/styles/variantManagement.css")" />
+
+		<script src="@Url.ContentWithSalt("~/javascript/include.aspx?classes=ArasModules,DynamicTreeGrid")"></script>
+		<script src="@Url.ContentWithSalt("~/javascript/include.aspx?classes=/dojo.js")" data-dojo-config="baseUrl:'@Url.ContentWithSalt("~/javascript/dojo")'"></script>
+		<script src="@Url.ContentWithSalt("~/jsBundles/cui.js")"></script>
+		<script src="@Url.ContentWithSalt("~/Modules/aras.innovator.core.EffectivityServices/Scripts/effs_cuiFormatters.js")"></script>
+		<script src="@Url.ContentWithSalt("~/Modules/aras.innovator.TreeGridView/Scripts/Viewer/MainPageDefaultArgs/DefaultParametersProvider.js")"></script>
+		<script src="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/Scripts/vmExpressionBuilder.js")"></script>
+		<script src="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/Scripts/vmGridFormatters.js")"></script>
+		<script src="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/Scripts/vmSelectionTree.js")"></script>
+		<script src="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/Scripts/vmBooleanMutuallyExclusiveSelectionTree.js")"></script>
+		<script src="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/Scripts/vmBooleanMutuallyExclusiveFeatureOptionSelectionTree.js")"></script>
+		<script src="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/Scripts/variabilityItemStructureSelectionTreeDataProvider.js")"></script>
+		<script src="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/Scripts/common/vmItemFieldHelper.js")"></script>
+		<script src="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/Scripts/resolution/breakdownItemResolutionPageController.js")"></script>
+		<script>
+			// window.item is required for TGV displaying
+			// window.item getter is defined to always return last version of item
+			Object.defineProperty(window, 'item', {
+				get: function() {
+					return window.parent.item;
+				}
+			});
+
+			window.addEventListener('DOMContentLoaded', function() {
+				const aras = window.parent.aras;
+
+				// window.aras is required for cuiToolbar and TGV displaying
+				window.aras = aras;
+
+				require(
+					['Modules/aras.innovator.VariantManagementSample/Scripts/scopeRules/dataLoader'],
+					function(DataLoader) {
+						const dataLoader = new DataLoader({aras: aras});
+						const selectionTreeDataProvider = new VariabilityItemStructureSelectionTreeDataProvider({
+							aras: aras,
+							dataLoader: dataLoader
+						});
+
+						BreakdownItemResolutionPageController.createInstance({
+							aras: aras,
+							selectionTitleElement: document.querySelector('.vm-resolution-selection__title'),
+							selectionToolbarContainerElement: document.querySelector('.vm-resolution-selection__toolbar'),
+							selectionAreaElement: document.querySelector('.vm-selection-tree__selection-area'),
+							splitterElement: document.querySelector('.aras-splitter'),
+							resolutionEvaluationTitleElement: document.querySelector('.vm-resolution-evaluation__title'),
+							resolutionEvaluationTgvFrame: document.querySelector('.vm-resolution-evaluation__tree-grid-view'),
+							additionalToolbarFormatters: effs_cuiFormatters,
+							selectionTreeDataLoader: dataLoader,
+							selectionTreeDataProvider: selectionTreeDataProvider,
+							tgvParametersProvider: new DefaultParametersProvider()
+						});
+					}
+				);
+			});
+		</script>
+		<base href="../../../scripts/">
+	</head>
+	<body class="effs-no-overflow vm-padded-page">
+		<div class="aras-accordion vm-fit-all-space">
+			<div class="aras-accordion__content aras-flex vm-fit-all-space">
+				<div class="vm-padded-container vm-splitter-pane_left vm-splitter-pane_min-width_305 vm-resolution-selection aras-flex aras-flex_column aras-flex-grow">
+					<span class="vm-resolution-selection__title vm-title"></span>
+					<div class="vm-resolution-selection__toolbar vm-toolbar"></div>
+					<div class="vm-selection-tree aras-flex aras-flex-grow effs-no-overflow">
+						<div class="vm-selection-tree__selection-area aras-flex-grow"></div>
+					</div>
+				</div>
+				<div class="aras-splitter vm-splitter vm-splitter_vertical"></div>
+				<div class="vm-splitter-pane_right vm-splitter-pane_min-width_305 vm-resolution-evaluation aras-flex aras-flex_column">
+					<span class="vm-resolution-evaluation__title vm-title"></span>
+					<iframe class="aras-flex-grow vm-resolution-evaluation__tree-grid-view"></iframe>
+				</div>
+			</div>
+		</div>
+		<iframe id="dimmer_spinner" class="aras-hide" src="@Url.ContentWithSalt("~/scripts/spinner.html")"></iframe>
+	</body>
+</html>

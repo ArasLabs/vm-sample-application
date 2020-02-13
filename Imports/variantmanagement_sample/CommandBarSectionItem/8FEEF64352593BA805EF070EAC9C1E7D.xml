@@ -1,0 +1,14 @@
+﻿<AML>
+ <Item type="CommandBarSectionItem" id="8FEEF64352593BA805EF070EAC9C1E7D" action="add">
+  <action>Add</action>
+  <related_id keyed_name="com.aras.innovator.cui_default.toc_Variant Management" type="CommandBarItem">
+   <Item type="CommandBarMenu" id="8FEEF64352593BA81B1FE36BEE101724" action="add">
+    <label xml:lang="en">Variant Management</label>
+    <name>com.aras.innovator.cui_default.toc_Variant Management</name>
+   </Item>
+  </related_id>
+  <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+  <sort_order>6656</sort_order>
+  <source_id keyed_name="com.aras.innovator.cui_default.toc" type="CommandBarSection">0AEAF671F8E548C494CCEC8E13F99562</source_id>
+ </Item>
+</AML>

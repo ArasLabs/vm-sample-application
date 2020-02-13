@@ -1,0 +1,291 @@
+﻿wbr:after {
+	content: "\00200B";
+}
+
+.itemActionIcon {
+	position: relative;
+	left: -2px;
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	background-position: 0 0;
+	background-size: 20px 20px;
+	background-repeat: no-repeat;
+	vertical-align: middle;
+}
+
+.itemActionIcon.edit, .itemActionIcon.update {
+	background-image: url('../../../images/Change.svg');
+}
+
+.itemActionIcon.add {
+	background-image: url('../../../images/New.svg');
+}
+
+.itemActionIcon.delete {
+	background-image: url('../../../images/Delete.svg');
+}
+
+.errorMessage {
+	position: absolute;
+	cursor: default;
+	top: 1px;
+	right: 1px;
+	width: 7px;
+	bottom: -3px;
+	background-color: #C96A59;
+	font-size: 16px;
+	line-height: 24px;
+	font-style: normal;
+	color: #FFFFFF;
+}
+
+.errorMessage:hover {
+	background-color: #D6806F;
+}
+
+.ruleEditorControl {
+	padding: 10px !important;
+	margin: 5px 0px 5px 5px !important;
+	line-height: 30px;
+	text-align: left;
+	border: 1px solid transparent;
+	transition: border-color 0.1s ease;
+}
+
+.ruleEditorControl.Disabled {
+	background-color: #F6F6F6;
+	border-color: #E0E0E0;
+}
+
+.ruleEditorControl.editorInvalidInput {
+	border-color: #C96A59;
+}
+
+.ruleEditorControl .menuAnchorNode {
+	position: absolute;
+	visibility: hidden;
+	width: 1px;
+	height: 10px;
+}
+
+.intellisenseMenu .dijitMenuItem .dijitMenuArrowCell {
+	width: 16px;
+}
+
+.intellisenseMenu .dijitMenuItem.selectedMenuItem .dijitMenuArrowCell {
+	background-image: url('../../../images/Checkmark.svg') !important;
+	background-position: 4px 5px;
+	background-size: 13px 13px !important;
+	background-repeat: no-repeat;
+}
+
+.inputGroup {
+	position: relative;
+	display: inline-block;
+	margin-bottom: 14px;
+	padding: 3px;
+	line-height: 22px;
+	vertical-align: middle;
+	font-size: 14px;
+}
+
+.ruleEditorControl:not(.Disabled) .inputGroup:not(.focusedGroup) {
+	outline: 1px dotted #C0C0C0;
+}
+
+.editorContentNode {
+	width: 100%;
+	height: 100%;
+	outline: none;
+}
+
+.inputGroup.focusedGroup {
+	outline: none;
+}
+
+.inputGroup .groupContent {
+	padding: 0px 5px 0px 5px;
+	min-height: 22px;
+}
+
+.inputGroup .groupContent:focus {
+	outline: none;
+}
+
+.inputGroup .focusMark {
+	display: none;
+}
+
+.inputGroup.emptyGroup {
+	opacity: 0.5;
+}
+
+.inputGroup.inactiveGroup {
+	display: none;
+}
+
+.staticGroup {
+	min-width: 20px;
+	background-color: #2573ba;
+	color: #FFFFFF;
+	text-align: center;
+}
+
+.inputGroup.staticGroup:focus {
+	border-bottom: 1px dashed #FFFFFF;
+}
+
+.inputGroup.selectGroup {
+	min-width: 40px;
+	color: #404040;
+	text-align: center;
+}
+
+.inputGroup.multiSelectGroup {
+	text-align: left;
+}
+
+.inputGroup.selectGroup p, .inputGroup.selectGroup font {
+	display: inline-block;
+	font-size: inherit;
+	margin: 0px;
+}
+
+.inputGroup +.inputGroup {
+	margin-left: 10px;
+}
+
+.inputGroup.invalidInput {
+	background-color: #E39981 !important;
+	color: #B83B1D !important;
+}
+
+.inputGroup.operandsInputGroup {
+	margin-left: 20px;
+	margin-right: 20px;
+	min-width: 30px;
+}
+
+.inputGroup.conditionInputGroup {
+	min-width: 25px;
+	background-color: #76a797;
+	color: #FFFFFF;
+}
+
+.inputGroup.thenGroup {
+	background-color: #2573ba;
+	color: #FFFFFF;
+}
+
+.inputGroup.multiSelectGroup {
+	border: none;
+}
+
+.grammarInputGroup.emptyGroup {
+	opacity: 1;
+}
+
+.grammarInputGroup .groupContent {
+	padding-right: 20px;
+	-webkit-user-select: text;
+	-moz-user-select: text;
+	-ms-user-select: text;
+	user-select: text;
+}
+
+.grammarInputGroup .groupContent .Lexem::selection {
+	background-color: #F8EEC0;
+	color: #7D7138;
+}
+
+.grammarInputGroup.invalidInput {
+	background-color: transparent !important;
+}
+
+.Disabled .grammarInputGroup .Lexem {
+	background-color: transparent !important;
+	color: #505050 !important;
+}
+
+.invalidInput .Lexem {
+	color: #404040;
+}
+
+.Lexem.InvalidLexem {
+	color: #C96A59 !important;
+	background-color: transparent !important;
+}
+
+.Lexem.IfLiteral {
+	background-color: #2573ba;
+	color: #FFFFFF;
+	text-align: center;
+}
+
+.Lexem.ThenLiteral {
+	background-color: #2573ba;
+	color: #FFFFFF;
+	text-align: center;
+}
+
+.Disabled .Lexem.IfLiteral, .Disabled .Lexem.ThenLiteral, .Disabled .Lexem.LogicOperator {
+	color: #FFFFFF !important;
+	background-color: #606060 !important;
+}
+
+.Lexem.LogicOperator {
+	color: #FFFFFF;
+	background-color: #67A350;
+}
+
+.Lexem.MacroOperator {
+	color: #FFFFFF;
+	background-color: #9D80A8;
+}
+
+.Lexem.NotLiteral {
+	color: #FFFFFF;
+	background-color: #D19458;
+}
+
+.Lexem.unknown {
+	color: #808080;
+	border-bottom: 1px dashed red;
+}
+
+.Lexem.FamilyName {
+	color: #309dff;
+}
+
+.Lexem.bracket, .Lexem.itembracket {
+	color: #D0D0D0;
+}
+
+.Lexem.ValidOptionName {
+	color: #505050;
+}
+
+.multiSelectGroup:before {
+	position: absolute;
+	z-index: 10;
+	content: '';
+	left: -4px;
+	width: 8px;
+	top: -3px;
+	bottom: -3px;
+	border-left: 2px solid #808080;
+	border-radius: 50%;
+}
+
+.multiSelectGroup:after {
+	position: absolute;
+	z-index: 10;
+	content: '';
+	right: -4px;
+	width: 8px;
+	top: -3px;
+	bottom: -3px;
+	border-right: 2px solid #808080;
+	border-radius: 50%;
+}

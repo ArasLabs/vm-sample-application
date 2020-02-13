@@ -1,0 +1,25 @@
+﻿<AML>
+ <Item type="PresentationConfiguration" id="B388D74932EA3B8136326AA7318BB90D" action="add">
+  <name>vm_VariabilityItem Presentation Configuration</name>
+  <Relationships>
+   <Item type="PresentationCommandBarSection" id="B388D74932EA3B81BDEE61C462534D75" action="add">
+    <related_id keyed_name="vm_VariabilityItem_TOC_Content" type="CommandBarSection">B388D74932EA3B81618120D9625E4BB8</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="vm_VariabilityItem Presentation Configuration" type="PresentationConfiguration">B388D74932EA3B8136326AA7318BB90D</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="C9240069F55249AF9E51CC476E13FFB8" action="add">
+    <related_id keyed_name="vm_variabilityItemViewSidebar" type="CommandBarSection">B98F510269C24894807370086F3AB0C7</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="vm_VariabilityItem Presentation Configuration" type="PresentationConfiguration">B388D74932EA3B8136326AA7318BB90D</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="A587D139B2004C26ACB8669CA0BB2F20" action="add">
+    <related_id keyed_name="vm_variabilityItemAutoValidationTabToolbar" type="CommandBarSection">2D0266E04160436BB9E060C0865A3507</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>384</sort_order>
+    <source_id keyed_name="vm_VariabilityItem Presentation Configuration" type="PresentationConfiguration">B388D74932EA3B8136326AA7318BB90D</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

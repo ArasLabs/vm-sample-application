@@ -1,0 +1,587 @@
+﻿<AML>
+ <Item type="Method" id="D66E80F2E5184433A2DE657F4AA63AAE" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[var dialogContext = {
+	data: {
+		dataModel: null,
+		dataStore: null,
+		affectedGroups: null,
+		itemsFilter: {}
+	},
+	eventListeners: {},
+	modules: {}
+};
+
+VariantTreeSettingsDialog = function() {
+	document.isEditMode = true;
+
+	this.aras = aras;
+	this.topWindow = this.aras.getMostTopWindowWithAras();
+	this.dialogArguments = parent.dialogArguments || this.topWindow.dialogArguments;
+	this.scopeId = this.dialogArguments.scopeId;
+	this.formParameters = this.dialogArguments.formParameters;
+	this.formControls = {};
+	this.isUIControlsCreated = false;
+
+	dialogContext.data.affectedGroups = this.dialogArguments.affectedGroups;
+
+	// controls initialization
+	this.InitializeControls();
+};
+
+VariantTreeSettingsDialog.prototype.InitializeControls = function() {
+	this.formControls.applyButton = document.getElementById(document.fieldsTab.applySettingsButton);
+	this.formControls.applyButton.addEventListener('click', function() { this.ApplySettings(); }.bind(this));
+
+	this.formControls.searchButton = document.getElementById(document.fieldsTab.searchButton);
+	this.formControls.searchButton.addEventListener('click', function() { this.toggleSearchPanel(); }.bind(this));
+
+	this.formControls.searchInput = document.querySelector('[id="' + document.fieldsTab.searchInput + '"] input');
+	this.formControls.searchInput.setAttribute('placeholder', 'Enter search string here...');
+	this.formControls.searchInput.addEventListener('input', function() {
+		var filterTimeout = this._filterTimeout;
+
+		if (filterTimeout) {
+			clearTimeout(this._filterTimeout);
+			this._filterTimeout = null;
+		}
+
+		this._filterTimeout = setTimeout(this.filterModelData.bind(this), 200);
+	}.bind(this));
+
+	this.formControls.moveUpButton = document.getElementById(document.fieldsTab.moveUpButton);
+	this.formControls.moveUpButton.addEventListener('click', function() { this.moveGroupItemUp(); }.bind(this));
+
+	this.formControls.moveDownButton = document.getElementById(document.fieldsTab.moveDownButton);
+	this.formControls.moveDownButton.addEventListener('click', function() { this.moveGroupItemDown(); }.bind(this));
+
+	this.formControls.gridLabel = document.querySelector('div[name="groups_grid"] div[class="sys_f_label"]');
+	this.formControls.gridContainerDiv = document.querySelector('#groupsGrid');
+
+	if (this.formControls.gridLabel) {
+		this.formControls.gridLabel.textContent = this.formParameters.groupName || 'Features';
+	}
+
+	this.createUIControls();
+};
+
+VariantTreeSettingsDialog.prototype.initStoreFromModel = function(dataStore, dataModel) {
+	var scopeModelItem = dataModel.getItemsByParameters({itemType: 'Scope'})[0];
+	scopeModelItem.sortChildren();
+	var scopeRelatedItems = this.scopeModelItem.getChildren();
+	var uniqueId;
+	var i;
+
+	// cleanup dataStore
+	for (uniqueId in dataStore.itemsHash) {
+		dataStore.unregisterItem(dataStore.itemsHash[uniqueId]);
+	}
+
+	for (i = 0; i < scopeRelatedItems.length; i++) {
+		dataStore.registerItem(scopeRelatedItems[i]);
+	}
+
+	dataStore.treeModelCollection = scopeModelItem.children.slice();
+
+	if (this.isUIControlsCreated) {
+		this.formControls.treeControl.refreshData();
+	}
+};
+
+VariantTreeSettingsDialog.prototype.restoreModelState = function(dataModel, stateData) {
+	var allModelItems = dataModel.getAllItems();
+	var modelItem;
+	var i;
+	var j;
+
+	if (stateData) {
+		var stateByItemIdPath = {};
+		var stateItem;
+		var idPath;
+		var currentStateItems;
+
+		for (i = 0; i < stateData.length; i++) {
+			stateItem = stateData[i];
+			currentStateItems = [stateItem].concat(stateItem.children.slice());
+
+			for (j = 0; j < currentStateItems.length; j++) {
+				stateItem = currentStateItems[j];
+				stateByItemIdPath[stateItem.idPath] = stateItem;
+			}
+		}
+
+		for (i = 0; i < allModelItems.length; i++) {
+			modelItem = allModelItems[i];
+			idPath = modelItem.getItemIdPath().join(',');
+			stateItem = stateByItemIdPath[idPath];
+
+			if (modelItem.setItemGroup && (!stateItem || stateItem.selected)) {
+				modelItem.setItemGroup('selected', {skipRecursive: true, suppressEvent: true});
+			}
+
+			modelItem.sortIndex = stateItem ? stateItem.sortIndex : 0;
+		}
+
+		for (i = 0; i < allModelItems.length; i++) {
+			modelItem = allModelItems[i];
+
+			if (modelItem.children.length) {
+				modelItem.children.sort(function(firstModelItem, secondModelItem) {
+					return firstModelItem.sortIndex - secondModelItem.sortIndex;
+				});
+			}
+		}
+	} else {
+		for (i = 0; i < allModelItems.length; i++) {
+			modelItem = allModelItems[i];
+
+			if (modelItem.setItemGroup) {
+				modelItem.setItemGroup('selected', {skipRecursive: true, suppressEvent: true});
+			}
+		}
+	}
+};
+
+VariantTreeSettingsDialog.prototype.loadModelData = function(dataModel) {
+	if (dataModel) {
+		var isDataFiltered = dialogContext.data.itemsFilter.value;
+		var modelItemStates;
+
+		if (isDataFiltered) {
+			this.restoreFilteredModelData();
+		}
+
+		modelItemStates = this.getModelItemStates(dataModel) || dialogContext.data.affectedGroups;
+
+		// loading dataModel data
+		dataModel.loadSampleData(this.scopeId, {
+			allowedItemTypes: ['Scope', 'Variable', 'NamedConstant'],
+			builderMethodName: this.formParameters.builderMethodName,
+			forceLoad: true
+		});
+
+		this.restoreModelState(dataModel, modelItemStates);
+
+		if (isDataFiltered) {
+			this.filterModelData();
+		}
+
+		// undating properties and controls
+		this.scopeModelItem = dataModel.getItemsByParameters({itemType: 'Scope'})[0];
+	}
+};
+
+VariantTreeSettingsDialog.prototype.createUIControls = function() {
+	require([
+		'dojo/_base/connect',
+		'Modules/aras.innovator.VariantManagementSample/Scripts/scopeRules/dataStore',
+		'Modules/aras.innovator.VariantManagementSample/Scripts/tableRuleEditor/dataModel/aggregatedDataModel',
+		'Modules/aras.innovator.VariantManagementSample/Scripts/tableRuleEditor/groupTreeGridAdapter',
+		'Controls/Common/RenderUtils'
+	], function(connect, DataStore, AggregatedDataModel, GroupTreeGridAdapter, RenderUtils) {
+		var dataStore = new DataStore({aras: aras});
+		var dataModel = new AggregatedDataModel({aras: aras});
+		var treeEventListeners = [];
+		var treeControl;
+
+		this.loadModelData(dataModel);
+		this.initStoreFromModel(dataStore, dataModel);
+
+		dialogContext.modules.RenderUtils = RenderUtils;
+		dialogContext.data.dataModel = dataModel;
+		dialogContext.data.dataStore = dataStore;
+
+		// tree control initialization
+		treeControl = new GroupTreeGridAdapter({connectId: 'groupsGrid', dataStore: dataStore, modeData: {
+			groups: {
+				selected: {label: 'Selected', cssClass: 'checkboxActionButton'}
+			}
+		}});
+		treeControl.renderCellHTML = this.renderVariableListCellHTML;
+		treeControl._createTree();
+
+		treeEventListeners.push(connect.connect(treeControl.gridContainer, 'gridMenuInit', this.onTreeGridMenuInit));
+		treeEventListeners.push(connect.connect(treeControl.gridContainer, 'gridMenuClick', this.onTreeGridMenuClick));
+		treeEventListeners.push(connect.connect(treeControl.gridContainer, 'gridKeyPress', this.onTreeGridKeyPress));
+		treeEventListeners.push(connect.connect(treeControl, 'onExecuteAction', this.onExecuteGridAction));
+
+		dialogContext.eventListeners.treeControl = treeEventListeners;
+		this.addDomEventListener(window, 'beforeunload', this.onBeforeUnload.bind(this));
+
+		this.isUIControlsCreated = true;
+		this.formControls.treeControl = treeControl;
+	}.bind(this));
+};
+
+VariantTreeSettingsDialog.prototype.onBeforeUnload = function() {
+	this.removeEventListeners();
+};
+
+VariantTreeSettingsDialog.prototype.addDomEventListener = function(targetNode, eventType, eventHandler) {
+	if (targetNode && eventType && eventHandler) {
+		var domEventListeners = dialogContext.eventListeners.DOM || (dialogContext.eventListeners.DOM = []);
+
+		targetNode.addEventListener(eventType, eventHandler);
+		domEventListeners.push({targetNode: targetNode, eventType: eventType, eventHandler: eventHandler});
+	}
+};
+
+VariantTreeSettingsDialog.prototype.removeEventListeners = function() {
+	var eventGroup;
+	var groupDescriptors;
+	var currentDescriptor;
+	var i;
+
+	for (eventGroup in dialogContext.eventListeners) {
+		groupDescriptors = dialogContext.eventListeners[eventGroup];
+
+		for (i = 0; i < groupDescriptors.length; i++) {
+			currentDescriptor = groupDescriptors[i];
+
+			if (currentDescriptor.remove) {
+				currentDescriptor.remove();
+			} else if (currentDescriptor.targetNode) {
+				currentDescriptor.targetNode.removeEventListener(currentDescriptor.eventType, currentDescriptor.eventHandler);
+			}
+		}
+	}
+};
+
+VariantTreeSettingsDialog.prototype.renderVariableListCellHTML = function(storeValue, rowIndex, level, layoutCell) {
+	var modelItem = storeValue;
+	var htmlRenderUtils = dialogContext.modules.RenderUtils.HTML;
+	var filterInfo = dialogContext.data.itemsFilter;
+	var itemName = modelItem.getItemProperty('name');
+	var groupsCount = this.getCheckGroupsCount();
+	var cellHTML = '';
+
+	if (filterInfo.value) {
+		var matchesList = itemName.match(filterInfo.regExp);
+
+		if (!matchesList) {
+			cellHTML = htmlRenderUtils.wrapInTag(itemName, 'span', {class: 'NameElementNamePart'});
+		} else {
+			var matchIndex = matchesList.index;
+			var firstMatch = matchesList[0];
+
+			if (matchIndex > 0) {
+				cellHTML += htmlRenderUtils.wrapInTag(itemName.substr(0, matchIndex), 'span', {class: 'NameElementNamePart'});
+			}
+
+			cellHTML += htmlRenderUtils.wrapInTag(itemName.substr(matchIndex, firstMatch.length), 'span', {class: 'NameElementMatch'});
+
+			if (matchIndex + firstMatch.length < itemName.length) {
+				cellHTML += htmlRenderUtils.wrapInTag(itemName.substr(matchIndex + firstMatch.length), 'span', {class: 'NameElementNamePart'});
+			}
+		}
+	} else {
+		cellHTML = htmlRenderUtils.wrapInTag(itemName, 'span', {class: 'NameElementNamePart'});
+	}
+
+	cellHTML = htmlRenderUtils.wrapInTag(cellHTML, 'div', {
+		class: 'CellTextContent',
+		title: itemName,
+		style: 'left:' + (level * 28 + 45) + 'px;right:' + groupsCount * 25 + 'px;'
+	});
+
+	return cellHTML + this._renderGroupButtons(modelItem);
+};
+
+VariantTreeSettingsDialog.prototype.onExecuteGridAction = function(actionName, actionArguments, storeItem) {
+	var gridStore = this.gridWidget.store;
+	var modelItem = gridStore.getValue(storeItem, 'modelItem');
+
+	switch (actionName) {
+		case 'setGroup':
+			modelItem.setItemGroup(actionArguments);
+			this.gridContainer.setSelectedRow(modelItem.uniqueId);
+			this.gridContainer.updateRenderedRows();
+			break;
+		case 'removeGroup':
+			modelItem.removeItemGroup(actionArguments);
+			this.gridContainer.setSelectedRow(modelItem.uniqueId);
+			this.gridContainer.updateRenderedRows();
+			break;
+		default:
+			break;
+	}
+};
+
+VariantTreeSettingsDialog.prototype.onTreeGridMenuInit = function(rowId, columnIndex) {
+	var gridMenu = this.getMenu();
+
+	gridMenu.removeAll();
+
+	gridMenu.addRange([
+		{id: 'selectall', name: 'Select All'},
+		{id: 'unselectall', name: 'Unselect All'}
+	]);
+
+	return true;
+};
+
+VariantTreeSettingsDialog.prototype.onTreeGridMenuClick = function(commandId, rowId, columnIndex) {
+	var dataModel = dialogContext.data.dataModel;
+	var allModelItems = dataModel.getAllItems();
+	var modelItem;
+	var i;
+
+	switch (commandId) {
+		case 'selectall':
+			for (i = 0; i < allModelItems.length; i++) {
+				modelItem = allModelItems[i];
+
+				if (modelItem.setItemGroup) {
+					modelItem.setItemGroup('selected', {skipRecursive: true, suppressEvent: true});
+				}
+			}
+
+			this.updateRenderedRows();
+			break;
+		case 'unselectall':
+			for (i = 0; i < allModelItems.length; i++) {
+				modelItem = allModelItems[i];
+
+				if (modelItem.setItemGroup) {
+					modelItem.removeItemGroup('selected', {skipRecursive: true, suppressEvent: true});
+				}
+			}
+
+			this.updateRenderedRows();
+			break;
+		default:
+			break;
+	}
+};
+
+VariantTreeSettingsDialog.prototype.ApplySettings = function() {
+	var isDataRestored = !dialogContext.data.itemsFilter.value || this.restoreFilteredModelData();
+	var itemStates = this.getModelItemStates(dialogContext.data.dataModel);
+	var selectedItemStates = itemStates.filter(function(itemState) {
+		return itemState.selected;
+	});
+
+	if (!itemStates.length || selectedItemStates.length) {
+		var resultSettings = new this.topWindow.Object();
+		resultSettings.affectedGroups = itemStates;
+
+		this.Close(resultSettings);
+	} else {
+		this.aras.AlertError('There is no selected groups.');
+	}
+};
+
+VariantTreeSettingsDialog.prototype.toggleSearchPanel = function() {
+	var searchInput = this.formControls.searchInput;
+	var gridContainer = this.formControls.gridContainerDiv;
+	var gridWidget = this.formControls.treeControl.gridWidget;
+
+	searchInput.isHidden = searchInput.isHidden === undefined ? false : !searchInput.isHidden;
+	searchInput.style.display = searchInput.isHidden ? 'none' : 'block';
+	searchInput.focus();
+
+	if (searchInput.isHidden) {
+		gridContainer.style.paddingTop = gridContainer._originPadding;
+		gridContainer.style.height = gridContainer._originHeight;
+	} else {
+		var computedStyle = window.getComputedStyle(gridContainer);
+
+		gridContainer._originPadding = computedStyle.paddingTop;
+		gridContainer._originHeight = computedStyle.height;
+
+		gridContainer.style.paddingTop = (parseInt(gridContainer._originPadding) + 25) + 'px';
+		gridContainer.style.height = (parseInt(gridContainer._originHeight) - 25) + 'px';
+	}
+
+	gridWidget.resize({h: parseInt(gridContainer.style.height)});
+
+};
+
+VariantTreeSettingsDialog.prototype.restoreFilteredModelData = function() {
+	var allModelItems = dialogContext.data.dataModel.getAllItems();
+
+	// restore children
+	allModelItems.map(function(targetItem) {
+		targetItem.children = targetItem._children || targetItem.children;
+		delete targetItem._children;
+	});
+};
+
+VariantTreeSettingsDialog.prototype.filterModelData = function() {
+	var filterString = this.formControls.searchInput.value;
+	var treeControl = this.formControls.treeControl;
+	var gridWidget = treeControl.gridWidget;
+	var filterInfo = dialogContext.data.itemsFilter;
+
+	if (filterString !== filterInfo.value) {
+		this.restoreFilteredModelData();
+
+		filterString = filterString.replace(/[-[\]{}()*+?.,\\/^$|#\s]/g, '\\$&');
+
+		if (filterString) {
+			var displayedModelItems = this.scopeModelItem.getChildren(true);
+			var searchRegExp = new RegExp(filterString, 'i');
+			var itemFilterFunction = function(targetItem) {
+				var isFiltrationPassed = false;
+
+				if (searchRegExp.test(targetItem.getItemProperty('name'))) {
+					// if item passed filtration due to match with searching string, then keep it's children also
+					targetItem.children = targetItem._children;
+					isFiltrationPassed = true;
+				} else {
+					isFiltrationPassed = targetItem.children.length > 0;
+				}
+
+				if (isFiltrationPassed && targetItem.parent) {
+					gridWidget.openedExpandos[targetItem.parent.uniqueId] = true;
+				}
+
+				return isFiltrationPassed;
+			};
+			var modelItem;
+			var i;
+
+			displayedModelItems.reverse();
+			displayedModelItems.push(this.scopeModelItem);
+
+			for (i = 0; i < displayedModelItems.length; i++) {
+				modelItem = displayedModelItems[i];
+
+				modelItem._children = modelItem.children;
+				modelItem.children = modelItem.children.filter(itemFilterFunction);
+			}
+
+			filterInfo.regExp = searchRegExp;
+		}
+
+		filterInfo.value = filterString;
+		this.initStoreFromModel(dialogContext.data.dataStore, dialogContext.data.dataModel);
+		gridWidget.render();
+	}
+};
+
+VariantTreeSettingsDialog.prototype.moveGroupItemUp = function() {
+	this.moveGroupItem(true);
+};
+
+VariantTreeSettingsDialog.prototype.moveGroupItemDown = function() {
+	this.moveGroupItem(false);
+};
+
+VariantTreeSettingsDialog.prototype.moveGroupItem = function(moveUp) {
+	var treeControl = this.formControls.treeControl;
+	var gridContainer = treeControl.gridContainer;
+	var gridStore = treeControl.gridWidget.store;
+	var selectedItemId = gridContainer.getSelectedId();
+
+	if (selectedItemId) {
+		var selectedItem = gridStore._itemsByIdentity[selectedItemId];
+		var modelItem = gridStore.getValue(selectedItem, 'modelItem');
+		var siblingModelItems = modelItem.parent.children;
+		var modelItemIndex = siblingModelItems.indexOf(modelItem);
+		var isMoveAllowed = moveUp ? modelItemIndex > 0 : modelItemIndex < siblingModelItems.length - 1;
+
+		if (isMoveAllowed) {
+			var replaceItemIndex = modelItemIndex + (moveUp ? -1 : 1);
+			var replaceModelItem = siblingModelItems[replaceItemIndex];
+
+			siblingModelItems.splice(modelItemIndex, 1);
+			siblingModelItems.splice(replaceItemIndex, 0, modelItem);
+
+			gridContainer.setSelectedRow(replaceModelItem.uniqueId);
+
+			treeControl.dataStore.treeModelCollection = this.scopeModelItem.getChildrenByParameters({itemType: 'Variable'});
+			treeControl.refreshData();
+		}
+	}
+};
+
+VariantTreeSettingsDialog.prototype.getModelItemStates = function(dataModel) {
+	var scopeModelItem = dataModel.getItemsByParameters({itemType: 'Scope'});
+
+	scopeModelItem = scopeModelItem.length && scopeModelItem[0];
+
+	if (scopeModelItem) {
+		var variableModelItems = this.scopeModelItem.getChildrenByParameters({itemType: 'Variable'});
+		var resultItemStates = new this.topWindow.Array();
+		var itemCounter = 0;
+		var childModelItem;
+		var variableOutputData;
+		var modelItem;
+		var childItemStates;
+		var i;
+		var j;
+
+		for (i = 0; i < variableModelItems.length; i++) {
+			modelItem = variableModelItems[i];
+			variableOutputData = this.createOutputItemData(modelItem, {sortIndex: itemCounter++});
+
+			childItemStates = new this.topWindow.Array();
+			variableOutputData.children = childItemStates;
+
+			for (j = 0; j < modelItem.children.length; j++) {
+				childModelItem = modelItem.children[j];
+				childItemStates.push(this.createOutputItemData(childModelItem, {sortIndex: itemCounter++}));
+			}
+
+			resultItemStates.push(variableOutputData);
+		}
+
+		return resultItemStates;
+	}
+};
+
+VariantTreeSettingsDialog.prototype.Close = function(value) {
+	this.dialogArguments.dialog.close(value);
+};
+
+VariantTreeSettingsDialog.prototype.createOutputItemData = function(modelItem, additionalProperties) {
+	var itemData = {
+		itemId: modelItem.itemId,
+		selected: modelItem.isItemFromGroup('selected'),
+		idPath: modelItem.getItemIdPath().join(','),
+		name: modelItem.getItemProperty('name')
+	};
+
+	if (additionalProperties) {
+		for (var propertyName in additionalProperties) {
+			itemData[propertyName] = additionalProperties[propertyName];
+		}
+	}
+
+	return itemData;
+};
+
+VariantTreeSettingsDialog.prototype.onTreeGridKeyPress = function(keyEvent) {
+	switch (keyEvent.keyCode) {
+		case 13:
+		case 32:
+			var selectedRowId = this.getSelectedId();
+
+			if (selectedRowId) {
+				var gridStore = this.grid_Experimental.store;
+				var storeItem = gridStore._itemsByIdentity[selectedRowId];
+				var modelItem = gridStore.getValue(storeItem, 'modelItem');
+
+				if (modelItem.isItemFromGroup('selected')) {
+					modelItem.removeItemGroup('selected');
+				} else {
+					modelItem.setItemGroup('selected');
+				}
+
+				this.setSelectedRow(modelItem.uniqueId);
+				this.updateRenderedRows();
+				this.requestFocus();
+			}
+			break;
+		default:
+			break;
+	}
+};
+
+// Create instance
+VariantTreeSettingsDialog = new VariantTreeSettingsDialog();]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>vm_variantTreeSettingsAPI</name>
+ </Item>
+</AML>

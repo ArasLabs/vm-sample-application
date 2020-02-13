@@ -1,0 +1,23 @@
+﻿<AML>
+ <Item type="CommandBarSection" id="68FFD6E918A24A39AC2169C02E099CA8" action="add">
+  <classification>Data Model</classification>
+  <location keyed_name="vm_breakdownItemResolutionToolbar" type="cui_Location">B6249242E4E74F89A554017BE2B24878</location>
+  <name>vm_breakdownItemResolutionToolbar</name>
+  <Relationships>
+   <Item type="CommandBarSectionItem" id="9EC98D277F57401899D3C8CE8AFC953D" action="add">
+    <action>Add</action>
+    <related_id keyed_name="vm_breakdownItemResolutionToolbarVariabilityItemField" type="CommandBarItem">45C5327814A648EAB9B08DCB6D2CED42</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="vm_breakdownItemResolutionToolbar" type="CommandBarSection">68FFD6E918A24A39AC2169C02E099CA8</source_id>
+   </Item>
+   <Item type="CommandBarSectionItem" id="CFAC068125D24F08BCFEB39DCA29CE98" action="add">
+    <action>Add</action>
+    <related_id keyed_name="vm_breakdownItemResolutionToolbarResolveButton" type="CommandBarItem">B69EC8E331FF4BE785FB8573E3C5825B</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="vm_breakdownItemResolutionToolbar" type="CommandBarSection">68FFD6E918A24A39AC2169C02E099CA8</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

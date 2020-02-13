@@ -1,8 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<toolbarapplet buttonsize="26,25">
-	<toolbar id="swtoolbar">
-		<button text="Pick New" id="new" image="../images/New.svg" tooltip="Pick New" disabled="true" />
-		<button text="Replace Item" id="replace" image="../images/ReplicationTxn.svg" tooltip="Replace Item" disabled="true" />
-		<button text="Delete" id="delete" image="../images/Delete.svg" tooltip="Delete" disabled="true" /> 
-	</toolbar>
-</toolbarapplet> 

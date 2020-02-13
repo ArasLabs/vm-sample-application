@@ -1,0 +1,18 @@
+﻿.vm-selection-tree__title {
+	padding-bottom: 12px;
+	flex-shrink: 0;
+}
+
+.vm-selection-tree__selection-area .aras-grid-header,
+.vm-selection-tree__selection-area .aras-grid-active-cell {
+	display: none;
+}
+
+.vm-selection-tree__selection-area .aras-grid-row {
+	border: none;
+}
+
+.vm-selection-tree__selection-area .aras-grid-scroller,
+.vm-selection-tree__selection-area .aras-grid-scroller table {
+	width: 100% !important;
+}

@@ -1,0 +1,25 @@
+﻿<AML>
+ <Item type="CommandBarSection" id="94DB97EE44A642A7A2B25DDFED1D07B2" action="add">
+  <classification>Data Model</classification>
+  <location keyed_name="ItemView.RelationshipsGridContextMenu" type="cui_Location">12CC1786F8C54D569692F13B212B4634</location>
+  <name>vm_variableComponentAssetContextMenu</name>
+  <Relationships>
+   <Item type="CommandBarSectionItem" id="5A72CCE873F948179AAE0E1E94CBCF94" action="add">
+    <action>Add</action>
+    <item_classification />
+    <related_id keyed_name="vm_variableComponentAssetContextMenuViewUsageConditionsSeparator" type="CommandBarItem">DF6E99AF112748A8AF78CEAB2A4B989D</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>2176</sort_order>
+    <source_id keyed_name="vm_variableComponentAssetContextMenu" type="CommandBarSection">94DB97EE44A642A7A2B25DDFED1D07B2</source_id>
+   </Item>
+   <Item type="CommandBarSectionItem" id="CC84D06D95FC478C8BE409FE7686D8D2" action="add">
+    <action>Add</action>
+    <item_classification />
+    <related_id keyed_name="vm_variableComponentAssetContextMenuViewUsageConditions" type="CommandBarItem">E728BEE0D92541728AD99C0D2D64AF06</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>2304</sort_order>
+    <source_id keyed_name="vm_variableComponentAssetContextMenu" type="CommandBarSection">94DB97EE44A642A7A2B25DDFED1D07B2</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

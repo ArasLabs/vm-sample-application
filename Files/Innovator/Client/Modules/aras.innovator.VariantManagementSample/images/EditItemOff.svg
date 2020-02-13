@@ -1,0 +1,8 @@
+﻿<svg width="64" xmlns="http://www.w3.org/2000/svg" height="64" viewBox="0 0 64 64" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 64 64">
+<g fill="#fff" stroke="#fff">
+<path stroke-width="2" d="M22,55H11V6h39v21" stroke-miterlimit="10"/>
+<path d="M32,56l-5-5l17.5-17.5l5,5L32,56z"/>
+<path d="m30.5,57.5l-5-5-1.5,1.5v5h5l1.5-1.5z"/>
+<path d="m51,37l-5-5 3-3 5,5-3,3z"/>
+</g>
+</svg>

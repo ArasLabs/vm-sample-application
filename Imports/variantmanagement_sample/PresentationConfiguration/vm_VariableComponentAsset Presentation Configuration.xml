@@ -1,0 +1,13 @@
+﻿<AML>
+ <Item type="PresentationConfiguration" id="A2B7EDAF0D414F2F965798D2017C85D1" action="add">
+  <name>vm_VariableComponentAsset Presentation Configuration</name>
+  <Relationships>
+   <Item type="PresentationCommandBarSection" id="C60B48EFF5B04F3DA06433BED0800ABD" action="add">
+    <related_id keyed_name="vm_variableComponentAssetContextMenu" type="CommandBarSection">94DB97EE44A642A7A2B25DDFED1D07B2</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="vm_VariableComponentAsset Presentation Configuration" type="PresentationConfiguration">A2B7EDAF0D414F2F965798D2017C85D1</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

@@ -1,0 +1,11 @@
+﻿.aras-accordion > .aras-accordion__content {
+	padding: 0;
+}
+
+.vm-usage-condition-table-editor-selection__variability-item-field-label {
+	font: bold 1rem / 1.2 Roboto, 'Noto Sans JP', Arial, sans-serif;
+}
+
+.vm-usage-condition-table-editor-selection__variability-item-field {
+	width: 184px;
+}

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <toolbarapplet buttonsize="26,25">
-	<toolbar id="swtoolbar">
+	<toolbar id="ruleGridToolbar">
 		<button text="Create New" id="new" image="../images/New.svg" tooltip="Create New" disabled="true" />
 		<button text="Delete" id="delete" image="../images/Delete.svg" tooltip="Delete" disabled="true" /> 
 		<separator/>

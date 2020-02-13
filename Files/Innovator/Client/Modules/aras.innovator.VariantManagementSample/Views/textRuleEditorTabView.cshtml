@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+		@@import "@Url.ContentWithSalt("~/javascript/include.aspx?files=claroGrid.css")";
+		@@import '@Url.ContentWithSalt("~/public/styles/controls.css")';
+		@@import "@Url.ContentWithSalt("~/styles/default.css")";
+		@@import "@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/styles/ruleEditor.css")";
+		@@import "@Url.ContentWithSalt("~/styles/common.css")";
+
+		html, body {
+			overflow: hidden;
+			width: 100%;
+			height: 100%;
+			margin: 0px;
+			padding: 0px;
+		}
+
+		#main_spinner {
+			position: absolute;
+			left: 0;
+			top: 0;
+			z-index: 999999;
+			width: 100%;
+			height: 100%;
+			opacity: 0.7;
+			background-color: white;
+		}
+
+		.ruleEditor .dijitContentPane {
+			padding: 0px;
+			margin: 0px;
+		}
+
+		.tabLabel {
+			outline: none;
+		}
+
+		.dijitTabPaneWrapper {
+			border: none;
+		}
+
+		#xmlExpressionContainer {
+			position: absolute;
+			display: none;
+			z-index: 10;
+			top: 30px;
+			bottom: 0px;
+			left: 0px;
+			right: 0px;
+			padding: 10px;
+		}
+
+		#xmlExpressionContainer iframe {
+			width: 100%;
+			height: 100%;
+		}
+
+		#xmlExpressionContainer.active {
+			display: block;
+		}
+
+		#xmlExpressionContainer.active ~ #ruleEditorControl, #xmlExpressionContainer.active ~ #editorMessageContainer {
+			display: none;
+		}
+
+		#editorMessageContainer {
+			position: absolute;
+			bottom: 5px;
+			left: 5px;
+			right: 0px;
+			padding-left: 30px;
+			padding-right: 10px;
+			font-size: 13px;
+			color: #FFFFFF;
+			max-height: 700px;
+			text-overflow: ellipsis;
+			overflow: hidden;
+			line-height: 22px;
+			border: 1px solid #C96A59;
+			background-color: #D68F83;
+			opacity: 0;
+			transition: opacity 0.1s ease;
+		}
+
+		#editorMessageContainer:before {
+			content: '!';
+			position: absolute;
+			left: 0px;
+			top: 0px;
+			bottom: 0px;
+			width: 20px;
+			background-color: #C96A59;
+			color: #FFFFFF;
+			font-size: 20px;
+			text-align: center;
+		}
+	</style>
+	<script type="text/javascript" src="@Url.ContentWithSalt("~/javascript/include.aspx?classes=ArasModules,XmlDocument")"></script>
+	<script type="text/javascript" src="@Url.ContentWithSalt("~/javascript/include.aspx?classes=/dojo.js")" data-dojo-config="isDebug: false, parseOnLoad: false, baseUrl:'@Url.ContentWithSalt("~/javascript/dojo")'"></script>
+	<script type="text/javascript" src="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/Scripts/ruleEditor/ruleEditorTabViewController.js")"></script>
+</head>
+<body class="claro ruleEditor">
+	<iframe id="main_spinner" style="display: none;" src="@Url.ContentWithSalt("~/scripts/spinner.html")" frameborder="0"></iframe>
+	<div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="liveSplitters:false, gutters:false" id="viewBorderContainer" style="width: 100%; height: 100%;">
+		<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'top'" id="ruleGridToolbar" style="height:29px;"></div>
+		<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'top', splitter: true" id="ruleGridContainer" style="height:40%; overflow:hidden;"></div>
+		<div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="region:'center', splitter:true, gutters:false" id="ruleEditorContainer" style="height:60%; width:70%;">
+			<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'top'" id="ruleEditorToolbar" style="height:30px;"></div>
+			<div id="xmlExpressionContainer">
+				<iframe frameborder="0"></iframe>
+			</div>
+			<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'" id="ruleEditorControl" class="ruleEditorControl"></div>
+			<div id="editorMessageContainer"></div>
+		</div>
+		<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'right', splitter:true" style="width:30%; display: flex; flex-direction: column;">
+			<aras-tabs movable id="tabs-container"></aras-tabs>
+			<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'top', splitter: true" id="ruleHelpersContainer"  style="flex-grow: 1;"></div>
+		</div>
+	</div>
+</body>
+</html>

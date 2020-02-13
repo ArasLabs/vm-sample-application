@@ -1,0 +1,183 @@
+﻿<AML>
+ <Item type="ItemType" id="997CD7112AF84DAAA21EF9DC55518AA9" action="add">
+  <allow_private_permission>1</allow_private_permission>
+  <auto_search>0</auto_search>
+  <enforce_discovery>1</enforce_discovery>
+  <hide_where_used>0</hide_where_used>
+  <implementation_type>polymorphic</implementation_type>
+  <instance_data>VM_EXPRESSION</instance_data>
+  <is_dependent>0</is_dependent>
+  <is_relationship>0</is_relationship>
+  <is_versionable>0</is_versionable>
+  <revisions keyed_name="Default" type="Revision">7FE395DD8B9F4E1090756A34B733D75E</revisions>
+  <show_parameters_tab>1</show_parameters_tab>
+  <structure_view>tabs off</structure_view>
+  <unlock_on_logout>0</unlock_on_logout>
+  <use_src_access>0</use_src_access>
+  <name>vm_Expression</name>
+  <Relationships>
+   <Item type="Property" id="44A3294184BB4535B5C7371ADA655848" action="add">
+    <column_alignment>left</column_alignment>
+    <data_type>text</data_type>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>1</is_required>
+    <label xml:lang="en">Definition</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>3584</sort_order>
+    <source_id keyed_name="vm_Expression" type="ItemType" name="vm_Expression">997CD7112AF84DAAA21EF9DC55518AA9</source_id>
+    <track_history>0</track_history>
+    <name>definition</name>
+   </Item>
+   <Item type="View" id="D47145C317E04B888CC7A3B723291782" action="add">
+    <client>js</client>
+    <related_id keyed_name="vm_Expression" type="Form">A27702413E7347B4AAC8213F03858B7F</related_id>
+    <role keyed_name="World" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>World</name>
+     </Item>
+    </role>
+    <show_ssvc>0</show_ssvc>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="vm_Expression" type="ItemType" name="vm_Expression">997CD7112AF84DAAA21EF9DC55518AA9</source_id>
+    <type>default</type>
+   </Item>
+   <Item type="Server Event" id="B9DC40FD35844C9C8FA49D6881DF2A77" action="add">
+    <event_version>version_1</event_version>
+    <is_required>0</is_required>
+    <related_id keyed_name="polymorphic_item_onBeforeAdd" type="Method">
+     <Item type="Method" action="get" select="id">
+      <name>polymorphic_item_onBeforeAdd</name>
+     </Item>
+    </related_id>
+    <server_event>onBeforeAdd</server_event>
+    <sort_order>768</sort_order>
+    <source_id keyed_name="vm_Expression" type="ItemType" name="vm_Expression">997CD7112AF84DAAA21EF9DC55518AA9</source_id>
+   </Item>
+   <Item type="Server Event" id="82C6C6BA687946F9BC1E6D052CD7DBC4" action="add">
+    <event_version>version_1</event_version>
+    <is_required>0</is_required>
+    <related_id keyed_name="polymorphic_item_onBeforeCopy" type="Method">
+     <Item type="Method" action="get" select="id">
+      <name>polymorphic_item_onBeforeCopy</name>
+     </Item>
+    </related_id>
+    <server_event>onBeforeCopy</server_event>
+    <sort_order>896</sort_order>
+    <source_id keyed_name="vm_Expression" type="ItemType" name="vm_Expression">997CD7112AF84DAAA21EF9DC55518AA9</source_id>
+   </Item>
+   <Item type="Server Event" id="B1877C771B0C4B7CB08E52962101C33B" action="add">
+    <event_version>version_1</event_version>
+    <is_required>0</is_required>
+    <related_id keyed_name="polymorphic_item_onBeforeDelete" type="Method">
+     <Item type="Method" action="get" select="id">
+      <name>polymorphic_item_onBeforeDelete</name>
+     </Item>
+    </related_id>
+    <server_event>onBeforeDelete</server_event>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="vm_Expression" type="ItemType" name="vm_Expression">997CD7112AF84DAAA21EF9DC55518AA9</source_id>
+   </Item>
+   <Item type="Server Event" id="A03EFB6110E646129692FF32C0A1E9CE" action="add">
+    <event_version>version_1</event_version>
+    <is_required>0</is_required>
+    <related_id keyed_name="polymorphic_item_onBeforeLock" type="Method">
+     <Item type="Method" action="get" select="id">
+      <name>polymorphic_item_onBeforeLock</name>
+     </Item>
+    </related_id>
+    <server_event>onBeforeLock</server_event>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="vm_Expression" type="ItemType" name="vm_Expression">997CD7112AF84DAAA21EF9DC55518AA9</source_id>
+   </Item>
+   <Item type="Server Event" id="4C85A1041E624D609E27C89E71ABDBB3" action="add">
+    <event_version>version_1</event_version>
+    <is_required>0</is_required>
+    <related_id keyed_name="polymorphic_item_onBeforeUnlock" type="Method">
+     <Item type="Method" action="get" select="id">
+      <name>polymorphic_item_onBeforeUnlock</name>
+     </Item>
+    </related_id>
+    <server_event>onBeforeUnlock</server_event>
+    <sort_order>384</sort_order>
+    <source_id keyed_name="vm_Expression" type="ItemType" name="vm_Expression">997CD7112AF84DAAA21EF9DC55518AA9</source_id>
+   </Item>
+   <Item type="Server Event" id="9F13E8A8DCB94A8289A7256D27D34772" action="add">
+    <event_version>version_1</event_version>
+    <is_required>0</is_required>
+    <related_id keyed_name="polymorphic_item_onBeforeUpdate" type="Method">
+     <Item type="Method" action="get" select="id">
+      <name>polymorphic_item_onBeforeUpdate</name>
+     </Item>
+    </related_id>
+    <server_event>onBeforeUpdate</server_event>
+    <sort_order>640</sort_order>
+    <source_id keyed_name="vm_Expression" type="ItemType" name="vm_Expression">997CD7112AF84DAAA21EF9DC55518AA9</source_id>
+   </Item>
+   <Item type="Server Event" id="A19F5C5668E84B8C84A04EC3E29AF12F" action="add">
+    <event_version>version_1</event_version>
+    <is_required>0</is_required>
+    <related_id keyed_name="polymorphic_item_onBeforeVersion" type="Method">
+     <Item type="Method" action="get" select="id">
+      <name>polymorphic_item_onBeforeVersion</name>
+     </Item>
+    </related_id>
+    <server_event>onBeforeVersion</server_event>
+    <sort_order>512</sort_order>
+    <source_id keyed_name="vm_Expression" type="ItemType" name="vm_Expression">997CD7112AF84DAAA21EF9DC55518AA9</source_id>
+   </Item>
+   <Item type="Server Event" id="E35B5550252A48C3AA3A7B1E66718F58" action="add">
+    <event_version>version_1</event_version>
+    <is_required>0</is_required>
+    <related_id keyed_name="vm_onGetExpression" type="Method">
+     <Item type="Method" action="get" select="id">
+      <name>vm_onGetExpression</name>
+     </Item>
+    </related_id>
+    <server_event>onGet</server_event>
+    <sort_order>1024</sort_order>
+    <source_id keyed_name="vm_Expression" type="ItemType" name="vm_Expression">997CD7112AF84DAAA21EF9DC55518AA9</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+ <Item type="ItemType" id="997CD7112AF84DAAA21EF9DC55518AA9" action="edit">
+  <Relationships>
+   <Item type="Property" action="edit" where="source_id='997CD7112AF84DAAA21EF9DC55518AA9' and name='itemtype'">
+    <column_alignment>left</column_alignment>
+    <data_source keyed_name="vm_Expression">
+     <Item type="List" action="get" select="id" page="1" pagesize="1">
+      <name>vm_Expression</name>
+     </Item>
+    </data_source>
+    <data_type>list</data_type>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">ItemType</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>1</readonly>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="vm_Expression" type="ItemType" name="vm_Expression">997CD7112AF84DAAA21EF9DC55518AA9</source_id>
+    <stored_length>64</stored_length>
+    <track_history>0</track_history>
+    <name>itemtype</name>
+   </Item>
+  </Relationships>
+ </Item>
+ <Item type="ItemType" id="997CD7112AF84DAAA21EF9DC55518AA9" action="edit">
+  <Relationships>
+   <Item type="Morphae" id="1ACE3BA8335747529D44EEB04BD34DE5" action="add">
+    <related_id keyed_name="vm_VarComponentAssetUsage" type="ItemType" name="vm_VarComponentAssetUsage">8D79E0CEEF754D9B81CD4B430BC76C7D</related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="vm_Expression" type="ItemType" name="vm_Expression">997CD7112AF84DAAA21EF9DC55518AA9</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

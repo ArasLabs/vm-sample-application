@@ -1,0 +1,20 @@
+﻿<AML>
+ <Item type="Method" id="24DDF0EF27E84AE295D295F639455E3C" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[return ModulesManager.using(
+	['aras.innovator.VariantManagementSample/conflictsItemWindow',
+	'aras.innovator.core.ItemWindow/DefaultItemWindowCreator'
+	], function(View, Creator) {
+		if (!inArgs) {
+			inArgs = {};
+		}
+		var view = new View(inDom, inArgs);
+		var creator = new Creator(view);
+		creator.SetWindowId(inDom.node.getAttribute('id') + '_Conflicts');
+		return creator.ShowView();
+	});
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>vm_showConflicts</name>
+ </Item>
+</AML>

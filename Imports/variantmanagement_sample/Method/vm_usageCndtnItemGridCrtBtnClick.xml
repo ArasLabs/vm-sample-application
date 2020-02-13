@@ -1,0 +1,8 @@
+﻿<AML>
+ <Item type="Method" id="6D63B269094C4A82804849D34BDB8AA7" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[options.usageConditionsContext.showUsageConditionItem('add');]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>vm_usageCndtnItemGridCrtBtnClick</name>
+ </Item>
+</AML>

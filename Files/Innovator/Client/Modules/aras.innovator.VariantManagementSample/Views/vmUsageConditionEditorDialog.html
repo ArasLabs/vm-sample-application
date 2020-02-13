@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../../../javascript/include.aspx?classes=common.min.css"/>
+	<link rel="stylesheet" href="../../aras.innovator.core.EffectivityServices/Styles/EffectivityStyles.min.css"/>
+	<script src="../../../javascript/include.aspx?classes=ArasModules"></script>
+	<script src="../../aras.innovator.core.EffectivityServices/Scripts/ItemPresenter.js"></script>
+	<script src="../Scripts/vmItemPresenter.js"></script>
+	<script src="../Scripts/vmUsageConditionEditorViewController.js"></script>
+	<script src="../Scripts/vmUsageConditionEditorDialogViewController.js"></script>
+	<script>
+		window.addEventListener('DOMContentLoaded', function() {
+			const dialogArguments = window.frameElement.dialogArguments;
+
+			const itemPresenter = new window.VmItemPresenter(dialogArguments.aras);
+
+			const parameters = {
+				aras: dialogArguments.aras,
+				itemPresenter: itemPresenter,
+				usageConditionItemNode: dialogArguments.usageConditionItemNode,
+				usageConditionVariabilityItemRelationshipItemType: dialogArguments.usageConditionVariabilityItemRelationshipItemType,
+				viewMode: dialogArguments.viewMode,
+				dialog: dialogArguments.dialog,
+				applyButtonElement: document.querySelector('.vm-usage-condition-editor-view__apply-button'),
+				cancelButtonElement: document.querySelector('.vm-usage-condition-editor-view__cancel-button'),
+				editButtonElement: document.querySelector('.vm-usage-condition-editor-view__edit-button'),
+				editorIframeElement: document.querySelector('.vm-usage-condition-editor-view__expression-editor-container')
+			};
+			new window.VmUsageConditionEditorDialogViewController(parameters);
+		});
+	</script>
+</head>
+<body class="vm-usage-condition-editor-view effs-dialog effs-expression-editor aras-flex aras-flex_column">
+	<div class="effs-dialog__item effs-dialog__item_height_full">
+		<iframe class="vm-usage-condition-editor-view__expression-editor-container effs-expression-editor__editor-frame aras-flex-grow effs-no-overflow"></iframe>
+	</div>
+	<div class="effs-dialog__item effs-dialog__item_flex-alignment_end effs-dialog__item_margin-top_large aras-flex">
+		<button class="vm-usage-condition-editor-view__edit-button aras-button aras-button_primary effs-dialog__button">
+			<img class="aras-button__icon" src="../../../images/EditWhite.svg">
+			<span class="aras-button__text"></span>
+		</button>
+		<button class="vm-usage-condition-editor-view__apply-button aras-button aras-button_primary effs-dialog__button">
+			<span class="aras-button__text"></span>
+		</button>
+		<button class="vm-usage-condition-editor-view__cancel-button aras-button aras-button_secondary-light effs-dialog__button">
+			<span class="aras-button__text"></span>
+		</button>
+	</div>
+	<iframe id="dimmer_spinner" class="aras-hide" src="../../../../scripts/Spinner.html"></iframe>
+</body>
+</html>

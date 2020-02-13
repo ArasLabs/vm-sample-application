@@ -1,0 +1,25 @@
+﻿<AML>
+ <Item type="PresentationConfiguration" id="AA927D76A273B20236326AA7318BB90D" action="add">
+  <name>vm_BreakdownItem Presentation Configuration</name>
+  <Relationships>
+   <Item type="PresentationCommandBarSection" id="AA927D76A273B202BDEE61C462534D75" action="add">
+    <related_id keyed_name="vm_BreakdownItem_TOC_Content" type="CommandBarSection">AA927D76A273B202618120D9625E4BB8</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="vm_BreakdownItem Presentation Configuration" type="PresentationConfiguration">AA927D76A273B20236326AA7318BB90D</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="F5B47C78F9A049B0984B5BF1C946B5DC" action="add">
+    <related_id keyed_name="vm_breakdownItemViewSidebar" type="CommandBarSection">392BA31B69BB4D07AA8EFDB93B21ADA1</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="vm_BreakdownItem Presentation Configuration" type="PresentationConfiguration">AA927D76A273B20236326AA7318BB90D</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="9181F0740DEF4E5CB2C547DAC22E9947" action="add">
+    <related_id keyed_name="vm_breakdownItemResolutionToolbar" type="CommandBarSection">68FFD6E918A24A39AC2169C02E099CA8</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>384</sort_order>
+    <source_id keyed_name="vm_BreakdownItem Presentation Configuration" type="PresentationConfiguration">AA927D76A273B20236326AA7318BB90D</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

@@ -1,0 +1,154 @@
+﻿<AML>
+ <Item type="Method" id="3916E3B7124B4A0E898829AE91CE0EB4" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[	int usageConditionSourceItemCount = this.getItemCount();
+
+	Stack<string> selectAttributesOfUsageConditionSourceItems = (Stack<string>)RequestState["vm_stack_of_select_attributes_for_usage_condition_source_items"];
+	string requestItemSelectAttribute = selectAttributesOfUsageConditionSourceItems.Pop();
+	ItemPropertySelectionStatus combinedUsageConditionStringNotationPropertySelectionStatus = GetItemPropertySelectionStatus(
+		requestItemSelectAttribute, "vm_expression_string_notation");
+
+	if (usageConditionSourceItemCount == 0 || combinedUsageConditionStringNotationPropertySelectionStatus == ItemPropertySelectionStatus.NotSelected)
+	{
+		return this;
+	}
+
+	Dictionary<string, Item> usageConditionSourceItemHashedById = new Dictionary<string, Item>();
+	for (int i = 0; i < usageConditionSourceItemCount; i++)
+	{
+		Item usageConditionSourceItem = this.getItemByIndex(i);
+		usageConditionSourceItemHashedById.Add(usageConditionSourceItem.getID(), usageConditionSourceItem);
+	}
+
+	string usageConditionSourceItemTypeId = usageConditionSourceItemHashedById.First().Value.getAttribute("typeId");
+	string usageConditionItemTypeId = GetUsageConditionItemTypeIdByUsageConditionSourceItemTypeId(usageConditionSourceItemTypeId);
+
+	Dictionary<string, List<Item>> usageConditionItemsHashedBySourceItemId =
+		GetUsageConditionItemsFilteredBySourceId(usageConditionItemTypeId, usageConditionSourceItemHashedById.Keys);
+
+	foreach (KeyValuePair<string, Item> kvp in usageConditionSourceItemHashedById)
+	{
+		string usageConditionSourceItemId = kvp.Key;
+		Item usageConditionSourceItem = kvp.Value;
+
+		IEnumerable<string> usageConditionStringNotations = null;
+		List<Item> usageConditionItemsOfSingleUsageConditionSourceItem;
+		if (usageConditionItemsHashedBySourceItemId.TryGetValue(usageConditionSourceItemId, out usageConditionItemsOfSingleUsageConditionSourceItem))
+		{
+			usageConditionStringNotations = usageConditionItemsOfSingleUsageConditionSourceItem
+				.Select(usageConditionItem => usageConditionItem.getProperty("string_notation"));
+		}
+
+		string joinedUsageConditionStringNotation = usageConditionStringNotations != null
+			? JoinUsageConditionStringNotation(usageConditionStringNotations)
+			: null;
+
+		if (joinedUsageConditionStringNotation != null || combinedUsageConditionStringNotationPropertySelectionStatus == ItemPropertySelectionStatus.Selected)
+		{
+			usageConditionSourceItem.setProperty("vm_expression_string_notation", joinedUsageConditionStringNotation);
+		}
+	}
+
+	return this;
+}
+
+internal virtual string GetUsageConditionItemTypeIdByUsageConditionSourceItemTypeId(string usageConditionSourceItemTypeId)
+{
+	Item usageConditionRelationshipTypeItem = this.newItem("RelationshipType", "get");
+	usageConditionRelationshipTypeItem.setProperty("source_id", usageConditionSourceItemTypeId);
+	usageConditionRelationshipTypeItem.setAttribute("select", "relationship_id");
+
+	Item relationshipIdPropertyItem = usageConditionRelationshipTypeItem.createPropertyItem("relationship_id", "ItemType", null);
+	relationshipIdPropertyItem.setPropertyCondition("id", "in");
+	relationshipIdPropertyItem.setPropertyAttribute("id", "by", "related_id");
+
+	Item vmExpressionMorphaeItem = relationshipIdPropertyItem.createPropertyItem("id", "Morphae", null);
+
+	Item vmExpressionItemTypeItem = vmExpressionMorphaeItem.createPropertyItem("source_id", "ItemType", null);
+	vmExpressionItemTypeItem.setProperty("name", "vm_Expression");
+
+	usageConditionRelationshipTypeItem = usageConditionRelationshipTypeItem.apply();
+
+	if (usageConditionRelationshipTypeItem.isError())
+	{
+		throw new Aras.Server.Core.InnovatorServerException(usageConditionRelationshipTypeItem.dom);
+	}
+
+	return usageConditionRelationshipTypeItem.getProperty("relationship_id");
+}
+
+internal virtual Dictionary<string, List<Item>> GetUsageConditionItemsFilteredBySourceId(
+	string usageConditionItemTypeId,
+	IEnumerable<string> usageConditionSourceItemIds)
+{
+	Item usageConditionItems = this.newItem();
+	usageConditionItems.setAttribute("typeId", usageConditionItemTypeId);
+	usageConditionItems.setProperty("source_id", string.Join(",", usageConditionSourceItemIds));
+	usageConditionItems.setPropertyCondition("source_id", "in");
+	usageConditionItems.setAttribute("select", "source_id,string_notation");
+	
+	try
+	{
+		usageConditionItems = usageConditionItems.apply("get");
+	}
+	catch (Aras.Server.Core.InnovatorServerException innovatorServerException)
+	{
+		XmlDocument faultDocument = new XmlDocument();
+		innovatorServerException.ToSoapFault(faultDocument);
+		usageConditionItems.loadAML(faultDocument.OuterXml);
+	}
+
+	if (usageConditionItems.isError() && !usageConditionItems.isEmpty())
+	{
+		throw new Aras.Server.Core.InnovatorServerException(usageConditionItems.dom);
+	}
+
+	Dictionary<string, List<Item>> usageConditionItemsHashedBySourceItemId = new Dictionary<string, List<Item>>();
+	for (int i = 0, usageConditionItemCount = usageConditionItems.getItemCount(); i < usageConditionItemCount; i++)
+	{
+		Item usageConditionItem = usageConditionItems.getItemByIndex(i);
+		string usageConditionSourceItemId = usageConditionItem.getProperty("source_id");
+
+		List<Item> usageConditionItemsOfSingleUsageConditionSourceItem;
+		if (!usageConditionItemsHashedBySourceItemId.TryGetValue(usageConditionSourceItemId, out usageConditionItemsOfSingleUsageConditionSourceItem))
+		{
+			usageConditionItemsOfSingleUsageConditionSourceItem = new List<Item>();
+			usageConditionItemsHashedBySourceItemId.Add(usageConditionSourceItemId, usageConditionItemsOfSingleUsageConditionSourceItem);
+		}
+
+		usageConditionItemsOfSingleUsageConditionSourceItem.Add(usageConditionItem);
+	}
+
+	return usageConditionItemsHashedBySourceItemId;
+}
+
+internal virtual string JoinUsageConditionStringNotation(IEnumerable<string> usageConditionStringNotations)
+{
+	return string.Join(", ", usageConditionStringNotations);
+}
+
+internal virtual ItemPropertySelectionStatus GetItemPropertySelectionStatus(string selectAttributeValue, string propertyNameToVerify)
+{
+	if (string.IsNullOrWhiteSpace(selectAttributeValue))
+	{
+		return ItemPropertySelectionStatus.NotSpecified;
+	}
+
+	bool isPropertyNameMatchedInSelectAttributeValue = System.Text.RegularExpressions.Regex.IsMatch(
+		System.Text.RegularExpressions.Regex.Replace(selectAttributeValue, @"\([\s\S]*?\)", string.Empty),
+		string.Format(CultureInfo.InvariantCulture, @"(^|,)\s*({0}|\*)\s*(,|$)", propertyNameToVerify));
+
+	return isPropertyNameMatchedInSelectAttributeValue ? ItemPropertySelectionStatus.Selected : ItemPropertySelectionStatus.NotSelected;
+}
+
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1008:EnumsShouldHaveZeroValue")]
+[Flags]
+public enum ItemPropertySelectionStatus
+{
+	NotSpecified = 1,
+	NotSelected = 2,
+	Selected = 4]]></method_code>
+  <method_type>C#</method_type>
+  <name>vm_combineUsageStrNotationAftGet</name>
+ </Item>
+</AML>
