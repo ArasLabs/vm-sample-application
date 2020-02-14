@@ -1,18 +1,20 @@
 # Variant Management Sample Application
 
-*This project may also be called the Configuration Services Sample Application.*
+*This project may also be called the Configurator Services Sample Application.*
 
-The Variant Management sample application is designed to show developers how they can use the Configurator Services API to create custom variant management applications. The sample application demonstrates how product variability can be managed, how variability can be applied to product breakdown structures and how these configurable 150% breakdown structures are resolved when a set of options are selected. For more information on the Configurator Services API, check out the [Configurator Services Programmer's Guide](./Documentation/Aras%20Innovator%2012.0%20-%20Configurator%20Services%20Programmers%20Guide.pdf).
+The Variant Management Sample Application shows developers how they can use the Configurator Services API to create custom variant management applications. 
 
-This sample application is an Aras Community Project. It is not a standard product, and should not be deployed to production as-is. The purpose of the sample application is to demonstrate the Configurator Services API capabilities so that custom applications can be built to address speific business requirements and processes.
+The Variant Management Sample Application showcases the use of Configurator Services to application developers and users interested in variant management. The sample application allows product variability to be managed and applied to product breakdown structures and allows these configurable 150% breakdown structures to be resolved when a set of options are selected. For more information on the Configurator Services API, check out the [Configurator Services Programmer's Guide](./Documentation/Aras%20Innovator%2012.0%20-%20Configurator%20Services%20Programmers%20Guide.pdf).
 
-Sample data is provided along with the sample application. Loading the sample data is optional. The purpose of the sample data is to help follow [the documentation](./Documentation/Configurator%20Services%20Sample%20Application.pdf) and provide ideas on how variability definition and breakdown structures can be organized and connected to each other. 
+This sample application is an Aras Community Project. It is not a standard product, and should not be deployed to production as-is. The purpose of the sample application is to demonstrate the Configurator Services API capabilities so that custom applications can be built to address specific business requirements and processes.
+
+Sample data is provided along with the sample application. Loading the sample data is optional. The purpose of the sample data is to help follow [the documentation](./Documentation/Aras%20Innovator%2012.0%20-%20Variant%20Management%20Sample%20Application.pdf) and provide ideas on how variability definition and breakdown structures can be organized and connected to each other. 
 
 ## History
 
 Release | Notes
 --------|--------
-[2.0.0](https://github.com/ArasLabs/vm-sample-application/releases/tag/v2.0.0) | Redesign. Updated to support Aras 12.0 SP4.
+[2.0.0](https://github.com/ArasLabs/vm-sample-application/releases/tag/v2.0.0) | Variability Definition is separated from Breakdown Structure, and managed independently. This makes it possible to use the same variability definition on any structure. Note: This data model is different from the previous version.
 [12.0 R2.0](https://github.com/ArasLabs/vm-sample-application/releases/tag/12.0R2.0) | Updated to support Aras 12.0 SP1
 [12.0.0.1](https://github.com/ArasLabs/vm-sample-application/releases/tag/12.0.0.1) | Updated to support Aras 12.0 SP0.
 [11.0.15.1](https://github.com/ArasLabs/vm-sample-application/releases/tag/11.0.15.1) | Updated to support Aras 11.0 SP15.
