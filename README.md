@@ -71,7 +71,7 @@ Project | Aras
 
 ## Usage
 
-For information on using the sample application, view [the documentation](./Documentation/Configurator%20Services%20Sample%20Application.pdf).
+For information on using the sample application, view [the documentation](./Documentation/Aras%20Innovator%2012.0%20-%20Variant%20Management%20Sample%20Application.pdf).
 
 ## Contributing
 
