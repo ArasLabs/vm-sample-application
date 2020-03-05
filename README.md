@@ -10,6 +10,18 @@ This sample application is an Aras Community Project. It is not a standard produ
 
 Sample data is provided along with the sample application. Loading the sample data is optional. The purpose of the sample data is to help follow [the documentation](./Documentation/Aras%20Innovator%2012.0%20-%20Variant%20Management%20Sample%20Application.pdf) and provide ideas on how variability definition and breakdown structures can be organized and connected to each other. 
 
+![Figure 1](./Screenshots/vm-image-1.jpg)
+Figure 1 - Variability Definition structure is separate from Breakdown Structure.  Variability is applied to the Breakdown Structure at its variability points.  The yellow boxes depict Breakdown Items.  The red boxes are the Variable Components that have a number of Assets with their usage conditions.  The green boxes depict fixed Assets that are common across all configurations.
+
+![Figure 2](./Screenshots/vm-image-2.jpg)
+Figure 2 - Features and Rules on Variability Item
+
+![Figure 3](./Screenshots/vm-image-3.jpg)
+Figure 3 – Variable Component with its Assets (e.g. Parts) and Usage Conditions
+
+![Figure 4](./Screenshots/vm-image-4.jpg)
+Figure 4 – 150% Breakdown Structure is resolved by selecting options
+
 ## History
 
 Release | Notes
