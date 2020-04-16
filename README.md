@@ -26,6 +26,7 @@ Figure 4 – 150% Breakdown Structure is resolved by selecting options
 
 Release | Notes
 --------|--------
+[2.1.0](https://github.com/ArasLabs/vm-sample-application/releases/tag/v2.1.0) | Usage Condition Table Editor has been introduced to view and manage Usage Conditions of Assets on Variable Components. The Table Editor can be accessed from the Variable Component's sidebar.
 [2.0.0](https://github.com/ArasLabs/vm-sample-application/releases/tag/v2.0.0) | Variability Definition is separated from Breakdown Structure, and managed independently. This makes it possible to use the same variability definition on any structure. Note: This data model is different from the previous version.
 [12.0 R2.0](https://github.com/ArasLabs/vm-sample-application/releases/tag/12.0R2.0) | Updated to support Aras 12.0 SP1
 [12.0.0.1](https://github.com/ArasLabs/vm-sample-application/releases/tag/12.0.0.1) | Updated to support Aras 12.0 SP0.
