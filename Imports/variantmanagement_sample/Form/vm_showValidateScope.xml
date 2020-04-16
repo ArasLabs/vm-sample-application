@@ -31,7 +31,6 @@
       <html_code><![CDATA[<div id="gridValidation" />]]></html_code>
       <is_disabled>0</is_disabled>
       <is_visible>1</is_visible>
-      <label xml:lang="en"></label>
       <label_position>top</label_position>
       <list_no_blank>0</list_no_blank>
       <sort_order>128</sort_order>

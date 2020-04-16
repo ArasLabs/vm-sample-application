@@ -8,7 +8,7 @@
   }</additional_data>
   <image>../Modules/aras.innovator.VariantManagementSample/images/EditItemOff.svg</image>
   <label xml:lang="en">Text Rule Editor</label>
-  <on_click_handler keyed_name="vm_sidebarButtonClick" type="Method">ACCC9B7D9FAC476C832DA03026701A2E</on_click_handler>
+  <on_click_handler keyed_name="vm_itemViewSidebarBtnClick" type="Method">ACCC9B7D9FAC476C832DA03026701A2E</on_click_handler>
   <name>vm_variabilityItemViewSidebarTextRuleEditorBtn</name>
  </Item>
 </AML>

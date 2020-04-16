@@ -1,13 +1,64 @@
-﻿.vm-aras-grid-row-cell {
+﻿.aras-treegrid-cell-container > span:last-child {
+	height: 100%;
+}
+
+.vm-aras-grid-row-cell-subheaders {
+	display: flex;
+	height: inherit;
+	overflow: hidden;
+	background: #F7F7F7;
+	color: #555555;
+}
+
+.vm-aras-grid-row-cell-subheaders__subheader-container {
+	flex-grow: 1;
+}
+
+.vm-aras-grid-row-cell-subheaders__subheader-container_vertical {
+	display: flex;
+	justify-content: center;
+	padding: 8px 0 8px;
+}
+
+.vm-aras-grid-row-cell-subheaders__subheader-container_hovered {
+	background-color: #fefbd7;
+}
+
+.vm-aras-grid-row-cell-subheaders__subheader-text {
+	font: bold 1rem / 1.2 Roboto, 'Noto Sans JP', Arial, sans-serif;
+}
+
+.vm-aras-grid-row-cell-subheaders__subheader-text_vertical {
+	writing-mode: tb-rl;
+	transform: rotate(180deg);
+	overflow-y: hidden;
+	text-overflow: ellipsis;
+}
+
+.vm-aras-grid-row-cell {
 	display: flex;
 	height: 100%;
 	align-items: center;
+}
+
+.vm-aras-grid-row-cell-icon {
+	justify-content: center;
+}
+
+.vm-aras-grid-row-cell-icon__icon {
+	width: 24px;
+	height: 24px;
 }
 
 .vm-aras-grid-row-cell-icon-text__icon {
 	width: 24px;
 	height: 24px;
 	margin-right: 2px;
+}
+
+.vm-aras-grid-row-cell-icon-text__text {
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .vm-aras-grid-row-cell-text-boolean {
@@ -88,9 +139,8 @@
 	background-image: url('../../../images/radio-bt-disabled-checked.svg');
 }
 
-.vm-aras-grid-row-cell-multiple-boolean-values-selection-wrapper {
+.vm-aras-grid-row-cell_padding_0 {
 	padding: 0;
-	border: 1px solid #aaaaaa;
 }
 
 .vm-aras-grid-row-cell-multiple-boolean-values-selection {
@@ -98,11 +148,16 @@
 	height: 100%;
 }
 
+.vm-aras-grid-row-cell-multiple-boolean-values-selection_unavailable {
+	background-color: #eeeeee;
+}
+
 .vm-aras-grid-row-cell-multiple-boolean-values-selection__value {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	flex: 1 1 4px;
+	flex: 1 1 auto;
+	box-sizing: border-box;
 }
 
 .vm-aras-grid-row-cell-multiple-boolean-values-selection__value_border-left {
@@ -119,7 +174,6 @@
 
 .vm-aras-grid-row-cell-multiple-boolean-values-selection__value_focused {
 	border: 2px solid #0303b0;
-	box-sizing: border-box;
 }
 
 .aras-grid-row:hover .vm-aras-grid-row-cell-multiple-boolean-values-selection__value,

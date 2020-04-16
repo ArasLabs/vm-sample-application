@@ -2,7 +2,17 @@
  <Item type="CommandBarButton" id="13546943DB3540769A11B3DF3BA85BD4" action="add">
   <additional_data>{
    "paneId": "usage-condition-table-editor-view-pane",
-   "contentPath": "/Modules/aras.innovator.VariantManagementSample/variableComponentItemUsageConditionTableEditorPage",
+   "paneData": {
+      "parentItemViewControllerInstanceName": "variableComponentItemViewController",
+      "usageConditionSourceItemType": "vm_VariableComponentAsset",
+      "usageConditionItemType": "vm_VarComponentAssetUsage",
+      "usageConditionVariabilityItemRelationshipItemType": "vm_VarComponentAssetUsageVarIt",
+      "usageConditionTableEditorGridAssetColumnLabelResource": {
+         "location": "../Modules/aras.innovator.VariantManagementSample",
+         "key": "variable_component.usage_condition_table_editor_page.grid.asset_column_label"
+      }
+   },
+   "contentPath": "/Modules/aras.innovator.VariantManagementSample/usageConditionTableEditorPage",
    "imageBtnOn": "../Modules/aras.innovator.VariantManagementSample/images/TableEditorOn.svg",
    "imageBtnOff": "../Modules/aras.innovator.VariantManagementSample/images/TableEditorOff.svg"
 }</additional_data>

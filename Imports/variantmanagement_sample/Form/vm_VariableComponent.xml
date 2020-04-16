@@ -11,28 +11,6 @@
     <sort_order>128</sort_order>
     <source_id keyed_name="vm_VariableComponent" type="Form">87FE0036EA5B4468934034D53F5CC4CD</source_id>
     <Relationships>
-     <Item type="Field" id="DDD909F44DC543DF8006E993446FEC33" action="add">
-      <border_width>0</border_width>
-      <display_length_unit>px</display_length_unit>
-      <field_type>text</field_type>
-      <font_color>#000000</font_color>
-      <font_family>arial, helvetica, sans-serif</font_family>
-      <font_size>8pt</font_size>
-      <font_weight>bold</font_weight>
-      <is_disabled>0</is_disabled>
-      <is_visible>1</is_visible>
-      <label xml:lang="en">Code</label>
-      <label_position>top</label_position>
-      <list_no_blank>0</list_no_blank>
-      <propertytype_id keyed_name="item_number" type="Property">284DB45785794639B2320301021D75BB</propertytype_id>
-      <sort_order>128</sort_order>
-      <source_id keyed_name="B8B5E8023CC0439CA6C02C6976D1C387" type="Body">B8B5E8023CC0439CA6C02C6976D1C387</source_id>
-      <tab_index>3072</tab_index>
-      <tab_stop>1</tab_stop>
-      <x>0</x>
-      <y>10</y>
-      <name>item_number</name>
-     </Item>
      <Item type="Field" id="678703ED16344B1898078F16B63720B3" action="add">
       <border_width>0</border_width>
       <display_length_unit>px</display_length_unit>
@@ -56,6 +34,28 @@
       <x>0</x>
       <y>110</y>
       <name>description</name>
+     </Item>
+     <Item type="Field" id="DDD909F44DC543DF8006E993446FEC33" action="add">
+      <border_width>0</border_width>
+      <display_length_unit>px</display_length_unit>
+      <field_type>text</field_type>
+      <font_color>#000000</font_color>
+      <font_family>arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label xml:lang="en">Code</label>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <propertytype_id keyed_name="item_number" type="Property">284DB45785794639B2320301021D75BB</propertytype_id>
+      <sort_order>128</sort_order>
+      <source_id keyed_name="B8B5E8023CC0439CA6C02C6976D1C387" type="Body">B8B5E8023CC0439CA6C02C6976D1C387</source_id>
+      <tab_index>3072</tab_index>
+      <tab_stop>1</tab_stop>
+      <x>0</x>
+      <y>10</y>
+      <name>item_number</name>
      </Item>
      <Item type="Field" id="66EDF54E71474020BA9C5858683A7D55" action="add">
       <border_width>0</border_width>

@@ -4,8 +4,8 @@
 	function VariabilityItemStructureSelectionTreeDataProvider(parameters) {
 		this._aras = parameters.aras;
 		this._dataLoader = parameters.dataLoader;
+		this._utils = parameters.utils;
 		this._rowObjectByItemId = new Map();
-		this._itemTypeIconPathCache = new Map();
 	}
 
 	VariabilityItemStructureSelectionTreeDataProvider.prototype = {
@@ -15,7 +15,7 @@
 
 		_dataLoader: null,
 
-		_itemTypeIconPathCache: null,
+		_utils: null,
 
 		_rowObjectByItemId: null,
 
@@ -119,7 +119,7 @@
 		},
 
 		_defineMetadata: function(itemTypeName) {
-			const iconUrl = this._getItemTypeIconPath(itemTypeName);
+			const iconUrl = this._utils.getItemTypeIconUrl(itemTypeName);
 			const metadata = {
 				formatter: 'vm_iconText',
 				iconUrl: iconUrl
@@ -170,19 +170,6 @@
 			}
 
 			return cellValue;
-		},
-
-		_getItemTypeIconPath: function(itemTypeName) {
-			let iconPath = this._itemTypeIconPathCache.get(itemTypeName);
-
-			if (!iconPath) {
-				const itemTypeItem = this._aras.getItemTypeForClient(itemTypeName);
-				iconPath = itemTypeItem.getProperty('open_icon') || '../images/DefaultItemType.svg';
-
-				this._itemTypeIconPathCache.set(itemTypeName, iconPath);
-			}
-
-			return iconPath;
 		}
 	};
 

@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="@Url.ContentWithSalt("~/javascript/include.aspx?classes=common.min.css,DynamicTreeGrid.css")" />
+		<link rel="stylesheet" href="@Url.ContentWithSalt("~/Modules/aras.innovator.core.EffectivityServices/Styles/EffectivityStyles.min.css")" />
+		<link rel="stylesheet" href="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/styles/variantManagement.css")" />
+		<link rel="stylesheet" href="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/styles/vmGridFormatters.css")" />
+		<link rel="stylesheet" href="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/styles/vmUsageConditionTableEditorGrid.css")" />
+		<link rel="stylesheet" href="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/styles/vmUsageConditionTableEditorPage.css")" />
+
+		<script src="@Url.ContentWithSalt("~/javascript/include.aspx?classes=ArasModules,DynamicTreeGrid,XmlDocument")"></script>
+		<script src="@Url.ContentWithSalt("~/Modules/aras.innovator.core.EffectivityServices/Scripts/effs_cuiFormatters.js")"></script>
+		<script src="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/Scripts/common/vmItemFieldHelper.js")"></script>
+		<script src="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/Scripts/common/vmUtils.js")"></script>
+		<script src="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/Scripts/vmGridFormatters.js")"></script>
+		<script src="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/Scripts/vmExpressionBuilder.js")"></script>
+		<script src="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/Scripts/vmUsageConditionTableEditorGrid.js")"></script>
+		<script src="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/Scripts/vmUsageConditionTableEditorPageController.js")"></script>
+		<script>
+			let usageConditionTableEditorPageController;
+
+			document.addEventListener('switchPane', function(e) {
+				switch (e.detail.action) {
+					case 'load':
+						const aras = window.parent.aras;
+						const additionalData = e.detail.additionalData;
+
+						// window.aras is required by the grid component to get message from resource file for NVDA reader when user clicks on a blank cell
+						window.aras = aras;
+
+						const utils = new window.VmUtils(aras);
+
+						let usageConditionTableEditorGridAssetColumnLabel;
+
+						if (additionalData.usageConditionTableEditorGridAssetColumnLabelResource) {
+							const resourceLocation = additionalData.usageConditionTableEditorGridAssetColumnLabelResource.location;
+							const resourceKey = additionalData.usageConditionTableEditorGridAssetColumnLabelResource.key;
+
+							usageConditionTableEditorGridAssetColumnLabel = aras.getResource(resourceLocation, resourceKey);
+						}
+
+						usageConditionTableEditorPageController = new window.VmUsageConditionTableEditorPageController({
+							aras: aras,
+							utils: utils,
+							usageConditionTableEditorGridAssetColumnLabel: usageConditionTableEditorGridAssetColumnLabel,
+							usageConditionSourceItemType: additionalData.usageConditionSourceItemType,
+							usageConditionItemType: additionalData.usageConditionItemType,
+							usageConditionVariabilityItemRelationshipItemType: additionalData.usageConditionVariabilityItemRelationshipItemType,
+							itemViewController: window.parent[additionalData.parentItemViewControllerInstanceName],
+							itemFieldFormatter: effs_cuiFormatters.effs_item_field,
+							variabilityItemFieldTitleElement: document.querySelector('.vm-usage-condition-table-editor-selection__variability-item-field-label'),
+							variabilityItemFieldContainerElement: document.querySelector('.vm-usage-condition-table-editor-selection__variability-item-field-container'),
+							splitterElement: document.querySelector('.aras-splitter'),
+							usageConditionTableEditorGridContainerElement: document.querySelector('.vm-usage-condition-table-editor-area__grid-container')
+						});
+						break;
+					case 'activate':
+						usageConditionTableEditorPageController.populateUsageConditionTableEditorGrid();
+						break;
+				}
+			});
+		</script>
+		<base href="../../../scripts/">
+	</head>
+	<body class="effs-no-overflow vm-padded-page">
+		<div class="aras-accordion vm-fit-all-space">
+			<div class="aras-accordion__content aras-flex vm-fit-all-space">
+				<div class="vm-padded-container vm-splitter-pane_left vm-splitter-pane_min-width_305 vm-usage-condition-table-editor-selection aras-flex aras-flex_column aras-flex-grow">
+					<span class="vm-usage-condition-table-editor-selection__variability-item-field-label"></span>
+					<div class="vm-usage-condition-table-editor-selection__variability-item-field-container"></div>
+				</div>
+				<div class="aras-splitter vm-splitter vm-splitter_vertical"></div>
+				<div class="vm-splitter-pane_right vm-splitter-pane_min-width_305 vm-usage-condition-table-editor-area vm-padded-container">
+					<div class="vm-usage-condition-table-editor-area__grid-container"></div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

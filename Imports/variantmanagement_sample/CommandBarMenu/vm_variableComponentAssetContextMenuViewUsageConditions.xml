@@ -2,8 +2,8 @@
  <Item type="CommandBarMenu" id="E728BEE0D92541728AD99C0D2D64AF06" action="add">
   <image>../Modules/aras.innovator.VariantManagementSample/images/UsageCondition.svg</image>
   <label xml:lang="en">View Usage Conditions</label>
-  <on_click_handler keyed_name="vm_varComponentAssetViewUsgClk" type="Method">0A59C06C8AD5453FBDF63EC0989E6461</on_click_handler>
-  <on_init_handler keyed_name="vm_varComponentAssetViewUsgInit" type="Method">A69C21F2EE3D410B8DCACD8337065F86</on_init_handler>
+  <on_click_handler keyed_name="vm_viewUsageConditionRelMenuClk" type="Method">0A59C06C8AD5453FBDF63EC0989E6461</on_click_handler>
+  <on_init_handler keyed_name="vm_viewUsageConditionRelMenuInit" type="Method">A69C21F2EE3D410B8DCACD8337065F86</on_init_handler>
   <name>vm_variableComponentAssetContextMenuViewUsageConditions</name>
  </Item>
 </AML>

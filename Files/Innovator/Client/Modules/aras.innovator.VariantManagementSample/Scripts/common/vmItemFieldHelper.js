@@ -117,7 +117,7 @@
 		},
 
 		get _currentRetainedItemKeyedName() {
-			return this._aras.getItemProperty(this._currentRetainedItemNode, 'keyed_name');
+			return this._aras.getItemProperty(this._currentRetainedItemNode, 'keyed_name') || '';
 		},
 
 		_executeOnChangeItemHandler: function(itemNode) {
