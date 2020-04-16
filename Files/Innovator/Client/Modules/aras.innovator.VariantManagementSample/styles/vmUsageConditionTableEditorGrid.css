@@ -1,0 +1,30 @@
+﻿.vm-usage-condition-table-editor_hidden {
+	display: none;
+}
+
+.vm-usage-condition-table-editor__grid .aras-grid-head-cell,
+.vm-usage-condition-table-editor__grid .aras-grid-search-row-cell,
+.vm-usage-condition-table-editor__grid .aras-grid-row-cell {
+	border: 1px solid #aaaaaa;
+}
+
+.vm-usage-condition-table-editor__grid .aras-grid-active-cell_showed {
+	display: none;
+}
+
+.vm-usage-condition-table-editor__grid {
+	z-index: 1;
+}
+
+.vm-usage-condition-table-editor__tooltip-anchor {
+	width: 0;
+	z-index: 2;
+}
+
+.vm-usage-condition-table-editor__tooltip-anchor_hidden {
+	display: none;
+}
+
+.vm-usage-condition-table-editor__tooltip-anchor.aras-tooltip {
+	position: fixed;
+}

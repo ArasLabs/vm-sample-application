@@ -1,0 +1,33 @@
+﻿<AML>
+ <Item type="Method" id="B7F1F1B9ADAD4ACF8A565306F54526F7" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[const selectedRelationshipTabId = parent.relationships.relTabbar.GetSelectedTab();
+const rightSplitterPaneElement = parent.document.getElementById(selectedRelationshipTabId + '_right_splitter_pane');
+
+if (rightSplitterPaneElement.classList.contains('aras-hide')) {
+	return;
+}
+
+const aras = window.aras;
+const selectedRowCount = gridApplet.getSelectedItemIds().length;
+
+if (selectedRowCount === 1) {
+	aras.evalMethod('vm_viewUsageConditionItemGrid', '', {
+		usageConditionSourceItemTypeName: window.relationshipTypeName,
+		usageConditionSourceItemId: relationshipID
+	});
+} else {
+	const vmModuleSolutionBasedRelativePath = '../Modules/aras.innovator.VariantManagementSample';
+	const informationMessage = aras.getResource(vmModuleSolutionBasedRelativePath,
+		'usage_condition_source_item_grid.single_row_must_be_selected_to_view_usage_conditions_error_message');
+
+	aras.evalMethod('vm_showRelsRightSplitterPaneView', '', {
+		aras: aras,
+		informationMessage: informationMessage,
+		viewPath: aras.getBaseURL() + '/Modules/aras.innovator.VariantManagementSample/Views/vmInformationMessageView.html'
+	});
+}]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>vm_viewUsageConditionOnSelectRow</name>
+ </Item>
+</AML>

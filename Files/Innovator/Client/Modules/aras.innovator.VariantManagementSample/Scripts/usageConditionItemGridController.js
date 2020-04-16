@@ -9,7 +9,7 @@
 	function UsageConditionItemGridController(parameters) {
 		this._aras = parameters.aras;
 		this._title = parameters.title;
-		this._usageConditionItemsLoader = parameters.usageConditionItemsLoader;
+		this._usageConditionItemLoader = parameters.usageConditionItemLoader;
 		this._usageConditionSourceItemId = parameters.usageConditionSourceItemId;
 		this._closeButtonClickHandler = parameters.closeButtonClickHandler;
 		this._getDefaultVariabilityItem = parameters.getDefaultVariabilityItem;
@@ -27,7 +27,7 @@
 
 		_usageConditionSourceItemId: null,
 
-		_usageConditionItemsLoader: null,
+		_usageConditionItemLoader: null,
 
 		_title: null,
 
@@ -131,11 +131,12 @@
 						}
 
 						const itemIdsToDelete = controller._grid.settings.selectedRows.slice();
+						const usageConditionItemTypeName = controller._usageConditionItemLoader.usageConditionItemType;
 
 						const itemCount = itemIdsToDelete.length;
 						for (let i = 0; i < itemCount; i++) {
 							const itemIdToDelete = itemIdsToDelete[i];
-							const isDeleteSucceeded = controller._aras.deleteItem('vm_VarComponentAssetUsage', itemIdToDelete, true);
+							const isDeleteSucceeded = controller._aras.deleteItem(usageConditionItemTypeName, itemIdToDelete, true);
 							if (isDeleteSucceeded) {
 								controller._grid.rows.delete(itemIdToDelete);
 							}
@@ -147,14 +148,14 @@
 			};
 		},
 
-		_generateGridRowData: function(expressionItem) {
+		_generateGridRowData: function(usageConditionItem) {
 			const row = {};
 
-			const defaultVariabilityItem = expressionItem.getRelationships(this._usageConditionItemsLoader.usageConditionVariabilityItemRelationshipItemType);
+			const defaultVariabilityItem = usageConditionItem.getRelationships(this._usageConditionItemLoader.usageConditionVariabilityItemRelationshipItemType);
 			if (defaultVariabilityItem.getItemCount()) {
 				row[GRID_COLUMN_NAMES.variabilityItem] = defaultVariabilityItem.getItemByIndex(0).getRelatedItem().getProperty('keyed_name');
 			}
-			row[GRID_COLUMN_NAMES.usageCondition] = expressionItem.getProperty(
+			row[GRID_COLUMN_NAMES.usageCondition] = usageConditionItem.getProperty(
 				'string_notation'
 			);
 
@@ -173,12 +174,12 @@
 			});
 
 			const rows = new Map();
-			const expressionItems = this._usageConditionItemsLoader.getExpressionItems(this._usageConditionSourceItemId);
-			const expressionItemCount = expressionItems.getItemCount();
+			const usageConditionItems = this._usageConditionItemLoader.fetchItems(this._usageConditionSourceItemId);
+			const usageConditionItemCount = usageConditionItems.getItemCount();
 
-			for (let i = 0; i < expressionItemCount; i++) {
-				const curentExpressionItem = expressionItems.getItemByIndex(i);
-				rows.set(curentExpressionItem.getId(), this._generateGridRowData(curentExpressionItem));
+			for (let i = 0; i < usageConditionItemCount; i++) {
+				const currentUsageConditionItem = usageConditionItems.getItemByIndex(i);
+				rows.set(currentUsageConditionItem.getId(), this._generateGridRowData(currentUsageConditionItem));
 			}
 
 			this._grid = new window.Grid(gridElement);
@@ -200,7 +201,7 @@
 				usageConditionItemNode = usageConditionItem.node;
 			} else {
 				usageConditionItemNode = this._aras.getItemById(
-					this._usageConditionItemsLoader.usageConditionItemType,
+					this._usageConditionItemLoader.usageConditionItemType,
 					usageConditionItemId);
 			}
 
@@ -208,7 +209,7 @@
 				aras: this._aras,
 				usageConditionItemNode: usageConditionItemNode,
 				viewMode: viewMode,
-				usageConditionVariabilityItemRelationshipItemType: this._usageConditionItemsLoader.usageConditionVariabilityItemRelationshipItemType,
+				usageConditionVariabilityItemRelationshipItemType: this._usageConditionItemLoader.usageConditionVariabilityItemRelationshipItemType,
 				content: this._aras.getBaseURL() + '/Modules/aras.innovator.VariantManagementSample/Views/vmUsageConditionEditorDialog.html',
 				title: title,
 				dialogWidth: 760,
@@ -231,12 +232,12 @@
 		},
 
 		_constructNewUsageConditionItem: function(variabilityItem) {
-			const usageConditionItem = this._aras.newIOMItem(this._usageConditionItemsLoader.usageConditionItemType, 'add');
+			const usageConditionItem = this._aras.newIOMItem(this._usageConditionItemLoader.usageConditionItemType, 'add');
 			usageConditionItem.setProperty('source_id', this._usageConditionSourceItemId);
 
 			if (variabilityItem) {
 				const usageConditionVariabilityItemRelationshipItem = usageConditionItem.createRelationship(
-					this._usageConditionItemsLoader.usageConditionVariabilityItemRelationshipItemType,
+					this._usageConditionItemLoader.usageConditionVariabilityItemRelationshipItemType,
 					'add'
 				);
 				usageConditionVariabilityItemRelationshipItem.setRelatedItem(variabilityItem);

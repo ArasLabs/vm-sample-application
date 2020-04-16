@@ -40,24 +40,6 @@
       <sort_order>128</sort_order>
       <source_id keyed_name="vm_VariableComponentAsset" type="ItemType" name="vm_VariableComponentAsset">57817FA5F5E7493F85BC99F7536C71AC</source_id>
      </Item>
-     <Item type="Property" id="D7585FB9AA324B938F83283CDE1997F4" action="add">
-      <column_alignment>left</column_alignment>
-      <column_width>520</column_width>
-      <data_type>federated</data_type>
-      <is_hidden>1</is_hidden>
-      <is_hidden2>0</is_hidden2>
-      <is_indexed>0</is_indexed>
-      <is_keyed>0</is_keyed>
-      <is_multi_valued>0</is_multi_valued>
-      <is_required>0</is_required>
-      <label xml:lang="en">Usage Condition</label>
-      <range_inclusive>0</range_inclusive>
-      <readonly>1</readonly>
-      <sort_order>3840</sort_order>
-      <source_id keyed_name="vm_VariableComponentAsset" type="ItemType" name="vm_VariableComponentAsset">57817FA5F5E7493F85BC99F7536C71AC</source_id>
-      <track_history>0</track_history>
-      <name>vm_expression_string_notation</name>
-     </Item>
      <Item type="Property" id="3C0986EB8CB14A4D9C809817BB722960" action="add">
       <column_alignment>left</column_alignment>
       <data_source keyed_name="ItemType" type="ItemType" name="ItemType">450906E86E304F55A34B3C0D65C097EA</data_source>
@@ -109,6 +91,24 @@
       <source_id keyed_name="vm_VariableComponentAsset" type="ItemType" name="vm_VariableComponentAsset">57817FA5F5E7493F85BC99F7536C71AC</source_id>
       <track_history>0</track_history>
       <name>related_itemtype_icon</name>
+     </Item>
+     <Item type="Property" id="D7585FB9AA324B938F83283CDE1997F4" action="add">
+      <column_alignment>left</column_alignment>
+      <column_width>520</column_width>
+      <data_type>federated</data_type>
+      <is_hidden>1</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Usage Condition</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>1</readonly>
+      <sort_order>3840</sort_order>
+      <source_id keyed_name="vm_VariableComponentAsset" type="ItemType" name="vm_VariableComponentAsset">57817FA5F5E7493F85BC99F7536C71AC</source_id>
+      <track_history>0</track_history>
+      <name>vm_expression_string_notation</name>
      </Item>
      <Item type="Server Event" id="50BE6F1662A44FCB8C9C6EBD9E20AF5D" action="add">
       <event_version>version_1</event_version>
@@ -167,9 +167,9 @@
   <Relationships>
    <Item type="Relationship Grid Event" id="724C19C50DC54522B8196C7AC4328A67" action="add">
     <grid_event>onselectrow</grid_event>
-    <related_id keyed_name="vm_varComponentAssetViewUsgOnSel" type="Method">
+    <related_id keyed_name="vm_viewUsageConditionOnSelectRow" type="Method">
      <Item type="Method" action="get" select="id">
-      <name>vm_varComponentAssetViewUsgOnSel</name>
+      <name>vm_viewUsageConditionOnSelectRow</name>
      </Item>
     </related_id>
     <sort_order>128</sort_order>

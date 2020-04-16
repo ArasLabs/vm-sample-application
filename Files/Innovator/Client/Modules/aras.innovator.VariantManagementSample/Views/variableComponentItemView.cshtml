@@ -1,0 +1,25 @@
+﻿@{
+	Layout = "Shared/_vmSwitchableTabItemViewLayout.cshtml";
+}
+
+@section extra_view_header
+{
+	<script src="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/Scripts/displayRightSplitterPaneWithUnableToViewUsageConditionsErrorByDefault.js")"></script>
+	<script src="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/Scripts/extendRelationshipsControlOnTabHandler.js")"></script>
+	<script src="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/Scripts/common/vmUtils.js")"></script>
+	<script src="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/Scripts/common/vmItemViewBaseController.js")"></script>
+	<script src="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/Scripts/variableComponentItem/variableComponentItemViewController.js")"></script>
+
+	<script>
+		document.addEventListener('loadSideBar', function() {
+			const aras = window.aras;
+			const utils = new window.VmUtils(aras);
+
+			window.variableComponentItemViewController = new window.VariableComponentItemViewController({
+				aras: aras,
+				utils: utils,
+				switchableTabItemViewController: window.vmSwitchableTabItemViewController
+			});
+		});
+	</script>
+}

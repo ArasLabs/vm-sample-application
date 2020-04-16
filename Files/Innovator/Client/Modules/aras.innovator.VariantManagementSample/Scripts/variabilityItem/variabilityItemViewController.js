@@ -21,6 +21,10 @@ window.viewsController = {
 		setItem: window.setItem
 	},
 
+	init: function() {
+		window.vmSwitchableTabItemViewController.isPaneAvailable = this._getViewAvailability.bind(this);
+	},
+
 	onItemLinkClicked: function(itemTypeName, additionalData) {
 		let paneId;
 		switch (itemTypeName) {
@@ -29,18 +33,7 @@ window.viewsController = {
 				break;
 		}
 
-		if (!paneId || !this._getViewAvailability(paneId)) {
-			return;
-		}
-
-		const sidebarButton = window.getSidebar().getChildren().find(function(control) {
-			return control.paneId === paneId;
-		});
-
-		window.aras.evalMethod('vm_itemViewSidebarBtnClick', '', {
-			control: sidebarButton,
-			additionalData: additionalData
-		});
+		window.vmSwitchableTabItemViewController.switchActivePane(paneId, additionalData);
 	},
 
 	reloadActiveView: function(newItem) {
@@ -53,16 +46,7 @@ window.viewsController = {
 	},
 
 	refreshSidebarButtonsAvailability: function() {
-		const sidebarWidget = window.getSidebar();
-		const currentPaneId = window.vmSwitchableTabItemViewController.activePaneId;
-
-		sidebarWidget.getChildren().forEach(function(control) {
-			if (control.paneId !== currentPaneId) {
-				const isViewAvailable = this._getViewAvailability(control.paneId);
-				control.setDisabled(!isViewAvailable);
-				control.domNode.style.opacity = isViewAvailable ? '1' : '0.4';
-			}
-		}.bind(this));
+		window.vmSwitchableTabItemViewController.refreshSidebarButtonsAvailability();
 	},
 
 	callRootItemCommand: function(commandName, commandArguments) {
@@ -143,6 +127,8 @@ document.addEventListener('loadWidgets', function() {
 });
 
 document.addEventListener('loadSideBar', function() {
+	window.viewsController.init();
+
 	require(['dojo/ready'], function(ready) {
 		ready(function() {
 			window.viewsController.refreshSidebarButtonsAvailability();

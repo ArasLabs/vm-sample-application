@@ -1,10 +1,12 @@
 ﻿const aras = parent.aras;
+const utils = new window.VmUtils(aras);
 let isUIControlsCreated = false;
 const itemViewPaneManagerId = window.parent.vmSwitchableTabItemViewController.paneManagerId;
 const tabContentViewControllers = new Map();
 const variabilityItemStructureSelectionTreeDataProvider = new window.VariabilityItemStructureSelectionTreeDataProvider({
 	aras: aras,
-	dataLoader: window.parent.viewsController.shareData.synchronizer.dataLoader
+	dataLoader: window.parent.viewsController.shareData.synchronizer.dataLoader,
+	utils: utils
 });
 let tabContentSwitcherManager;
 

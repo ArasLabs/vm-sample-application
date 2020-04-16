@@ -252,7 +252,7 @@
    <Item type="Morphae" id="578A134AC5FA4C0FB7CDB8C938A50011" action="add">
     <related_id keyed_name="Part" type="ItemType" name="Part">4F1AC04A2B484F3ABA4E20DB63808A88</related_id>
     <sort_order>256</sort_order>
-	<source_id keyed_name="vm_Component" type="ItemType" name="vm_Component">7362573D6A7644BAACC0A81C918642F4</source_id>
+    <source_id keyed_name="vm_Component" type="ItemType" name="vm_Component">7362573D6A7644BAACC0A81C918642F4</source_id>
    </Item>
   </Relationships>
  </Item>
