@@ -1,8 +1,7 @@
 ﻿<AML>
  <Item type="Method" id="24395DAD07BE44588BEFFC1E0AB6F620" action="add">
   <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
-  <method_code>
-<![CDATA[ValidateScopeForm = function() {
+  <method_code><![CDATA[ValidateScopeForm = function() {
 	this.Node = parent.dialogArguments.validationResult;
 	this.aras = parent.aras;
 	this.InitializeData();

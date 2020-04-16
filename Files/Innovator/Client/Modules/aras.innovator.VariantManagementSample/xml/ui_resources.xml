@@ -24,15 +24,19 @@
 		<!-- END: Resolution page resources -->
 	<!-- END: Breakdown item resources -->
 
-	<!-- START: Variable Component item resources -->
+	<!-- START: Variable Component resources -->
 		<!-- START: Usage Condition Table Editor page resources -->
-		<resource key="variable_component_item.usage_condition_table_editor_page.selection.title" value="Variability Item" />
-		<resource key="variable_component_item.usage_condition_table_editor_page.selection.variability_item_field.change_item_confirmation_message" value="Changing of the Variability Item will affect usage conditions in the table editor" />
+		<resource key="variable_component.usage_condition_table_editor_page.grid.asset_column_label" value="Asset" />
 		<!-- END: Usage Condition Table Editor page resources -->
-	<!-- END: Variable Component item resources -->
+	<!-- END: Variable Component resources -->
+
+	<!-- START: Usage Condition Table Editor page common resources -->
+	<resource key="usage_condition_table_editor_page.selection.title" value="Variability Item" />
+	<resource key="usage_condition_table_editor_page.selection.variability_item_field.change_item_confirmation_message" value="Changing of the Variability Item will affect usage conditions in the table editor" />
+	<!-- END: Usage Condition Table Editor page common resources -->
 
 	<!-- START: Conflicts page resources -->
-		<resource key="conflicts_page.title" value="{0} - Conflicts" />
+	<resource key="conflicts_page.title" value="{0} - Conflicts" />
 	<!-- END: Conflicts page resources -->
 
 	<!-- START: Splitter pane view resources -->
@@ -55,6 +59,10 @@
 	<resource key="usage_condition_editor_view.edit_button_label" value="Edit" />
 	<resource key="usage_condition_editor_view.changes_not_saved" value="Usage Condition changes have not been saved. What do you want to do?" />
 	<!-- END: Usage Condition Editor resources -->
+
+	<!-- START: Usage Condition Table Editor Grid resources -->
+	<resource key="usage_condition_table_editor_grid.complex_usage_condition_warning_message" value="Usage Condition too complex for this table" />
+	<!-- END: Usage Condition Table Editor Grid resources -->
 
 	<!-- START: Usage Condition common resources -->
 	<resource key="usage_condition_source_item_grid.single_row_must_be_selected_to_view_usage_conditions_error_message" value="Select a single row to show usage conditions" />

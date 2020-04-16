@@ -52,13 +52,10 @@
 
 		_resolutionBaseVariabilityItemNode: null,
 
-		_resolutionBaseVariabilityItemKeyedName: null,
-
 		_isResolutionEvaluationViewInitialized: false,
 
 		_setVariabilityItemAsResolutionBaseItem: function(itemNode) {
 			this._resolutionBaseVariabilityItemNode = itemNode;
-			this._resolutionBaseVariabilityItemKeyedName = this._aras.getItemProperty(itemNode, 'keyed_name') || '';
 
 			// Data loader loads data with scope item as root item.
 			// Data provider use data loader to load data for selection tree.

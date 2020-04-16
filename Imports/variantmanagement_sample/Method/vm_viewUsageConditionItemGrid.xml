@@ -1,0 +1,39 @@
+﻿<AML>
+ <Item type="Method" id="E6C21732C5C348A78FAFD973916DBC05" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[require(
+	['Modules/aras.innovator.VariantManagementSample/Scripts/usageConditionItemLoader'],
+	function(UsageConditionItemLoader) {
+		const aras = window.aras;
+		const createTitle = function(usageConditionSourceItemId) {
+			const vmModuleSolutionBasedRelativePath = '../Modules/aras.innovator.VariantManagementSample';
+
+			const relatedIdNode = window.item.selectSingleNode('Relationships/Item[@id="' + usageConditionSourceItemId + '"]/related_id');
+			const relatedItemKeyedName = relatedIdNode.getAttribute('keyed_name');
+			return aras.getResource(vmModuleSolutionBasedRelativePath, 'usage_condition_item_grid_view.title') +
+				(relatedItemKeyedName ? aras.getResource(vmModuleSolutionBasedRelativePath, 'usage_condition_item_grid_view.title_divider') + relatedItemKeyedName : '');
+		};
+
+		const usageConditionItemLoader = new UsageConditionItemLoader(aras, inArgs.usageConditionSourceItemTypeName);
+
+		const usageConditionSourceItemId = inArgs.usageConditionSourceItemId;
+		const title = createTitle(usageConditionSourceItemId);
+
+		const getDefaultVariabilityItemCallback = aras.evalMethod('vm_getDefaultVarItemProvider', '', {
+			itemViewItemTypeName: window.itemTypeName
+		});
+
+		aras.evalMethod('vm_showRelsRightSplitterPaneView', '', {
+			aras: aras,
+			viewPath: aras.getBaseURL() + '/Modules/aras.innovator.VariantManagementSample/Views/usageConditionItemGrid.html',
+			title: title,
+			usageConditionItemLoader: usageConditionItemLoader,
+			usageConditionSourceItemId: usageConditionSourceItemId,
+			getDefaultVariabilityItem: getDefaultVariabilityItemCallback
+		});
+	}
+);]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>vm_viewUsageConditionItemGrid</name>
+ </Item>
+</AML>

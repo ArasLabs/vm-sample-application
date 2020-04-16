@@ -20,6 +20,7 @@
 		<script src="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/Scripts/vmBooleanMutuallyExclusiveFeatureOptionSelectionTree.js")"></script>
 		<script src="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/Scripts/variabilityItemStructureSelectionTreeDataProvider.js")"></script>
 		<script src="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/Scripts/common/vmItemFieldHelper.js")"></script>
+		<script src="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/Scripts/common/vmUtils.js")"></script>
 		<script src="@Url.ContentWithSalt("~/Modules/aras.innovator.VariantManagementSample/Scripts/resolution/breakdownItemResolutionPageController.js")"></script>
 		<script>
 			// window.item is required for TGV displaying
@@ -36,13 +37,16 @@
 				// window.aras is required for cuiToolbar and TGV displaying
 				window.aras = aras;
 
+				const utils = new window.VmUtils(aras);
+
 				require(
 					['Modules/aras.innovator.VariantManagementSample/Scripts/scopeRules/dataLoader'],
 					function(DataLoader) {
 						const dataLoader = new DataLoader({aras: aras});
 						const selectionTreeDataProvider = new VariabilityItemStructureSelectionTreeDataProvider({
 							aras: aras,
-							dataLoader: dataLoader
+							dataLoader: dataLoader,
+							utils: utils
 						});
 
 						BreakdownItemResolutionPageController.createInstance({
