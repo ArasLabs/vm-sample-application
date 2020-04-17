@@ -38,6 +38,7 @@ Release | Notes
 
 Project | Aras
 --------|------
+[2.1.0](https://github.com/ArasLabs/vm-sample-application/releases/tag/v2.1.0) | 12.0 SP4
 [2.0.0](https://github.com/ArasLabs/vm-sample-application/releases/tag/v2.0.0) | 12.0 SP4
 [12.0 R2.0](https://github.com/ArasLabs/vm-sample-application/releases/tag/12.0R2.0) | 12.0 SP1
 [12.0.0.1](https://github.com/ArasLabs/vm-sample-application/releases/tag/12.0.0.1) | 12.0 SP0
