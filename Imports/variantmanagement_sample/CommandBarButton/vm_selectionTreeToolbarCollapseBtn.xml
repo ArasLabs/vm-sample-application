@@ -1,6 +1,6 @@
 ﻿<AML>
  <Item type="CommandBarButton" id="769359931EBB402E940CD8435A8FB2A8" action="add">
-  <image>../images/CollapseAll.svg</image>
+  <image>../Images/CollapseAll.svg</image>
   <on_click_handler keyed_name="vm_selectionTreeCollapseBtnClk" type="Method">FE3B2A5269EF4C59A3672FFB48871176</on_click_handler>
   <tooltip_template xml:lang="en">Collapse All</tooltip_template>
   <name>vm_selectionTreeToolbarCollapseBtn</name>

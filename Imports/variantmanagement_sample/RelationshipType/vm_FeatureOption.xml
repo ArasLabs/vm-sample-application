@@ -40,6 +40,24 @@
  </Item>
  <Item type="ItemType" id="4072C7CA3F1E47FFA75D407682A84D7A" action="edit">
   <Relationships>
+   <Item type="Property" action="edit" where="source_id='4072C7CA3F1E47FFA75D407682A84D7A' and name='related_id'">
+    <column_alignment>left</column_alignment>
+    <data_source keyed_name="vm_Option" type="ItemType" name="vm_Option">BFB79DCBD8C04933A11A0E8E22C9A7BE</data_source>
+    <data_type>item</data_type>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>1</is_indexed>
+    <is_keyed>1</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <item_behavior>float</item_behavior>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>3456</sort_order>
+    <source_id keyed_name="vm_FeatureOption" type="ItemType" name="vm_FeatureOption">4072C7CA3F1E47FFA75D407682A84D7A</source_id>
+    <track_history>0</track_history>
+    <name>related_id</name>
+   </Item>
    <Item type="Property" action="edit" where="source_id='4072C7CA3F1E47FFA75D407682A84D7A' and name='sort_order'">
     <column_alignment>left</column_alignment>
     <data_type>integer</data_type>
@@ -57,6 +75,24 @@
     <source_id keyed_name="vm_FeatureOption" type="ItemType" name="vm_FeatureOption">4072C7CA3F1E47FFA75D407682A84D7A</source_id>
     <track_history>0</track_history>
     <name>sort_order</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='4072C7CA3F1E47FFA75D407682A84D7A' and name='source_id'">
+    <column_alignment>left</column_alignment>
+    <data_source keyed_name="vm_Feature" type="ItemType" name="vm_Feature">E5DEE4162E334342B998034B75FF1BEA</data_source>
+    <data_type>item</data_type>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>1</is_indexed>
+    <is_keyed>1</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <item_behavior>float</item_behavior>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>2944</sort_order>
+    <source_id keyed_name="vm_FeatureOption" type="ItemType" name="vm_FeatureOption">4072C7CA3F1E47FFA75D407682A84D7A</source_id>
+    <track_history>0</track_history>
+    <name>source_id</name>
    </Item>
   </Relationships>
  </Item>

@@ -129,6 +129,9 @@
 		},
 
 		_initVariabilityItemField: function(itemFieldFormatter, variabilityItemFieldContainerElement, variabilityItemNode) {
+			// init soap module for itemProperty component
+			ArasModules.soap(null, {async: true, method: 'ApplyItem', url: this._aras.getServerURL(), headers: this._aras.getHttpHeadersForSoapMessage('ApplyItem')});
+
 			const changeItemConfirmationMessage = this._aras.getResource(
 				this._vmSampleModuleSolutionBasedRelativePath,
 				'usage_condition_table_editor_page.selection.variability_item_field.change_item_confirmation_message');

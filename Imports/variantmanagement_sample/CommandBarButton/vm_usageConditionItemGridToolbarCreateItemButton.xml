@@ -1,6 +1,6 @@
 ﻿<AML>
  <Item type="CommandBarButton" id="6AC367700B1B4A2FB44529D9208CB626" action="add">
-  <image>../images/NewRow.svg</image>
+  <image>../Images/NewRow.svg</image>
   <on_click_handler keyed_name="vm_usageCndtnItemGridCrtBtnClick" type="Method">6D63B269094C4A82804849D34BDB8AA7</on_click_handler>
   <tooltip_template xml:lang="en">Create usage condition</tooltip_template>
   <name>vm_usageConditionItemGridToolbarCreateItemButton</name>

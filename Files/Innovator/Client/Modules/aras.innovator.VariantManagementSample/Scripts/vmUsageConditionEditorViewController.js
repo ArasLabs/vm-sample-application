@@ -243,10 +243,12 @@
 			}
 
 			const confirmDialogParams = {
-				additionalButton: {
-					text: this._aras.getResource('', 'common.discard'),
-					actionName: 'discard'
-				},
+				additionalButton: [
+					{
+						text: this._aras.getResource('', 'common.discard'),
+						actionName: 'discard'
+					}
+				],
 				okButtonText: this._aras.getResource('', 'common.save'),
 				title: this._aras.getResource('', 'item_methods_ex.unsaved_changes')
 			};

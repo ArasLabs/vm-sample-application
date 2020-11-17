@@ -36,6 +36,46 @@
   <source_id keyed_name="vm_VariabilityItem" type="ItemType" name="vm_VariabilityItem">A2A374A6028444A58989E0A38E7222B7</source_id>
   <name>vm_VariabilityItemRule</name>
  </Item>
+ <Item type="ItemType" id="30C5F9D434C64991BAE070331DE374C4" action="edit">
+  <Relationships>
+   <Item type="Property" action="edit" where="source_id='30C5F9D434C64991BAE070331DE374C4' and name='related_id'">
+    <column_alignment>left</column_alignment>
+    <data_source keyed_name="vm_Rule" type="ItemType" name="vm_Rule">4E7A6E982D6144A3AD8B2CDE7008BDCA</data_source>
+    <data_type>item</data_type>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>1</is_indexed>
+    <is_keyed>1</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <item_behavior>float</item_behavior>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>3456</sort_order>
+    <source_id keyed_name="vm_VariabilityItemRule" type="ItemType" name="vm_VariabilityItemRule">30C5F9D434C64991BAE070331DE374C4</source_id>
+    <track_history>0</track_history>
+    <name>related_id</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='30C5F9D434C64991BAE070331DE374C4' and name='source_id'">
+    <column_alignment>left</column_alignment>
+    <data_source keyed_name="vm_VariabilityItem" type="ItemType" name="vm_VariabilityItem">A2A374A6028444A58989E0A38E7222B7</data_source>
+    <data_type>item</data_type>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>1</is_indexed>
+    <is_keyed>1</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <item_behavior>float</item_behavior>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>2944</sort_order>
+    <source_id keyed_name="vm_VariabilityItemRule" type="ItemType" name="vm_VariabilityItemRule">30C5F9D434C64991BAE070331DE374C4</source_id>
+    <track_history>0</track_history>
+    <name>source_id</name>
+   </Item>
+  </Relationships>
+ </Item>
  <Item type="View" action="delete" where="source_id='30C5F9D434C64991BAE070331DE374C4'" />
  <Item type="Form" action="delete" where="name='vm_VariabilityItemRule'" />
 </AML>

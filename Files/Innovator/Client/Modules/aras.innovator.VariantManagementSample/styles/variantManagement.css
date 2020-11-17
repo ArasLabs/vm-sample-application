@@ -52,23 +52,14 @@
 	padding-bottom: 12px;
 }
 
-.vm-splitter-pane-view__titlebar {
+.vm-pane-view__titlebar {
 	padding-bottom: 8px;
 	align-items: center;
 }
 
-.aras-titlebar_c .aras-toolbar__item.vm-splitter-pane-view__title {
-	line-height: 20px;
-	margin-left: 4px;
-	text-overflow: ellipsis;
-}
-
-.vm-splitter-pane-view__close-button {
-	margin-left: auto;
-}
-
 .vm-information-message-container {
-	margin-top: 24%;
+	position: relative;
+	top: 24%;
 	text-align: center;
 }
 

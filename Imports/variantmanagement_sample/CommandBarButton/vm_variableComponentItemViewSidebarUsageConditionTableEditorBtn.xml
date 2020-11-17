@@ -12,11 +12,10 @@
          "key": "variable_component.usage_condition_table_editor_page.grid.asset_column_label"
       }
    },
-   "contentPath": "/Modules/aras.innovator.VariantManagementSample/usageConditionTableEditorPage",
-   "imageBtnOn": "../Modules/aras.innovator.VariantManagementSample/images/TableEditorOn.svg",
-   "imageBtnOff": "../Modules/aras.innovator.VariantManagementSample/images/TableEditorOff.svg"
+   "contentPath": "/Modules/aras.innovator.VariantManagementSample/usageConditionTableEditorPage"
 }</additional_data>
   <image>../Modules/aras.innovator.VariantManagementSample/images/TableEditorOff.svg</image>
+  <image_additional>../Modules/aras.innovator.VariantManagementSample/images/TableEditorOn.svg</image_additional>
   <label xml:lang="en">Usage Condition Table Editor</label>
   <on_click_handler keyed_name="vm_itemViewSidebarBtnClick" type="Method">ACCC9B7D9FAC476C832DA03026701A2E</on_click_handler>
   <name>vm_variableComponentItemViewSidebarUsageConditionTableEditorBtn</name>

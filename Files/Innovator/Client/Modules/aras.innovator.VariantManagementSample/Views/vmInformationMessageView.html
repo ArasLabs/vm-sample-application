@@ -13,16 +13,17 @@
 				aras: dialogArguments.aras,
 				informationMessage: dialogArguments.informationMessage,
 				informationMessageElement: document.querySelector('.vm-information-message-container__text'),
-				closeButtonElement: document.querySelector('.vm-splitter-pane-view__close-button'),
+				closeButtonElement: document.querySelector('.vm-pane-view__close-button'),
 				closeButtonClickHandler: dialogArguments.closeButtonClickHandler
 			};
 			new VmInformationMessageViewController(parameters);
 		});
 	</script>
 </head>
-<body class="vm-splitter-pane-view aras-flex aras-flex_column">
-	<div class="vm-splitter-pane-view__titlebar aras-titlebar aras-titlebar_c aras-flex">
-		<span class="vm-splitter-pane-view__close-button aras-toolbar__item aras-toolbar__icon aras-hide aras-dialog__close-button aras-icon-close"></span>
+<body class="vm-pane-view aras-flex aras-flex_column">
+	<div class="vm-pane-view__titlebar aras-titlebar aras-titlebar_c aras-flex">
+		<div class="aras-toolbar__divider"></div>
+		<span class="vm-pane-view__close-button aras-toolbar__item aras-toolbar__icon aras-hide aras-dialog__close-button aras-icon-close"></span>
 	</div>
 	<div class="vm-information-message-container">
 		<img src="../../../images/Information.svg">

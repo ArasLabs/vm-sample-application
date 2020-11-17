@@ -40,6 +40,24 @@
  </Item>
  <Item type="ItemType" id="E26BB34E1BC8498D9561D4292BA3CF50" action="edit">
   <Relationships>
+   <Item type="Property" action="edit" where="source_id='E26BB34E1BC8498D9561D4292BA3CF50' and name='related_id'">
+    <column_alignment>left</column_alignment>
+    <data_source keyed_name="vm_Feature" type="ItemType" name="vm_Feature">E5DEE4162E334342B998034B75FF1BEA</data_source>
+    <data_type>item</data_type>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>1</is_indexed>
+    <is_keyed>1</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <item_behavior>float</item_behavior>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>3456</sort_order>
+    <source_id keyed_name="vm_VariabilityItemFeature" type="ItemType" name="vm_VariabilityItemFeature">E26BB34E1BC8498D9561D4292BA3CF50</source_id>
+    <track_history>0</track_history>
+    <name>related_id</name>
+   </Item>
    <Item type="Property" action="edit" where="source_id='E26BB34E1BC8498D9561D4292BA3CF50' and name='sort_order'">
     <column_alignment>left</column_alignment>
     <data_type>integer</data_type>
@@ -57,6 +75,24 @@
     <source_id keyed_name="vm_VariabilityItemFeature" type="ItemType" name="vm_VariabilityItemFeature">E26BB34E1BC8498D9561D4292BA3CF50</source_id>
     <track_history>0</track_history>
     <name>sort_order</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='E26BB34E1BC8498D9561D4292BA3CF50' and name='source_id'">
+    <column_alignment>left</column_alignment>
+    <data_source keyed_name="vm_VariabilityItem" type="ItemType" name="vm_VariabilityItem">A2A374A6028444A58989E0A38E7222B7</data_source>
+    <data_type>item</data_type>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>1</is_indexed>
+    <is_keyed>1</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <item_behavior>float</item_behavior>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>2944</sort_order>
+    <source_id keyed_name="vm_VariabilityItemFeature" type="ItemType" name="vm_VariabilityItemFeature">E26BB34E1BC8498D9561D4292BA3CF50</source_id>
+    <track_history>0</track_history>
+    <name>source_id</name>
    </Item>
   </Relationships>
  </Item>

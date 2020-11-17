@@ -1,6 +1,6 @@
 ﻿<AML>
  <Item type="CommandBarButton" id="FB410C7EECAA4A99888156ACEC21CBB3" action="add">
-  <image>../images/DeleteRow.svg</image>
+  <image>../Images/DeleteRow.svg</image>
   <on_click_handler keyed_name="vm_usageCndtnItemGridDltBtnClick" type="Method">236A62F6289544ADA363E27C45A8431E</on_click_handler>
   <on_init_handler keyed_name="vm_usageCndtnItemGridDltBtnInit" type="Method">6B13F949556D48F2B6A50B5DC20F7457</on_init_handler>
   <tooltip_template xml:lang="en">Delete usage condition</tooltip_template>
