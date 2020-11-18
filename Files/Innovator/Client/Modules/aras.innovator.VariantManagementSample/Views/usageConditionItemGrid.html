@@ -19,8 +19,8 @@
 				usageConditionSourceItemId: dialogArguments.usageConditionSourceItemId,
 				usageConditionItemLoader: dialogArguments.usageConditionItemLoader,
 				getDefaultVariabilityItem: dialogArguments.getDefaultVariabilityItem,
-				titleElement: document.querySelector('.vm-splitter-pane-view__title'),
-				closeButtonElement: document.querySelector('.vm-splitter-pane-view__close-button'),
+				titleElement: document.querySelector('.vm-pane-view__title'),
+				closeButtonElement: document.querySelector('.vm-pane-view__close-button'),
 				closeButtonClickHandler: dialogArguments.closeButtonClickHandler,
 				toolbarElement: document.querySelector('.vm-usage-conditions-item-grid-view__toolbar'),
 				gridElement: document.querySelector('.vm-usage-conditions-item-grid-view__grid')
@@ -29,11 +29,12 @@
 		});
 	</script>
 </head>
-<body class="vm-usage-conditions-item-grid-view vm-splitter-pane-view aras-flex aras-flex_column">
-	<div class="vm-splitter-pane-view__titlebar aras-titlebar aras-titlebar_c aras-flex">
+<body class="vm-usage-conditions-item-grid-view vm-pane-view aras-flex aras-flex_column">
+	<div class="vm-pane-view__titlebar aras-titlebar aras-titlebar_c aras-flex">
 		<img class="aras-toolbar__item aras-toolbar__icon" src="../images/UsageCondition.svg">
-		<span class="vm-splitter-pane-view__title aras-toolbar__item aras-toolbar__title vm-title"></span>
-		<span class="vm-splitter-pane-view__close-button aras-toolbar__item aras-toolbar__icon aras-hide aras-dialog__close-button aras-icon-close"></span>
+		<span class="vm-pane-view__title aras-toolbar__item aras-toolbar__title vm-title"></span>
+		<div class="aras-toolbar__divider"></div>
+		<span class="vm-pane-view__close-button aras-toolbar__item aras-toolbar__icon aras-hide aras-dialog__close-button aras-icon-close"></span>
 	</div>
 	<div class="vm-usage-conditions-item-grid-view__toolbar vm-toolbar"></div>
 	<div class="vm-usage-conditions-item-grid-view__grid"></div>

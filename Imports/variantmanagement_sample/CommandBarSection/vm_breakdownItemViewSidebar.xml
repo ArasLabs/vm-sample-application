@@ -4,18 +4,11 @@
   <location keyed_name="ItemWindowSidebar" type="cui_Location">BC1CFDCECA434111B7A88A51EE430CC5</location>
   <name>vm_breakdownItemViewSidebar</name>
   <Relationships>
-   <Item type="CommandBarSectionItem" id="E2E9C9296E164FEF9BE3A9AA43AA013F" action="add">
-    <action>Add</action>
-    <related_id keyed_name="vm_itemViewSidebarShowFormBtn" type="CommandBarItem">1F54DA88AF864B93BAB5C75A1794436D</related_id>
-    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
-    <sort_order>128</sort_order>
-    <source_id keyed_name="vm_breakdownItemViewSidebar" type="CommandBarSection">392BA31B69BB4D07AA8EFDB93B21ADA1</source_id>
-   </Item>
    <Item type="CommandBarSectionItem" id="189E037A5514497B9C9510F2A19531BD" action="add">
     <action>Add</action>
     <related_id keyed_name="vm_breakdownItemViewSidebarResolutionBtn" type="CommandBarItem">A015C86623CE4D458EE97A99EB213FE7</related_id>
     <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
-    <sort_order>256</sort_order>
+    <sort_order>128</sort_order>
     <source_id keyed_name="vm_breakdownItemViewSidebar" type="CommandBarSection">392BA31B69BB4D07AA8EFDB93B21ADA1</source_id>
    </Item>
   </Relationships>

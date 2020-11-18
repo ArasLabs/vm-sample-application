@@ -344,7 +344,7 @@ function tableEditorCellRenderer(storeValue, rowIndex, columnDescriptor) {
 			cellHTML += renderUtils.HTML.wrapInTag('M', 'div', {class: commonCssClasses + ' multipleStatus', title: cellHint});
 			break;
 		case 'disabled':
-			cellHTML += renderUtils.HTML.wrapInTag('\u0081', 'div', {class: commonCssClasses + ' disabledStatus', title: cellHint});
+			cellHTML += renderUtils.HTML.wrapInTag('\u00A0', 'div', {class: commonCssClasses + ' disabledStatus', title: cellHint});
 			break;
 		default:
 			cellHTML = storeValue;
@@ -806,7 +806,7 @@ function createUIControls(scopeItemNode, additionalArguments) {
 						headerCellHtml += renderUtils.wrapInTag(itemName, 'div', {class: 'firstGroupItemName', title: itemName});
 					}
 
-					headerCellHtml += '\u0081' + renderUtils.wrapInTag(this._originGetColumnHeaderHtml(columnName, sortProperty), 'div', {class: 'sortNodeContainer', title: columnName});
+					headerCellHtml += '\u00A0' + renderUtils.wrapInTag(this._originGetColumnHeaderHtml(columnName, sortProperty), 'div', {class: 'sortNodeContainer', title: columnName});
 				}
 
 				return headerCellHtml;
@@ -2203,7 +2203,7 @@ function renderEditorLegend() {
 
 	legendHTML = renderUtils.HTML.wrapInTag(legendHTML, 'div', {class: 'editorLegend'});
 
-	return '\u0081' + legendHTML;
+	return '\u00A0' + legendHTML;
 }
 
 function createEditorGridLayout(optionalParameters) {

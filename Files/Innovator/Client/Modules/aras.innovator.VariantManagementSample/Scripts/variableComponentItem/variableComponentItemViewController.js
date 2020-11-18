@@ -1,8 +1,6 @@
 ﻿(function(window) {
 	'use strict';
 
-	const itemViewPaneId = 'item-view-pane';
-
 	const _super = window.VmItemViewBaseController.prototype;
 
 	function VariableComponentItemViewController(parameters) {
@@ -23,7 +21,7 @@
 			const isDirty = this._aras.isDirtyEx(item);
 
 			switch (viewId) {
-				case itemViewPaneId:
+				case this._itemViewPaneId:
 					return !isDirty;
 				default:
 					return true;

@@ -12,9 +12,9 @@
   <is_versionable>1</is_versionable>
   <label xml:lang="en">Breakdown Item</label>
   <label_plural xml:lang="en">Breakdown Items</label_plural>
-  <large_icon>../images/CFGScope.svg</large_icon>
+  <large_icon>../Images/CFGScope.svg</large_icon>
   <manual_versioning>0</manual_versioning>
-  <open_icon>../images/CFGScope.svg</open_icon>
+  <open_icon>../Images/CFGScope.svg</open_icon>
   <revisions keyed_name="Default" type="Revision">7FE395DD8B9F4E1090756A34B733D75E</revisions>
   <show_parameters_tab>1</show_parameters_tab>
   <structure_view>tabs on</structure_view>

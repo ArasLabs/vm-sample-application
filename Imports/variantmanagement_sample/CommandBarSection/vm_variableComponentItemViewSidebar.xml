@@ -4,18 +4,11 @@
   <location keyed_name="ItemWindowSidebar" type="cui_Location">BC1CFDCECA434111B7A88A51EE430CC5</location>
   <name>vm_variableComponentItemViewSidebar</name>
   <Relationships>
-   <Item type="CommandBarSectionItem" id="85A4A816AEAF4734BE590D5AD276F5A8" action="add">
-    <action>Add</action>
-    <related_id keyed_name="vm_itemViewSidebarShowFormBtn" type="CommandBarItem">1F54DA88AF864B93BAB5C75A1794436D</related_id>
-    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
-    <sort_order>128</sort_order>
-    <source_id keyed_name="vm_variableComponentItemViewSidebar" type="CommandBarSection">2A9CEBE3231745E8AB941B4D7D4B3791</source_id>
-   </Item>
    <Item type="CommandBarSectionItem" id="80EC8F60E4BA45278B8A19A28AB865B0" action="add">
     <action>Add</action>
     <related_id keyed_name="vm_variableComponentItemViewSidebarUsageConditionTableEditorBtn" type="CommandBarItem">13546943DB3540769A11B3DF3BA85BD4</related_id>
     <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
-    <sort_order>256</sort_order>
+    <sort_order>128</sort_order>
     <source_id keyed_name="vm_variableComponentItemViewSidebar" type="CommandBarSection">2A9CEBE3231745E8AB941B4D7D4B3791</source_id>
    </Item>
   </Relationships>

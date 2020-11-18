@@ -21,6 +21,8 @@
 
 		_switchableTabItemViewController: null,
 
+		_itemViewPaneId: 'formTab',
+
 		_variabilityItemRelationshipItemType: null,
 
 		_originalHandlerByCommandName: null,

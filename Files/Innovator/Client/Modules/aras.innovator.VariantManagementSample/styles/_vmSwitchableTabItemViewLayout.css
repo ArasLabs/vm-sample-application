@@ -1,5 +1,5 @@
-﻿.vm-item-view-switcher {
-	height: 100%;
+﻿.vm-sidebar-tab_disabled {
+	opacity: 0.4;
 }
 
 .aras-switcher-pane {

@@ -1,6 +1,6 @@
 ﻿<AML>
  <Item type="CommandBarButton" id="1629C65BCD024849B081577EE72D9A63" action="add">
-  <image>../images/Refresh.svg</image>
+  <image>../Images/Refresh.svg</image>
   <on_click_handler keyed_name="vm_varItemAutoVldtnRefreshBtnClk" type="Method">7F3FA6FAA79E4D1A9803A032C0C78F01</on_click_handler>
   <tooltip_template xml:lang="en">Refresh</tooltip_template>
   <name>vm_variabilityItemAutoValidationTabToolbarRefreshBtn</name>

@@ -1,8 +1,8 @@
 ﻿(function(window) {
 	'use strict';
 
-	function VmSwitchableTabItemViewController(sidebarWidget, switcherManager) {
-		this._sidebarWidget = sidebarWidget;
+	function VmSwitchableTabItemViewController(sidebarTabs, switcherManager) {
+		this._sidebarTabs = sidebarTabs;
 		this._switcherManager = switcherManager;
 
 		this._init();
@@ -11,11 +11,24 @@
 	VmSwitchableTabItemViewController.prototype = {
 		constructor: VmSwitchableTabItemViewController,
 
-		_sidebarWidget: null,
+		_sidebarTabs: null,
 
 		_switcherManager: null,
 
+		_sidebarTabIdBySwitcherPaneId: null,
+
 		_init: function() {
+			this._sidebarTabIdBySwitcherPaneId = new Map([
+				['formTab', 'show_form']
+			]);
+
+			this._sidebarTabs.data.forEach((sidebarTabData, sidebarTabId) => {
+				const paneId = sidebarTabData.paneId;
+				if (paneId) {
+					this._sidebarTabIdBySwitcherPaneId.set(paneId, sidebarTabId);
+				}
+			});
+
 			document.addEventListener('switchActivePane', function(e) {
 				this._switchActivePane(e.detail.paneId, e.detail.contentPath, e.detail.additionalData);
 			}.bind(this));
@@ -40,52 +53,52 @@
 		refreshSidebarButtonsAvailability: function() {
 			const activePaneId = this.activePaneId;
 
-			this._sidebarWidget.getChildren().forEach(function(control) {
-				if (control.paneId !== activePaneId) {
-					const isPaneAvailable = this.isPaneAvailable(control.paneId);
-					control.setDisabled(!isPaneAvailable);
-					control.domNode.style.opacity = isPaneAvailable ? '1' : '0.4';
+			this._sidebarTabIdBySwitcherPaneId.forEach((sidebarTabId, paneId) => {
+				if (paneId !== activePaneId) {
+					const isTabDisabled = !this.isPaneAvailable(paneId);
+
+					const tabSettings = {
+						disabled: isTabDisabled,
+						cssClass: isTabDisabled ? 'vm-sidebar-tab_disabled' : ''
+					};
+
+					this._sidebarTabs.setTabContent(sidebarTabId, tabSettings);
 				}
-			}.bind(this));
+			});
 		},
 
 		switchActivePane: function(paneId, additionalData) {
-			const sidebarButton = this._sidebarWidget.getChildren().find(function(control) {
-				return control.paneId === paneId;
-			});
-
-			if (!sidebarButton) {
-				return false;
-			}
-
-			const contentPath = sidebarButton.contentPath;
-
-			return this._switchActivePane(paneId, contentPath, additionalData);
-		},
-
-		_switchActivePane: function(paneId, contentPath, additionalData) {
 			let isActivePaneSwitched = false;
 
-			if (!this.isPaneAvailable(paneId)) {
+			const sidebarTabId = this._sidebarTabIdBySwitcherPaneId.get(paneId);
+			const sidebarTabData = this._sidebarTabs.data.get(sidebarTabId);
+
+			if (!sidebarTabData) {
 				return isActivePaneSwitched;
 			}
 
-			isActivePaneSwitched = this._switcherManager.switchActivePane(paneId, contentPath, additionalData);
+			const contentPath = sidebarTabData.contentPath;
+
+			isActivePaneSwitched = this._switchActivePane(paneId, contentPath, additionalData);
 
 			if (isActivePaneSwitched) {
-				this._switchSidebarButton(paneId);
+				this._sidebarTabs.selectTab(sidebarTabId);
 			}
 
 			return isActivePaneSwitched;
 		},
 
-		_switchSidebarButton: function(paneId) {
-			this._sidebarWidget.getChildren().forEach(function(control) {
-				const isControlSelected = control.paneId === paneId;
-				const image = isControlSelected ? control.imageBtnOn : control.imageBtnOff;
+		_switchActivePane: function(paneId, contentPath, additionalData) {
+			if (!this.isPaneAvailable(paneId)) {
+				// sidebar button's onClick CUI handler is executed first when user clicks on sidebar button
+				// after that sidebar button is selected automatically
+				// so it is required to refresh sidebar buttons availability in order to prevent button selection in case if pane is unavailable
+				this.refreshSidebarButtonsAvailability();
 
-				this._sidebarWidget.switchSidebarButton(control.id, image, isControlSelected);
-			}.bind(this));
+				return false;
+			}
+
+			return this._switcherManager.switchActivePane(paneId, contentPath, additionalData);
 		}
 	};
 

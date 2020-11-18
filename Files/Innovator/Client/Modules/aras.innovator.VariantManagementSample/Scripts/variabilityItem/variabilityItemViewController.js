@@ -1,6 +1,6 @@
 ﻿let scopeItem = window.item;
 
-const itemViewPaneId = 'item-view-pane';
+const itemViewPaneId = 'formTab';
 const validationViewPaneId = 'validation-view-pane';
 const textRuleEditorViewPaneId = 'text-rule-editor-view-pane';
 const tableRuleEditorViewPaneId = 'table-rule-editor-view-pane';

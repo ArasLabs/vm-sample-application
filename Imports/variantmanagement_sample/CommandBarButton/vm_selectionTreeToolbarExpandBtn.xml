@@ -1,6 +1,6 @@
 ﻿<AML>
  <Item type="CommandBarButton" id="2DBD859EBE4249CF9C84C647EA668AD6" action="add">
-  <image>../images/ExpandAll.svg</image>
+  <image>../Images/ExpandAll.svg</image>
   <on_click_handler keyed_name="vm_selectionTreeExpandBtnClk" type="Method">49076C49B60F4CC4A5008F4ADCF83D21</on_click_handler>
   <tooltip_template xml:lang="en">Expand All</tooltip_template>
   <name>vm_selectionTreeToolbarExpandBtn</name>
