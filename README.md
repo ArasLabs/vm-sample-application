@@ -1,6 +1,9 @@
-# Variant Management Sample Application
+# *** OUTDATED *** Variant Management Sample Application 
 
 *This project may also be called the Configurator Services Sample Application.*
+
+# As of 6/27/2022 this application has been archived. A superior version of this application is released as product and should be used instead. The application can be installed via Aras Update and more information can be found on aras.com
+
 
 The Variant Management Sample Application shows developers how they can use the Configurator Services API to create custom variant management applications. 
 
